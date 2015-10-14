@@ -30,7 +30,7 @@ public class KeyboardHookWin32 extends AbstractKeyboardHook {
 
 	@Override
 	public void enableHook() {
-		if(thread == null){
+		if (thread == null) {
 			thread = createThread();
 		}
 		thread.start();
@@ -40,8 +40,8 @@ public class KeyboardHookWin32 extends AbstractKeyboardHook {
 	public void disableHook() {
 		stop = true;
 	}
-	
-	private Thread createThread(){
+
+	private Thread createThread() {
 		return new Thread(setHook(), "KeyHook");
 	}
 
@@ -79,8 +79,6 @@ public class KeyboardHookWin32 extends AbstractKeyboardHook {
 			}
 		};
 	}
-	
-	
 
 	private LowLevelKeyboardProc setLowLevelKeyboardProc() {
 		return new LowLevelKeyboardProc() {
@@ -101,10 +99,10 @@ public class KeyboardHookWin32 extends AbstractKeyboardHook {
 						break;
 					}
 				}
-				
+
 				DeviceEvent event = new DeviceEvent(this, info.vkCode, info.scanCode, state);
 				deviceEventOccurred(event);
-				
+
 				if (event.isConsumeEnabled()) {
 					return new LRESULT(1);
 				} else {

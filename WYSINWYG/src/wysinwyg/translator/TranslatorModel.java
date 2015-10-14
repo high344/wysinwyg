@@ -10,7 +10,6 @@ public class TranslatorModel {
 
 	public TranslatorModel() {
 		load();
-		// TODO
 		dictionary = new DictionaryInit(trans[0]);
 	}
 

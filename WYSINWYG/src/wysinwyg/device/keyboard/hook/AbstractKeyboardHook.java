@@ -10,15 +10,15 @@ public abstract class AbstractKeyboardHook implements DeviceListener {
 	protected boolean echo = false;
 	protected Printer printer;
 	protected int last = 0;
-	
+
 	public AbstractKeyboardHook(DeviceListener devListener) {
 		this.devListener = devListener;
 	}
-	
+
 	@Override
 	public void deviceEventOccurred(DeviceEvent e) {
-		if(printer != null) {
-			if(printer.isDeviceEventVirtual(e)) {
+		if (printer != null) {
+			if (printer.isDeviceEventVirtual(e)) {
 				e.setConsumeEnabled(false);
 				return;
 			}
@@ -40,11 +40,11 @@ public abstract class AbstractKeyboardHook implements DeviceListener {
 			devListener.deviceEventOccurred(e);
 		}
 	}
-	
+
 	public void setPrinter(Printer printer) {
 		this.printer = printer;
 	}
-	
+
 	public void setEchoEnabled(boolean b) {
 		this.echo = b;
 	}

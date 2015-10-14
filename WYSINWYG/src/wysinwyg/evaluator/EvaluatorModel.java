@@ -1,6 +1,6 @@
 package wysinwyg.evaluator;
 
-import wysinwyg.device.keyboard.hook.StenoRefrenceWin32;
+import wysinwyg.device.keyboard.hook.StenoReferenceWin32;
 import wysinwyg.evaluator.steno.StenoEvaluator;
 
 public class EvaluatorModel {
@@ -12,8 +12,7 @@ public class EvaluatorModel {
 	}
 
 	private void load() {
-		//TODO
-		evas[0] = new StenoEvaluator(new StenoRefrenceWin32());
+		evas[0] = new StenoEvaluator(new StenoReferenceWin32());
 	}
 
 	public Evaluator[] getEvaluators() {

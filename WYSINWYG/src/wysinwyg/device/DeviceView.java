@@ -45,7 +45,7 @@ public class DeviceView extends JPanel {
 		} else {
 			comboBox = new JComboBox<Device>();
 		}
-		
+
 		comboBox.setPreferredSize(new Dimension(150, 20));
 		comboBox.setRenderer(new ComboboxListCellRenderer());
 		panel.add(comboBox);
@@ -87,7 +87,7 @@ public class DeviceView extends JPanel {
 	public JComboBox<Device> getComboBox() {
 		return comboBox;
 	}
-	
+
 	public JPanel getCardsPanel() {
 		return cardsPanel;
 	}

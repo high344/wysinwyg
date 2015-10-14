@@ -3,12 +3,12 @@ package wysinwyg.device.keyboard.hook;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import wysinwyg.evaluator.steno.StenoOrder;
-import wysinwyg.evaluator.steno.StenoRefrence;
+import wysinwyg.evaluator.steno.StenoReference;
 
-public class StenoRefrenceJNativeHook implements StenoRefrence {
+public class StenoReferenceJNativeHook implements StenoReference {
 
 	@Override
-	public StenoOrder getStenoRefrence(int keyCode) {
+	public StenoOrder getStenoReference(int keyCode) {
 		switch (keyCode) {
 		case NativeKeyEvent.VC_Q:
 			return StenoOrder.S_;
@@ -73,5 +73,5 @@ public class StenoRefrenceJNativeHook implements StenoRefrence {
 		}
 		return null;
 	}
-	
+
 }

@@ -17,8 +17,7 @@ public class PloverJSonHandler implements ContentHandler {
 	}
 
 	@Override
-	public boolean startObjectEntry(String entry) throws ParseException,
-			IOException {
+	public boolean startObjectEntry(String entry) throws ParseException, IOException {
 		this.entry = entry;
 		for (String str : entry.split("/")) {
 			if (entries.containsKey(str)) {

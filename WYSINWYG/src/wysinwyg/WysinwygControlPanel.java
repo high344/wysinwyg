@@ -11,8 +11,8 @@ public class WysinwygControlPanel extends JPanel {
 	private JToggleButton tglbtnStart;
 
 	public WysinwygControlPanel() {
-		setBorder(new TitledBorder(null, "Control", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		setBorder(new TitledBorder(null, "Control", TitledBorder.LEADING, TitledBorder.TOP, null,
+				null));
 		tglbtnStart = new JToggleButton("Start");
 		add(tglbtnStart);
 	}

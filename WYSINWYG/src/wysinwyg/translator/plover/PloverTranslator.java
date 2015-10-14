@@ -170,7 +170,6 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 		return z.get(longestStroke);
 	}
 	
-	//TODO
 	private String getStenoNumberRefrence(StenoOrder steno) {
 		switch (steno) {
 		case S_:

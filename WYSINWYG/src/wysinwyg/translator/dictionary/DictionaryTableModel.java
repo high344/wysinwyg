@@ -8,8 +8,6 @@ public class DictionaryTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -1389920478065237769L;
 
-	// TODO fireTableStructureChanged is overkill
-
 	private String[] names = { "Dictionary" };
 	private Class<?>[] clazz = { DictionaryTableCell.class };
 

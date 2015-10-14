@@ -16,16 +16,16 @@ import wysinwyg.evaluator.Evaluator;
 public class StenoEvaluator implements Init, Evaluator, EvaluationListener {
 
 	private boolean arpeggiate;
-	private StenoRefrence refrence;
+	private StenoReference reference;
 	private StenoView view;
 	private char[] charStroke = new char[23];
 	private StenoOrder[] stenos = StenoOrder.values();
 	private List<EvaluationListener> list;
 	private int rawPower;
 
-	public StenoEvaluator(StenoRefrence refrence) {
+	public StenoEvaluator(StenoReference refrence) {
 		Objects.requireNonNull(refrence);
-		this.refrence = refrence;
+		this.reference = refrence;
 
 		list = new ArrayList<EvaluationListener>(3);
 		zeroCharStroke();
@@ -53,13 +53,13 @@ public class StenoEvaluator implements Init, Evaluator, EvaluationListener {
 	public void deviceEventOccurred(DeviceEvent e) {
 		if (e.getKeyState() == DeviceEvent.DEVICE_KEY_PRESSED) {
 			StenoOrder steno = null;
-			if ((steno = refrence.getStenoRefrence(e.getvKeyCode())) != null) {
+			if ((steno = reference.getStenoReference(e.getvKeyCode())) != null) {
 				rawPower += e.getvKeyCode();
 				charStroke[steno.ordinal()] = '1';
 				view.getStentura().getJToggleButton(steno.name()).setSelected(true);
 			}
 		} else if (e.getKeyState() == DeviceEvent.DEVICE_KEY_RELEASED) {
-			if (refrence.getStenoRefrence(e.getvKeyCode()) != null) {
+			if (reference.getStenoReference(e.getvKeyCode()) != null) {
 				rawPower -= e.getvKeyCode();
 				if (rawPower < 0) {
 					rawPower = 0;

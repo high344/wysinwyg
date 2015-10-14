@@ -37,7 +37,6 @@ public class PloverJSonDictionary implements Dictionary {
 			}
 			new JSONParser().parse(reader, new PloverJSonHandler(entries));
 		} catch (IOException | ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

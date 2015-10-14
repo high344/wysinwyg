@@ -72,13 +72,11 @@ public class DictionaryView extends JPanel {
 
 		if (model != null) {
 			table = new JTable(model.getDictionaryTableModel());
-
-			// TODO DictionaryTableCell vs. DictionaryTableCellRenderer
-			// DictionaryTableCell dtc = new DictionaryTableCell();
 			table.setDefaultRenderer(DictionaryTableCell.class, new DictionaryTableCell());
 			table.setDefaultEditor(DictionaryTableCell.class, new DictionaryTableCell());
 			table.setRowHeight(50);
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			table.getTableHeader().setReorderingAllowed(false);
 			scrollPane.setViewportView(table);
 		}
 	}

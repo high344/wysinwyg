@@ -57,7 +57,6 @@ public class PloverController implements Controller {
 						}
 					}
 				} catch (BadLocationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

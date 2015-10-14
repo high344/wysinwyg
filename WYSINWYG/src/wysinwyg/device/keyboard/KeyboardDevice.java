@@ -22,10 +22,10 @@ public class KeyboardDevice implements Keyboard, Init, Device, DeviceListener {
 		list = new ArrayList<DeviceListener>(10);
 		view = new KeyboardView();
 		// TODO
-		//hook = new KeyboardHookJNativeHook(this);
+		// hook = new KeyboardHookJNativeHook(this);
 		hook = new KeyboardHookWin32(this);
 	}
-	
+
 	@Override
 	public AbstractKeyboardHook getHook() {
 		return hook;

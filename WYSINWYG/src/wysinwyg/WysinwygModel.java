@@ -48,8 +48,8 @@ public class WysinwygModel {
 		runningEvaluator.addEvaluationListener(runningTranslator);
 		runningEvaluator.startEvaluation();
 		runningDevice.addDeviceListener(runningEvaluator);
-		
-		if(runningDevice instanceof Keyboard) {
+
+		if (runningDevice instanceof Keyboard) {
 			Keyboard abs = (Keyboard) runningDevice;
 			abs.getHook().setPrinter(printer);
 		}
