@@ -4,10 +4,11 @@ public class Main {
 
 	//TODO In need of a Mutex start...
 	//TODO Whole buildup without UI...
+	//FIXME DOCUMENTATION!
 	
 	//TODO {@link DeviceModel} read up devices???
 	//TODO {link KeyboardDevice} Misery with hooks and places!?
-	//TODO LiunxKeyboardHook???
+	//TODO LinuxKeyboardHook or jnative???
 	//TODO {link KeyboardDevice} More flash and substance??
 	//TODO Device Serial, RxTx, etc...
 	//TODO Device serial whole TX Bolt protocol, simulation.
