@@ -1,6 +1,9 @@
-package wysinwyg.evaluator.steno;
+package wysinwyg.device.keyboard.hook;
 
 import org.jnativehook.keyboard.NativeKeyEvent;
+
+import wysinwyg.evaluator.steno.StenoOrder;
+import wysinwyg.evaluator.steno.StenoRefrence;
 
 public class StenoRefrenceJNativeHook implements StenoRefrence {
 

@@ -3,11 +3,12 @@ package wysinwyg.device.serial.stentura;
 import java.awt.Component;
 
 import wysinwyg.Controller;
+import wysinwyg.Init;
 import wysinwyg.device.Device;
 import wysinwyg.device.DeviceListener;
 import wysinwyg.utils.StenturaLayout;
 
-public class StenturaDevice implements Device {
+public class StenturaDevice implements Init, Device {
 
 	private StenturaLayout panel = new StenturaLayout();
 

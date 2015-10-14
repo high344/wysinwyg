@@ -1,21 +1,17 @@
 package wysinwyg.evaluator;
 
 import wysinwyg.Init;
-import wysinwyg.evaluator.steno.StenoEvaluator;
 
 public class EvaluatorInit implements Init {
 
+	private EvaluatorModel model;
 	private EvaluatorView view;
 	private EvaluatorController controller;
 
 	public EvaluatorInit() {
-		Evaluator eva = load();
-		view = new EvaluatorView();
-		controller = new EvaluatorController(eva, view);
-	}
-
-	private Evaluator load() {
-		return new StenoEvaluator();
+		model = new EvaluatorModel();
+		view = new EvaluatorView(model);
+		controller = new EvaluatorController(model, view);
 	}
 
 	@Override

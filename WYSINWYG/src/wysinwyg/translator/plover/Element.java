@@ -1,20 +1,21 @@
-package wysinwyg.translator;
+package wysinwyg.translator.plover;
 
 public class Element {
 
 	private String stroke;
 	private String translation;
+	/*
 	private int suffixType;
 	private String printedString;
-	private String removedString;
+	private String removedString;*/
 	
-	public Element(String stroke, String translation, int suffixType,
-			String printedString, String removedString) {
+	public Element(String stroke, String translation) {
 		this.stroke = stroke;
 		this.translation = translation;
+		/*
 		this.suffixType = suffixType;
 		this.printedString = printedString;
-		this.removedString = removedString;
+		this.removedString = removedString;*/
 	}
 	
 	public String getStroke() {
@@ -29,6 +30,7 @@ public class Element {
 		return translation;
 	}
 
+	/*
 	public void setSuffixType(int suffixType) {
 		this.suffixType = suffixType;
 	}
@@ -51,13 +53,6 @@ public class Element {
 	
 	public String getRemovedString() {
 		return removedString;
-	}
-
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName()+" [stroke=" + stroke + ", translation=" + translation
-				+ ", suffixType=" + suffixType + ", printedString="
-				+ printedString + ", removedString=" + removedString + "]";
-	}
+	}*/
 	
 }

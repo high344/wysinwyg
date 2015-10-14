@@ -13,17 +13,24 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultCaret;
 
+import wysinwyg.Init;
 import wysinwyg.utils.ComboboxListCellRenderer;
 
 public class DeviceView extends JPanel {
 
 	private static final long serialVersionUID = 1550900345407909849L;
 
-	JPanel cardsPanel;
-	JComboBox<Device> comboBox;
-	JTextArea textArea;
+	private DeviceModel model;
+	private JComboBox<Device> comboBox;
+	private JPanel cardsPanel;
+	private JTextArea textArea;
 
-	public DeviceView() {
+	public DeviceView(DeviceModel model) {
+		this.model = model;
+		buildGUI();
+	}
+
+	private void buildGUI() {
 		setBorder(new TitledBorder(null, "Device:", TitledBorder.LEADING, TitledBorder.TOP, null,
 				null));
 		setLayout(new BorderLayout(0, 0));
@@ -33,7 +40,12 @@ public class DeviceView extends JPanel {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		add(panel, BorderLayout.NORTH);
 
-		comboBox = new JComboBox<Device>();
+		if (model != null && model.getDevices() != null) {
+			comboBox = new JComboBox<Device>(model.getDevices());
+		} else {
+			comboBox = new JComboBox<Device>();
+		}
+		
 		comboBox.setPreferredSize(new Dimension(150, 20));
 		comboBox.setRenderer(new ComboboxListCellRenderer());
 		panel.add(comboBox);
@@ -41,6 +53,19 @@ public class DeviceView extends JPanel {
 		cardsPanel = new JPanel();
 		add(cardsPanel, BorderLayout.WEST);
 		cardsPanel.setLayout(new CardLayout(0, 0));
+
+		if (model != null && model.getDevices() != null) {
+			for (Device d : model.getDevices()) {
+				if (d instanceof Init) {
+					Init init = (Init) d;
+					if (init.getView() != null) {
+						cardsPanel.add(init.getView(), d.getDisplayName());
+					} else {
+						cardsPanel.add(new JPanel(), d.getDisplayName());
+					}
+				}
+			}
+		}
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Device Input:", TitledBorder.LEADING,
@@ -57,6 +82,18 @@ public class DeviceView extends JPanel {
 		textArea.setEditable(false);
 		((DefaultCaret) textArea.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		scrollPane.setViewportView(textArea);
+	}
+
+	public JComboBox<Device> getComboBox() {
+		return comboBox;
+	}
+	
+	public JPanel getCardsPanel() {
+		return cardsPanel;
+	}
+
+	public JTextArea getTextArea() {
+		return textArea;
 	}
 
 }

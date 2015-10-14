@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wysinwyg.Controller;
+import wysinwyg.Init;
 import wysinwyg.device.Device;
 import wysinwyg.device.DeviceEvent;
 import wysinwyg.device.DeviceListener;
 import wysinwyg.device.keyboard.hook.AbstractKeyboardHook;
 import wysinwyg.device.keyboard.hook.KeyboardHookWin32;
 
-public class KeyboardDevice implements Device, DeviceListener {
+public class KeyboardDevice implements Keyboard, Init, Device, DeviceListener {
 
 	private KeyboardView view;
 	private AbstractKeyboardHook hook;
@@ -20,6 +21,14 @@ public class KeyboardDevice implements Device, DeviceListener {
 	public KeyboardDevice() {
 		list = new ArrayList<DeviceListener>(10);
 		view = new KeyboardView();
+		// TODO
+		//hook = new KeyboardHookJNativeHook(this);
+		hook = new KeyboardHookWin32(this);
+	}
+	
+	@Override
+	public AbstractKeyboardHook getHook() {
+		return hook;
 	}
 
 	@Override
@@ -50,18 +59,13 @@ public class KeyboardDevice implements Device, DeviceListener {
 
 	@Override
 	public void startDevice() {
-		// TODO
-		hook = new KeyboardHookWin32(this, view.chckbxEcho.isSelected());
-		if (hook != null) {
-			hook.enableHook();
-		}
+		hook.setEchoEnabled(view.getChckbxEcho().isSelected());
+		hook.enableHook();
 	}
 
 	@Override
 	public void stopDevice() {
-		if (hook != null) {
-			hook.disableHook();
-		}
+		hook.disableHook();
 	}
 
 	@Override

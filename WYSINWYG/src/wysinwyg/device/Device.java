@@ -1,9 +1,8 @@
 package wysinwyg.device;
 
-import wysinwyg.Init;
 import wysinwyg.utils.ComboboxDisplayName;
 
-public interface Device extends Init, ComboboxDisplayName {
+public interface Device extends ComboboxDisplayName {
 
 	public void addDeviceListener(DeviceListener devListener);
 

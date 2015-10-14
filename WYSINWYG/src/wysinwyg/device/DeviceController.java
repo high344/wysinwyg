@@ -3,6 +3,7 @@ package wysinwyg.device;
 import java.awt.CardLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Objects;
 
 import javax.swing.SwingUtilities;
 
@@ -12,26 +13,28 @@ public class DeviceController implements Controller, ItemListener, DeviceListene
 
 	private DeviceView view;
 
-	DeviceController(Device[] devices, DeviceView view) {
+	public DeviceController(DeviceModel model, DeviceView view) {
+		Objects.requireNonNull(model);
+		Objects.requireNonNull(view);
+
 		this.view = view;
 
-		for (Device d : devices) {
+		for (Device d : model.getDevices()) {
 			d.addDeviceListener(this);
-			view.comboBox.addItem(d);
-			view.cardsPanel.add(d.getView(), d.getDisplayName());
 		}
 
-		view.comboBox.addItemListener(this);
+		view.getComboBox().addItemListener(this);
 	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		CardLayout cl = (CardLayout) (view.cardsPanel.getLayout());
-		cl.show(view.cardsPanel, ((Device) view.comboBox.getSelectedItem()).getDisplayName());
+		CardLayout cl = (CardLayout) (view.getCardsPanel().getLayout());
+		cl.show(view.getCardsPanel(),
+				((Device) view.getComboBox().getSelectedItem()).getDisplayName());
 	}
 
 	public Device getSelectedDevice() {
-		return ((Device) view.comboBox.getSelectedItem());
+		return ((Device) view.getComboBox().getSelectedItem());
 	}
 
 	@Override
@@ -44,7 +47,7 @@ public class DeviceController implements Controller, ItemListener, DeviceListene
 
 			@Override
 			public void run() {
-				view.textArea.append(str + "\n");
+				view.getTextArea().append(str + "\n");
 			}
 		};
 	}

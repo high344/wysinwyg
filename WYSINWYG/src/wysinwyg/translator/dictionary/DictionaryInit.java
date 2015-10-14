@@ -10,7 +10,7 @@ public class DictionaryInit implements Init {
 
 	public DictionaryInit(Translator translator) {
 		DictionaryModel model = new DictionaryModel(translator);
-		this.view = new DictionaryView(model);
+		view = new DictionaryView(model);
 		controller = new DictionaryController(model, view);
 	}
 

@@ -12,19 +12,26 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import wysinwyg.Init;
 import wysinwyg.utils.ComboboxListCellRenderer;
 
 public class EvaluatorView extends JPanel {
 
 	private static final long serialVersionUID = -6402526837916236566L;
 
-	JPanel cardsPanel;
-	JComboBox<Evaluator> comboBox;
-	JTextField textFieldLastStroke;
+	private EvaluatorModel model;
+	private JComboBox<Evaluator> comboBox;
+	private JPanel cardsPanel;
+	private JTextField textFieldLastStroke;
 
-	public EvaluatorView() {
-		setBorder(new TitledBorder(null, "Evaluator:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+	public EvaluatorView(EvaluatorModel model) {
+		this.model = model;
+		buildGUI();
+	}
+
+	private void buildGUI() {
+		setBorder(new TitledBorder(null, "Evaluator:", TitledBorder.LEADING, TitledBorder.TOP,
+				null, null));
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_1 = new JPanel();
@@ -32,7 +39,12 @@ public class EvaluatorView extends JPanel {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		add(panel_1, BorderLayout.NORTH);
 
-		comboBox = new JComboBox<Evaluator>();
+		if (model != null && model.getEvaluators() != null) {
+			comboBox = new JComboBox<Evaluator>(model.getEvaluators());
+		} else {
+			comboBox = new JComboBox<Evaluator>();
+		}
+
 		panel_1.add(comboBox);
 		comboBox.setPreferredSize(new Dimension(150, 20));
 		comboBox.setRenderer(new ComboboxListCellRenderer());
@@ -40,6 +52,19 @@ public class EvaluatorView extends JPanel {
 		cardsPanel = new JPanel();
 		add(cardsPanel);
 		cardsPanel.setLayout(new CardLayout(0, 0));
+
+		if (model != null && model.getEvaluators() != null) {
+			for (Evaluator d : model.getEvaluators()) {
+				if (d instanceof Init) {
+					Init init = (Init) d;
+					if (init.getView() != null) {
+						cardsPanel.add(init.getView(), d.getDisplayName());
+					} else {
+						cardsPanel.add(new JPanel(), d.getDisplayName());
+					}
+				}
+			}
+		}
 
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.SOUTH);
@@ -52,6 +77,18 @@ public class EvaluatorView extends JPanel {
 		textFieldLastStroke.setBackground(SystemColor.text);
 		panel.add(textFieldLastStroke);
 		textFieldLastStroke.setColumns(20);
+	}
+
+	public JComboBox<Evaluator> getComboBox() {
+		return comboBox;
+	}
+
+	public JPanel getCardsPanel() {
+		return cardsPanel;
+	}
+
+	public JTextField getTextFieldLastStroke() {
+		return textFieldLastStroke;
 	}
 
 }

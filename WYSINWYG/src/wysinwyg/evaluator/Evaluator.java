@@ -1,10 +1,9 @@
 package wysinwyg.evaluator;
 
-import wysinwyg.Init;
 import wysinwyg.device.DeviceListener;
 import wysinwyg.utils.ComboboxDisplayName;
 
-public interface Evaluator extends DeviceListener, Init, ComboboxDisplayName {
+public interface Evaluator extends DeviceListener, ComboboxDisplayName {
 
 	public void addEvaluationListener(EvaluationListener evaListener);
 

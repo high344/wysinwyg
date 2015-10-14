@@ -23,19 +23,26 @@ public class KeyboardHookWin32 extends AbstractKeyboardHook {
 	private Thread thread;
 	private boolean stop;
 
-	public KeyboardHookWin32(DeviceListener devListener, boolean echo) {
-		super(devListener, echo);
-		thread = new Thread(setHook(), "KeyHook");
+	public KeyboardHookWin32(DeviceListener devListener) {
+		super(devListener);
+		thread = createThread();
 	}
 
 	@Override
 	public void enableHook() {
+		if(thread == null){
+			thread = createThread();
+		}
 		thread.start();
 	}
 
 	@Override
 	public void disableHook() {
 		stop = true;
+	}
+	
+	private Thread createThread(){
+		return new Thread(setHook(), "KeyHook");
 	}
 
 	private Runnable setHook() {
@@ -65,10 +72,15 @@ public class KeyboardHookWin32 extends AbstractKeyboardHook {
 					 * lib.TranslateMessage(msg); lib.DispatchMessage(msg); }
 					 */
 				}
+				thread = null;
+				stop = false;
+				System.out.println("Keyboard hook stopped...");
 				lib.UnhookWindowsHookEx(hhk);
 			}
 		};
 	}
+	
+	
 
 	private LowLevelKeyboardProc setLowLevelKeyboardProc() {
 		return new LowLevelKeyboardProc() {
@@ -89,10 +101,10 @@ public class KeyboardHookWin32 extends AbstractKeyboardHook {
 						break;
 					}
 				}
-
+				
 				DeviceEvent event = new DeviceEvent(this, info.vkCode, info.scanCode, state);
 				deviceEventOccurred(event);
-
+				
 				if (event.isConsumeEnabled()) {
 					return new LRESULT(1);
 				} else {

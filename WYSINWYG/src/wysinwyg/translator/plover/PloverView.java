@@ -1,34 +1,26 @@
-package wysinwyg.translator;
-
-import javax.swing.JPanel;
+package wysinwyg.translator.plover;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.SystemColor;
 
-import javax.swing.JScrollPane;
-
-import java.awt.GridLayout;
-
 import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-import java.awt.FlowLayout;
-
-import javax.swing.border.TitledBorder;
-
-public class TranslatorDisplayPanel extends JPanel {
+public class PloverView extends JPanel {
 
 	private static final long serialVersionUID = 3190747948465279046L;
-	
-	JTextField textFieldStroke;
-	JTextField textFieldTranslation;
-	JTextArea textAreaStrokes;
-	
-	public TranslatorDisplayPanel() {
-		setBorder(new TitledBorder(null, "Display:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+
+	private JTextField textFieldStroke;
+	private JTextField textFieldTranslation;
+	private JTextArea textAreaStrokes;
+
+	public PloverView() {
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
@@ -65,8 +57,7 @@ public class TranslatorDisplayPanel extends JPanel {
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel_1.add(scrollPane_1);
 
 		textAreaStrokes = new JTextArea();
@@ -74,6 +65,16 @@ public class TranslatorDisplayPanel extends JPanel {
 		scrollPane_1.setViewportView(textAreaStrokes);
 	}
 
+	public JTextField getTextFieldStroke() {
+		return textFieldStroke;
+	}
 
+	public JTextField getTextFieldTranslation() {
+		return textFieldTranslation;
+	}
+
+	public JTextArea getTextAreaStrokes() {
+		return textAreaStrokes;
+	}
 
 }

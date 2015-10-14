@@ -19,11 +19,10 @@ public class DictionaryView extends JPanel {
 
 	private static final long serialVersionUID = 6536417544245864384L;
 
-	JTable table;
-	JButton btnAdd;
-	JButton btnRemove;
-
 	private DictionaryModel model;
+	private JButton btnAdd;
+	private JButton btnRemove;
+	private JTable table;
 
 	public DictionaryView(DictionaryModel model) {
 		this.model = model;
@@ -68,7 +67,7 @@ public class DictionaryView extends JPanel {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setPreferredSize(new Dimension(2, 200));
+		scrollPane.setPreferredSize(new Dimension(600, 200));
 		add(scrollPane);
 
 		if (model != null) {
@@ -82,6 +81,18 @@ public class DictionaryView extends JPanel {
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			scrollPane.setViewportView(table);
 		}
+	}
+
+	public JButton getBtnAdd() {
+		return btnAdd;
+	}
+
+	public JButton getBtnRemove() {
+		return btnRemove;
+	}
+
+	public JTable getTable() {
+		return table;
 	}
 
 }

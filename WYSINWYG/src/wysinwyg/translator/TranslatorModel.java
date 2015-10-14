@@ -5,20 +5,21 @@ import wysinwyg.translator.plover.PloverTranslator;
 
 public class TranslatorModel {
 
-	private Translator translator;
+	private Translator[] trans = new Translator[1];
 	private DictionaryInit dictionary;
 
 	public TranslatorModel() {
-		translator = load();
-		dictionary = new DictionaryInit(translator);
+		load();
+		// TODO
+		dictionary = new DictionaryInit(trans[0]);
 	}
 
-	private Translator load() {
-		return new PloverTranslator(new String[] { ".json" });
+	private void load() {
+		trans[0] = new PloverTranslator(new String[] { ".json" });
 	}
 
-	public Translator getTranslator() {
-		return translator;
+	public Translator[] getTranslators() {
+		return trans;
 	}
 
 	public DictionaryInit getDictionary() {

@@ -8,12 +8,16 @@ public class KeyboardView extends JPanel {
 
 	private static final long serialVersionUID = 459644234125637827L;
 
-	JCheckBox chckbxEcho;
+	private JCheckBox chckbxEcho;
 
 	public KeyboardView() {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		chckbxEcho = new JCheckBox("Echo");
 		add(chckbxEcho);
+	}
+
+	public JCheckBox getChckbxEcho() {
+		return chckbxEcho;
 	}
 
 }

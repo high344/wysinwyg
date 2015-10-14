@@ -1,8 +1,8 @@
 package wysinwyg.translator.dictionary;
 
-import javax.swing.table.AbstractTableModel;
+import java.io.File;
 
-import wysinwyg.translator.Translator;
+import javax.swing.table.AbstractTableModel;
 
 public class DictionaryTableModel extends AbstractTableModel {
 
@@ -13,36 +13,36 @@ public class DictionaryTableModel extends AbstractTableModel {
 	private String[] names = { "Dictionary" };
 	private Class<?>[] clazz = { DictionaryTableCell.class };
 
-	private Translator translator;
-	
-	public DictionaryTableModel(Translator translator) {
-		this.translator = translator;
+	private DictionaryModel model;
+
+	public DictionaryTableModel(DictionaryModel model) {
+		this.model = model;
 	}
 
-	void addDictionary(String path) {
-		if(translator.addDictionary(path) == true) {
+	public void addDictionary(File file) {
+		if (model.getTranslator().addDictionary(file) == true) {
 			fireTableDataChanged();
 		}
 	}
 
-	void removeDictionary(int row) {
+	public void removeDictionary(int row) {
 		if (validRow(row)) {
-			if(translator.removeDictionary(row) == true) {
+			if (model.getTranslator().removeDictionary(row) == true) {
 				fireTableStructureChanged();
 			}
 		}
 	}
 
-	void swapDictionaries(int rowA, int rowB) {
+	public void swapDictionaries(int rowA, int rowB) {
 		if (validRow(rowA) && validRow(rowB)) {
-			if (translator.changeDictionaryOrders(rowA, rowB) == true) {
+			if (model.getTranslator().changeDictionaryOrders(rowA, rowB) == true) {
 				fireTableStructureChanged();
 			}
 		}
 	}
 
 	private boolean validRow(int row) {
-		return row > -1 && translator.getDictionaryCount() > row;
+		return row > -1 && model.getTranslator().getDictionaryCount() > row;
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class DictionaryTableModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return translator.getDictionaryCount();
+		return model.getTranslator().getDictionaryCount();
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class DictionaryTableModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (columnIndex == 0) {
-			return translator.getDictionary(rowIndex);
+			return model.getTranslator().getDictionary(rowIndex);
 		}
 		return null;
 	}

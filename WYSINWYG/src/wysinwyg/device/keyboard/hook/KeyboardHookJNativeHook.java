@@ -1,6 +1,8 @@
 package wysinwyg.device.keyboard.hook;
 
 import java.lang.reflect.Field;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -16,7 +18,9 @@ public class KeyboardHookJNativeHook extends AbstractKeyboardHook implements Nat
 	private Field f;
 
 	public KeyboardHookJNativeHook(DeviceListener devListener) {
-		super(devListener, false);
+		super(devListener);
+		Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+		logger.setLevel(Level.WARNING);
 		GlobalScreen.setEventDispatcher(new DispatchService());
 		GlobalScreen.addNativeKeyListener(this);
 		try {
@@ -66,6 +70,7 @@ public class KeyboardHookJNativeHook extends AbstractKeyboardHook implements Nat
 		try {
 			DeviceEvent event = new DeviceEvent(this, nke.getKeyCode(), nke.getRawCode(),
 					DeviceEvent.DEVICE_KEY_RELEASED);
+			deviceEventOccurred(event);
 			if (event.isConsumeEnabled()) {
 				f.setShort(nke, (short) 1);
 			}

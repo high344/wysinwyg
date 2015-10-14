@@ -1,4 +1,7 @@
-package wysinwyg.evaluator.steno;
+package wysinwyg.device.keyboard.hook;
+
+import wysinwyg.evaluator.steno.StenoOrder;
+import wysinwyg.evaluator.steno.StenoRefrence;
 
 public class StenoRefrenceWin32 implements StenoRefrence {
 
@@ -40,8 +43,8 @@ public class StenoRefrenceWin32 implements StenoRefrence {
 	private static final int VK_H = 0x48;
 	
 	@Override
-	public StenoOrder getStenoRefrence(int keyCode) {
-		switch (keyCode) {
+	public StenoOrder getStenoRefrence(int code) {
+		switch (code) {
 		case VK_Q:
 			return StenoOrder.S_;
 		case VK_A:

@@ -2,76 +2,66 @@ package wysinwyg;
 
 import wysinwyg.device.Device;
 import wysinwyg.device.DeviceInit;
+import wysinwyg.device.keyboard.Keyboard;
 import wysinwyg.evaluator.Evaluator;
 import wysinwyg.evaluator.EvaluatorInit;
+import wysinwyg.printer.Printer;
+import wysinwyg.printer.win32.Win32Printer;
+import wysinwyg.translator.Translator;
 import wysinwyg.translator.TranslatorInit;
 
 public class WysinwygModel {
 
 	private Device runningDevice;
 	private Evaluator runningEvaluator;
-	
+	private Translator runningTranslator;
+
 	private DeviceInit device;
 	private EvaluatorInit evaluator;
 	private TranslatorInit translator;
-	
-	WysinwygModel () {
+	private Printer printer;
+
+	public WysinwygModel() {
 		device = new DeviceInit();
 		evaluator = new EvaluatorInit();
 		translator = new TranslatorInit();
+		printer = Win32Printer.getInstance();
 	}
-	
-	DeviceInit getDevice() {
+
+	public DeviceInit getDevice() {
 		return device;
 	}
-	
-	EvaluatorInit getEvaluator() {
+
+	public EvaluatorInit getEvaluator() {
 		return evaluator;
 	}
-	
-	TranslatorInit getTranslator() {
+
+	public TranslatorInit getTranslator() {
 		return translator;
 	}
-	
-	/*
-	public WysinwygModel(WysinwygPanel frame) {
-		deviceControl = new DeviceInit().getController();
-		evaluateControl = new EvaluatorInit(frame.evaluate).getController();
-		
-		translator = new PloverTranslator();
-		new DictionaryInit(translator, frame.dictionary);
-		
-		DisplayInit displayInit = new DisplayInit();
-	}*/
 
-	void start() {
+	public void start() {
 		runningDevice = device.getController().getSelectedDevice();
 		runningEvaluator = evaluator.getController().getSelectedEvaluator();
+		runningTranslator = translator.getController().getSelectedTranslator();
+		runningTranslator.startTranslation();
+		runningEvaluator.addEvaluationListener(runningTranslator);
 		runningEvaluator.startEvaluation();
-		
-		
 		runningDevice.addDeviceListener(runningEvaluator);
-		device.getController().getSelectedDevice().startDevice();
-		/*
-		if(deviceControl != null && (runningDevice = deviceControl.getSelectedDevice()) != null) {
-			if(evaluateControl != null && (runningEvaluator = evaluateControl.getSelectedEvaluator()) != null) {
-				runningEvaluator.prepareEvaluation();
-				runningEvaluator.setTranslator(translator);
-				//runningEvaluator.setPrinter(new Display());
-				runningDevice.addDeviceListener(runningEvaluator);
-			}
-			runningDevice.startDevice();
-		}*/
+		
+		if(runningDevice instanceof Keyboard) {
+			Keyboard abs = (Keyboard) runningDevice;
+			abs.getHook().setPrinter(printer);
+		}
+		runningDevice.startDevice();
 	}
-	
-	void stop() {/*
-		if(deviceControl != null && runningDevice != null) {
-			runningDevice.stopDevice();
-			runningDevice = null;
-		}*/
+
+	public void stop() {
 		runningDevice.stopDevice();
 		runningDevice.removeDeviceListener(runningEvaluator);
 		runningEvaluator.stopEvaluation();
+		runningEvaluator.removeEvaluationListener(runningTranslator);
+		runningTranslator.stopTranslation();
 	}
-	
+
 }

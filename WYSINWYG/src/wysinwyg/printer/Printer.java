@@ -1,9 +1,11 @@
 package wysinwyg.printer;
 
+import wysinwyg.device.DeviceEvent;
+
 public interface Printer {
 
-	public void print(String printedString, int removeCount);
-	@Deprecated
-	public void change(String printedString, String removedString);
-	
+	public boolean isDeviceEventVirtual(DeviceEvent e);
+
+	public void addPrinterEvent(PrinterEvent e);
+
 }

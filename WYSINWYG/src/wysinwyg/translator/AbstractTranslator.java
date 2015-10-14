@@ -1,5 +1,6 @@
 package wysinwyg.translator;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,21 +8,23 @@ import java.util.List;
 import wysinwyg.translator.dictionary.Dictionary;
 import wysinwyg.utils.FileFilter;
 
-public abstract class AbstractTranslator implements Translator {
+public abstract class AbstractTranslator implements Translator, TranslationListener {
 
 	protected List<Dictionary> dictionaries;
 	protected String[] supportedExtensions;
 	protected FileFilter ff;
+	protected List<TranslationListener> list;
 
 	public AbstractTranslator(String[] supportedFileExtensions) {
-		ff = new FileFilter(supportedFileExtensions);
 		dictionaries = new ArrayList<Dictionary>(5);
+		ff = new FileFilter(supportedFileExtensions);
+		list = new ArrayList<TranslationListener>(10);
 	}
 
 	@Override
-	public boolean addDictionary(String path) {
-		if (ff.isSupported(path)) {
-			Dictionary d = initDictionary(path);
+	public boolean addDictionary(File file) {
+		if (ff.isSupported(file.getAbsolutePath())) {
+			Dictionary d = initDictionary(file);
 			if (d != null) {
 				dictionaries.add(d);
 				return true;
@@ -31,10 +34,10 @@ public abstract class AbstractTranslator implements Translator {
 	}
 
 	@Override
-	public boolean removeDictionary(String path) {
+	public boolean removeDictionary(File file) {
 		Dictionary d = null;
 		for (Dictionary di : dictionaries) {
-			if (di.getPath().equals(path)) {
+			if (di.getPath().equals(file.getPath())) {
 				d = di;
 				break;
 			}
@@ -82,10 +85,43 @@ public abstract class AbstractTranslator implements Translator {
 		return ff;
 	}
 
+	@Override
+	public boolean loadUpDictionary(int index) {
+		if (isValidIndex(index)) {
+			dictionaries.get(index).loadDictionary();
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void loadUpAllDictionary() {
+		for (Dictionary di : dictionaries) {
+			di.loadDictionary();
+		}
+	}
+
 	protected boolean isValidIndex(int i) {
 		return i >= 0 && dictionaries.size() > i;
 	}
 
-	protected abstract Dictionary initDictionary(String path);
+	@Override
+	public void addTranslationListener(TranslationListener transListener) {
+		list.add(transListener);
+	}
+
+	@Override
+	public void removeTranslationListener(TranslationListener transListener) {
+		list.remove(transListener);
+	}
+
+	@Override
+	public void translationEventOccurred(TranslationEvent e) {
+		for (TranslationListener trans : list) {
+			trans.translationEventOccurred(e);
+		}
+	}
+
+	protected abstract Dictionary initDictionary(File file);
 
 }

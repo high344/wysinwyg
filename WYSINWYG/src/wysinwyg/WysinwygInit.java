@@ -4,11 +4,11 @@ import javax.swing.JFrame;
 
 public class WysinwygInit {
 
-	WysinwygInit() {
+	public WysinwygInit() {
 		WysinwygModel model = new WysinwygModel();
 		WysinwygView view = new WysinwygView(model);
 		new WysinwygController(model, view);
-		
+
 		JFrame frame = new JFrame("WhatYouStrokeIsNotWhatYouGet");
 		frame.setContentPane(view);
 		frame.pack();

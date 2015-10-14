@@ -3,6 +3,7 @@ package wysinwyg.evaluator;
 import java.awt.CardLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Objects;
 
 import javax.swing.SwingUtilities;
 
@@ -12,25 +13,28 @@ public class EvaluatorController implements Controller, ItemListener, Evaluation
 
 	private EvaluatorView view;
 
-	EvaluatorController(Evaluator eva, EvaluatorView view) {
+	public EvaluatorController(EvaluatorModel model, EvaluatorView view) {
+		Objects.requireNonNull(model);
+		Objects.requireNonNull(view);
+
 		this.view = view;
 
-		eva.addEvaluationListener(this);
-		view.comboBox.addItem(eva);
-		view.cardsPanel.add(eva.getView(), eva.getDisplayName());
-		view.comboBox.addItemListener(this);
+		for (Evaluator d : model.getEvaluators()) {
+			d.addEvaluationListener(this);
+		}
 
-		view.comboBox.setSelectedItem(eva);
+		view.getComboBox().addItemListener(this);
 	}
 
 	public Evaluator getSelectedEvaluator() {
-		return ((Evaluator) view.comboBox.getSelectedItem());
+		return ((Evaluator) view.getComboBox().getSelectedItem());
 	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		CardLayout cl = (CardLayout) (view.cardsPanel.getLayout());
-		cl.show(view.cardsPanel, ((Evaluator) view.comboBox.getSelectedItem()).getDisplayName());
+		CardLayout cl = (CardLayout) (view.getCardsPanel().getLayout());
+		cl.show(view.getCardsPanel(),
+				((Evaluator) view.getComboBox().getSelectedItem()).getDisplayName());
 	}
 
 	@Override
@@ -43,7 +47,7 @@ public class EvaluatorController implements Controller, ItemListener, Evaluation
 
 			@Override
 			public void run() {
-				view.textFieldLastStroke.setText(str);
+				view.getTextFieldLastStroke().setText(str);
 			}
 		};
 	}
