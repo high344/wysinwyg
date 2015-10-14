@@ -14,12 +14,9 @@ import com.sun.jna.win32.W32APIOptions;
 
 public class Win32Printer implements Printer {
 
-	private User32 user32 = (User32) Native.loadLibrary("user32", User32.class,
-			W32APIOptions.DEFAULT_OPTIONS);
-	private Thread thread;
-	private LinkedBlockingQueue<PrinterEvent> queue = new LinkedBlockingQueue<PrinterEvent>();
-
 	private static Win32Printer printer;
+
+	private LinkedBlockingQueue<PrinterEvent> queue;
 
 	public static Win32Printer getInstance() {
 		if (printer == null) {
@@ -29,7 +26,10 @@ public class Win32Printer implements Printer {
 	}
 
 	private Win32Printer() {
-		thread = new Thread(createPrinterThread(user32), "Win32Printer");
+		queue = new LinkedBlockingQueue<PrinterEvent>();
+		User32 user32 = (User32) Native.loadLibrary("user32", User32.class,
+				W32APIOptions.DEFAULT_OPTIONS);
+		Thread thread = new Thread(createPrinterThread(user32), "Win32Printer");
 		thread.start();
 	}
 
@@ -51,7 +51,6 @@ public class Win32Printer implements Printer {
 							}
 						}
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -96,13 +95,13 @@ public class Win32Printer implements Printer {
 	}
 
 	@Override
-	public void addPrinterEvent(PrinterEvent e) {
+	public synchronized void addPrinterEvent(PrinterEvent e) {
 		queue.add(e);
 	}
 
 	@Override
 	public boolean isDeviceEventVirtual(DeviceEvent e) {
-		if(e.getvKeyCode() == 231) {
+		if (e.getvKeyCode() == 231) {
 			return true;
 		}
 		return false;
