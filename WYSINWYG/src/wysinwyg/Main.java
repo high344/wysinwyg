@@ -5,6 +5,7 @@ public class Main {
 	//TODO In need of a Mutex start...
 	//TODO Whole buildup without UI...
 	//FIXME DOCUMENTATION!
+	//TODO MAVEN build Up?
 	
 	//TODO {@link DeviceModel} read up devices???
 	//TODO {link KeyboardDevice} Misery with hooks and places!?
