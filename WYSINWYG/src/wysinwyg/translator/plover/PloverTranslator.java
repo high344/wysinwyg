@@ -14,25 +14,24 @@ import wysinwyg.translator.TranslationEvent;
 import wysinwyg.translator.dictionary.Dictionary;
 import wysinwyg.utils.CapacityArrayDeque;
 
-
 public class PloverTranslator extends AbstractTranslator implements Init {
 
 	private TreeMap<String, Map<String, String>> entries;
 	private CapacityArrayDeque<Element> stenoElements = new CapacityArrayDeque<Element>(11);
 	private PloverView view;
 	private PloverController controller;
-	
+
 	public PloverTranslator(String[] supportedFileExtensions) {
 		super(supportedFileExtensions);
-		
+
 		PloverTranslationValidator ptv = new PloverTranslationValidator();
 		this.addTranslationListener(ptv);
-		
+
 		entries = new TreeMap<String, Map<String, String>>();
 		ClassLoader classLoader = getClass().getClassLoader();
 		File f = new File(classLoader.getResource("dict.json").getFile());
 		addDictionary(f);
-		
+
 		view = new PloverView();
 		controller = new PloverController(view);
 	}
@@ -64,9 +63,9 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 	public void stopTranslation() {
 		entries.clear();
 		stenoElements.clear();
-		//controller.updateTextFieldStroke("");
+		// controller.updateTextFieldStroke("");
 	}
-	
+
 	@Override
 	public Component getView() {
 		return view;
@@ -76,28 +75,29 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 	public Controller getController() {
 		return controller;
 	}
-	
+
 	private void findTranslation(String result) {
-		//Element lastSteno = stenoElements.getLastElement();
-		if(result.equals("*")) {
+		// Element lastSteno = stenoElements.getLastElement();
+		if (result.equals("*")) {
 			Element e = stenoElements.removeLastElement();
-			if(e != null) {
-				//TODO
-				//printer.change(lastSteno.getPrintedString(), lastSteno.getRemovedString());
+			if (e != null) {
+				// TODO
+				// printer.change(lastSteno.getPrintedString(),
+				// lastSteno.getRemovedString());
 			}
 		} else {
 			Element e = new Element(result, null);
 			stenoElements.addElement(e);
-			
+
 			String fittedStroke = findLongestFittingStroke(result, getAllElements());
-			if(fittedStroke != null) {
+			if (fittedStroke != null) {
 				e.setTranslation(getLongestTranslation(result, fittedStroke));
 			} else {
 				e.setTranslation(result);
 			}
-			
+
 			translationEventOccurred(new TranslationEvent(this, e.getStroke(), e.getTranslation()));
-			
+
 			/*
 			int lastStrokeSuffixType = 0;
 			Element e2 = stenoElements.getElement(longestStroke);
@@ -112,17 +112,18 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 			System.out.println(e);
 			if(e.getRemovedString() != null) {
 				//TODO
-				//printer.print(e.getPrintedString(), e.getRemovedString().length());
+				printer.print(e.getPrintedString(), e.getRemovedString().length());
 			} else {
 				//TODO
-				//printer.print(e.getPrintedString(), 0);
-			}*/
-			controller.updateTextFieldTranslation(e.getTranslation());
+				printer.print(e.getPrintedString(), 0);
+			}
+			*/
+			controller.updateTranslation(e.getTranslation());
 		}
-		controller.updateTextFieldStroke(getAllElements());
-		
+		controller.updateStrokes(stenoElements);
+
 	}
-	
+
 	private String getAllElements() {
 		String cache = "";
 		for (int i = 0; i < stenoElements.size(); i++) {
@@ -133,24 +134,24 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 		}
 		return cache;
 	}
-	
+
 	private int longestStroke = 0;
-	
+
 	public String findLongestFittingStroke(String lastElement, String allElement) {
-		System.out.println("last: "+lastElement+" all:"+allElement);
+		System.out.println("last: " + lastElement + " all:" + allElement);
 		Map<String, String> z = entries.get(lastElement);
 		if (z == null) {
 			return null;
 		}
-		controller.updateTextAreaStrokes(z);
-		System.out.println("zSize: "+z.size());
-		for(Map.Entry<String, String> d : z.entrySet()) {
-			System.out.println(d.getKey()+" : "+d.getValue());
+		controller.updateStrokeResults(z);
+		System.out.println("zSize: " + z.size());
+		for (Map.Entry<String, String> d : z.entrySet()) {
+			System.out.println(d.getKey() + " : " + d.getValue());
 		}
 		String trans = allElement;
 		do {
 			if (z.containsKey(trans)) {
-				System.out.println("found: "+trans);
+				System.out.println("found: " + trans);
 				break;
 			}
 			String[] temp = trans.split("/", 2);
@@ -164,12 +165,12 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 		} while (true);
 		return trans;
 	}
-	
+
 	public String getLongestTranslation(String lastElement, String longestStroke) {
 		Map<String, String> z = entries.get(lastElement);
 		return z.get(longestStroke);
 	}
-	
+
 	private String getStenoNumberRefrence(StenoOrder steno) {
 		switch (steno) {
 		case S_:
@@ -197,5 +198,5 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 		}
 		return null;
 	}
-	
+
 }

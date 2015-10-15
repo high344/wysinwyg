@@ -14,17 +14,17 @@ public class PloverJSonDictionary implements Dictionary {
 
 	private TreeMap<String, Map<String, String>> entries;
 	private String path;
-	
+
 	public PloverJSonDictionary(String path, TreeMap<String, Map<String, String>> entries) {
 		this.path = path;
 		this.entries = entries;
 	}
-	
+
 	@Override
 	public String getPath() {
 		return path;
 	}
-	
+
 	@Override
 	public void loadDictionary() {
 		if (path == null) {
@@ -32,7 +32,7 @@ public class PloverJSonDictionary implements Dictionary {
 		}
 		try {
 			FileReader reader = new FileReader(path);
-			if(entries == null) {
+			if (entries == null) {
 				entries = new TreeMap<String, Map<String, String>>();
 			}
 			new JSONParser().parse(reader, new PloverJSonHandler(entries));
@@ -45,7 +45,7 @@ public class PloverJSonDictionary implements Dictionary {
 	public void saveDictionary() {
 		// TODO Auto-generated method stub
 	};
-	
+
 	@Override
 	public boolean addTranslation(String strokes, String translation) {
 		// TODO Auto-generated method stub
