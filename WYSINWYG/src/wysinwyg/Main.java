@@ -1,14 +1,16 @@
 /*******************************************************************************
- * Copyright (c) 2015 Balázs Felföldi.
+ * Copyright (c) 2015 Balazs Felfoldi.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
  * Contributors:
- *     Balázs Felföldi - initial API and implementation
+ *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
 package wysinwyg;
+
+import javax.swing.JFrame;
 
 public class Main {
 
@@ -27,6 +29,8 @@ public class Main {
 	//TODO Device serial whole Treal protocol, simulation.
 	//TODO Device serial whole Passport protocol, simulation.
 	//TODO Device serial whole Gemini PR protocol, simulation.
+	//TODO {@link DeviceController} appending text length.
+	//TODO {@link DeviceEvent} simplify it, extend a KeyboardEvent
 	
 	//TODO {@link EvaluatorModel} read up evaluators..
 	//TODO create a hun evaluator for the feelz.
@@ -42,12 +46,22 @@ public class Main {
 	//TODO {@link PloverTranslator} build in the number references, read .json, .rtf.
 	//TODO Plover strokes into a database, show longest fit with colored background...
 	
+	//TODO hide the os dependent printers behind a class or interface.
 	//TODO {@link Win32Printer} more complex virtual key handling. 
 	//TODO {@link Win32Printer} sending all printing characters in one swoop.
 	//TODO LinuxPrinter for virtual key handling.
-	
+
 	public static void main(String[] args) {
-		new WysinwygInit();
+		//Initialize WYSINWYG and put it on a frame.
+		Init wysinwyg = new WysinwygInit();
+		
+		JFrame frame = new JFrame("WhatYouStrokeIsNotWhatYouGet");
+		frame.setContentPane(wysinwyg.getView());
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 
 }

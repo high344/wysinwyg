@@ -1,31 +1,46 @@
 /*******************************************************************************
- * Copyright (c) 2015 Balázs Felföldi.
+ * Copyright (c) 2015 Balazs Felfoldi.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
  * Contributors:
- *     Balázs Felföldi - initial API and implementation
+ *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
 package wysinwyg;
 
-import javax.swing.JFrame;
+import javax.swing.JComponent;
 
-public class WysinwygInit {
+/**
+ * Initializer for the What You Stroke Is Not What You Get (WYSINWYG).
+ * 
+ * @author FelfoldiB.
+ *
+ */
+public class WysinwygInit implements Init {
 
+	private WysinwygModel model;
+	private WysinwygView view;
+	private WysinwygController controller;
+
+	/**
+	 * Setting up an MVC for the WYSINWYG.
+	 */
 	public WysinwygInit() {
-		WysinwygModel model = new WysinwygModel();
-		WysinwygView view = new WysinwygView(model);
-		new WysinwygController(model, view);
+		model = new WysinwygModel();
+		view = new WysinwygView(model);
+		controller = new WysinwygController(model, view);
+	}
 
-		JFrame frame = new JFrame("WhatYouStrokeIsNotWhatYouGet");
-		frame.setContentPane(view);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+	@Override
+	public JComponent getView() {
+		return view;
+	}
+
+	@Override
+	public WysinwygController getController() {
+		return controller;
 	}
 
 }

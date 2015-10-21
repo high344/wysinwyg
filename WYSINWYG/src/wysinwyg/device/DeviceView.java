@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2015 Balázs Felföldi.
+ * Copyright (c) 2015 Balazs Felfoldi.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
  * Contributors:
- *     Balázs Felföldi - initial API and implementation
+ *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
 package wysinwyg.device;
 
@@ -26,6 +26,26 @@ import javax.swing.text.DefaultCaret;
 import wysinwyg.Init;
 import wysinwyg.utils.ComboboxListCellRenderer;
 
+/**
+ * JPanel with a JComboBox containing {@linkplain Device devices}. If the device
+ * is an instance of the {@linkplain Init init MVC} than the View component also
+ * in a CardLayout form. If the View is {@code null}, a new JPanel is added. A
+ * JTextArea of the occurring {@linkplain DeviceEvent device events} is also
+ * present at the bottom.
+ * 
+ * <pre>
+ * |------------------------|
+ * |        JComboBox       | 
+ * |------------------------|
+ * | CardLayout: DeviceView |
+ * |------------------------|
+ * |        JTextArea       |
+ * |------------------------|
+ * </pre>
+ * 
+ * @author FelfoldiB.
+ *
+ */
 public class DeviceView extends JPanel {
 
 	private static final long serialVersionUID = 1550900345407909849L;
@@ -35,6 +55,14 @@ public class DeviceView extends JPanel {
 	private JPanel cardsPanel;
 	private JTextArea textArea;
 
+	/**
+	 * Creating a JPanel from the {@code model} elements, if it's {@code null}
+	 * an empty JComboBox will still be present.
+	 * 
+	 * @see DeviceView
+	 * @param model
+	 *            can be {@code null}.
+	 */
 	public DeviceView(DeviceModel model) {
 		this.model = model;
 		buildGUI();
@@ -94,14 +122,26 @@ public class DeviceView extends JPanel {
 		scrollPane.setViewportView(textArea);
 	}
 
+	/**
+	 * 
+	 * @return a JComboBox containing {@linkplain Device devices}.
+	 */
 	public JComboBox<Device> getComboBox() {
 		return comboBox;
 	}
 
+	/**
+	 * 
+	 * @return a JPanel class, with CardLayout.
+	 */
 	public JPanel getCardsPanel() {
 		return cardsPanel;
 	}
 
+	/**
+	 * 
+	 * @return a JTextArea class.
+	 */
 	public JTextArea getTextArea() {
 		return textArea;
 	}
