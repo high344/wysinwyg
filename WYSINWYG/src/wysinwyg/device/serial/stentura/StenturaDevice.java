@@ -1,16 +1,16 @@
 /*******************************************************************************
- * Copyright (c) 2015 Balázs Felföldi.
+ * Copyright (c) 2015 Balazs Felfoldi.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
  * Contributors:
- *     Balázs Felföldi - initial API and implementation
+ *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
 package wysinwyg.device.serial.stentura;
 
-import java.awt.Component;
+import javax.swing.JComponent;
 
 import wysinwyg.Controller;
 import wysinwyg.Init;
@@ -23,7 +23,7 @@ public class StenturaDevice implements Init, Device {
 	private StenturaLayout panel = new StenturaLayout();
 
 	@Override
-	public Component getView() {
+	public JComponent getView() {
 		// TODO Auto-generated method stub
 		return panel;
 	}
