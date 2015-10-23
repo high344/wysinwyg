@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2015 Balázs Felföldi.
+ * Copyright (c) 2015 Balazs Felfoldi.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
  * Contributors:
- *     Balázs Felföldi - initial API and implementation
+ *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
 package wysinwyg.evaluator;
 
@@ -25,6 +25,26 @@ import javax.swing.border.TitledBorder;
 import wysinwyg.Init;
 import wysinwyg.utils.ComboboxListCellRenderer;
 
+/**
+ * JPanel with a JComboBox containing {@linkplain Evaluator evaluators}. If the
+ * evaluator is an instance of the {@linkplain Init init MVC} than the View
+ * component is also added in a CardLayout form. If the View is {@code null}, a
+ * new JPanel is added. A JTextField with the last {@linkplain EvaluationEvent
+ * evaluation event} is also present at the bottom.
+ * 
+ * <pre>
+ * |---------------------------|
+ * |          JComboBox        | 
+ * |---------------------------|
+ * | CardLayout: EvaluatorView |
+ * |---------------------------|
+ * |         JTextField        |
+ * |---------------------------|
+ * </pre>
+ * 
+ * @author FelfoldiB.
+ *
+ */
 public class EvaluatorView extends JPanel {
 
 	private static final long serialVersionUID = -6402526837916236566L;
@@ -34,6 +54,14 @@ public class EvaluatorView extends JPanel {
 	private JPanel cardsPanel;
 	private JTextField textFieldLastStroke;
 
+	/**
+	 * Creating a JPanel from the {@code model} elements, if it's {@code null}
+	 * an empty JComboBox and a JTextField will still be present.
+	 * 
+	 * @see EvaluatorView
+	 * @param model
+	 *            can be {@code null}.
+	 */
 	public EvaluatorView(EvaluatorModel model) {
 		this.model = model;
 		buildGUI();
@@ -89,14 +117,26 @@ public class EvaluatorView extends JPanel {
 		textFieldLastStroke.setColumns(20);
 	}
 
+	/**
+	 * 
+	 * @return a JComboBox containing {@linkplain Evaluator evaluators}.
+	 */
 	public JComboBox<Evaluator> getComboBox() {
 		return comboBox;
 	}
 
+	/**
+	 * 
+	 * @return a JPanel class, with CardLayout.
+	 */
 	public JPanel getCardsPanel() {
 		return cardsPanel;
 	}
 
+	/**
+	 * 
+	 * @return a JTextField class.
+	 */
 	public JTextField getTextFieldLastStroke() {
 		return textFieldLastStroke;
 	}

@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2015 Balázs Felföldi.
+ * Copyright (c) 2015 Balazs Felfoldi.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
  * Contributors:
- *     Balázs Felföldi - initial API and implementation
+ *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
 package wysinwyg.evaluator;
 
@@ -19,6 +19,13 @@ import javax.swing.SwingUtilities;
 
 import wysinwyg.Controller;
 
+/**
+ * Implementing listeners between {@linkplain EvaluatorModel} and
+ * {@linkplain EvaluatorView}
+ * 
+ * @author FelfoldiB.
+ *
+ */
 public class EvaluatorController implements Controller, ItemListener, EvaluationListener {
 
 	private EvaluatorView view;
@@ -36,6 +43,11 @@ public class EvaluatorController implements Controller, ItemListener, Evaluation
 		view.getComboBox().addItemListener(this);
 	}
 
+	/**
+	 * Returns the selected Evaluator from the combo box.
+	 * 
+	 * @return a class implementing the {@linkplain Evaluator} interface.
+	 */
 	public Evaluator getSelectedEvaluator() {
 		return ((Evaluator) view.getComboBox().getSelectedItem());
 	}
