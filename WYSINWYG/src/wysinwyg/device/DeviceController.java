@@ -51,7 +51,7 @@ public class DeviceController implements Controller, ItemListener, DeviceListene
 	}
 
 	/**
-	 * Returns the selected Device in the combo box.
+	 * Returns the selected Device from the combo box.
 	 * 
 	 * @return a class implementing the {@linkplain Device} interface.
 	 */

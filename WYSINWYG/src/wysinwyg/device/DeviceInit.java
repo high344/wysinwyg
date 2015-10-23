@@ -38,6 +38,7 @@ public class DeviceInit implements Init {
 		return view;
 	}
 
+	@Override
 	public DeviceController getController() {
 		return controller;
 	}

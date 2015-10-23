@@ -28,10 +28,10 @@ import wysinwyg.utils.ComboboxListCellRenderer;
 
 /**
  * JPanel with a JComboBox containing {@linkplain Device devices}. If the device
- * is an instance of the {@linkplain Init init MVC} than the View component also
- * in a CardLayout form. If the View is {@code null}, a new JPanel is added. A
- * JTextArea of the occurring {@linkplain DeviceEvent device events} is also
- * present at the bottom.
+ * is an instance of the {@linkplain Init init MVC} than the View component is
+ * also added in a CardLayout form. If the View is {@code null}, a new JPanel is
+ * added. A JTextArea of the occurring {@linkplain DeviceEvent device events} is
+ * also present at the bottom.
  * 
  * <pre>
  * |------------------------|
