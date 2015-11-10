@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2015 Balázs Felföldi.
+ * Copyright (c) 2015 Balazs Felfoldi.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
  * Contributors:
- *     Balázs Felföldi - initial API and implementation
+ *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
 package wysinwyg.utils;
 
@@ -14,7 +14,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,13 +24,13 @@ public class StenturaLayout extends JPanel {
 
 	private static final long serialVersionUID = -3732867237085126757L;
 
-	private String[] sten1 = { "#", "hm", "S", "S_", "T", "T_", "P", "P_", "H", "H_", "*", "st",
+	protected String[] sten1 = { "#", "hm", "S", "S_", "T", "T_", "P", "P_", "H", "H_", "*", "st",
 			"F", "_F", "P", "_P", "L", "_L", "T", "_T", "D", "_D" };
-	private String[] sten2 = { "K", "K_", "W", "W_", "R", "R_", "R", "_R", "B", "_B", "G", "_G",
+	protected String[] sten2 = { "K", "K_", "W", "W_", "R", "R_", "R", "_R", "B", "_B", "G", "_G",
 			"S", "_S", "Z", "_Z" };
-	private String[] sten3 = { "A", "A_", "O", "O_", "E", "_E", "U", "_U" };
+	protected String[] sten3 = { "A", "A_", "O", "O_", "E", "_E", "U", "_U" };
 
-	private Map<String, JToggleButton> map = new HashMap<String, JToggleButton>(23);
+	protected Map<String, JToggleButton> map = new HashMap<String, JToggleButton>(23);
 
 	public StenturaLayout() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -90,24 +89,6 @@ public class StenturaLayout extends JPanel {
 		gbc_btn.gridy = gridy;
 		add(btn, gbc_btn);
 		map.put(actionCmd, btn);
-	}
-
-	public JToggleButton getJToggleButton(String actionCommand) {
-		return map.get(actionCommand);
-	}
-
-	public void setAllJToggleButtonSelected(boolean b) {
-		for (JToggleButton gt : map.values()) {
-			gt.setSelected(b);
-		}
-	}
-
-	public void removeAllJToggleButtonMouseListener() {
-		for (JToggleButton gt : map.values()) {
-			for (MouseListener ml : gt.getMouseListeners()) {
-				gt.removeMouseListener(ml);
-			}
-		}
 	}
 
 }

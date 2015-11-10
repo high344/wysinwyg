@@ -132,18 +132,11 @@ public class StenoEvaluator implements Init, Evaluator, EvaluationListener {
 
 		for (int i = 0; i < charStroke.length; i++) {
 			if (charStroke[i] == '1') {
-				if (stenos[i] == StenoOrder.hm) {
-					strokeString += "#";
-				} else if (stenos[i] == StenoOrder.st) {
-					strokeString += "*";
-				} else {
-					strokeString += stenos[i].name();
-				}
+				strokeString += stenos[i].getSimpleName();
 			} else if (i == 8 && isHyphenNeeded(charStroke)) {
 				strokeString += "-";
 			}
 		}
-		strokeString = strokeString.replace("_", "");
 		if (strokeString.endsWith("-")) {
 			strokeString = strokeString.replace("-", "");
 		}

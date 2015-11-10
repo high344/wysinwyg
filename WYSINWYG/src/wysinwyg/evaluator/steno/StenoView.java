@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2015 Balázs Felföldi.
+ * Copyright (c) 2015 Balazs Felfoldi.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
  * Contributors:
- *     Balázs Felföldi - initial API and implementation
+ *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
 package wysinwyg.evaluator.steno;
 
@@ -16,14 +16,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-import wysinwyg.utils.StenturaLayout;
-
 public class StenoView extends JPanel {
 
 	private static final long serialVersionUID = -3028516136522939678L;
 
 	private JCheckBox chckbxArpeggiate;
-	private StenturaLayout stentura;
+	private ExtStenturaLayout stentura;
 
 	public StenoView() {
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -39,7 +37,7 @@ public class StenoView extends JPanel {
 
 		chckbxArpeggiate = new JCheckBox("Arpeggiate");
 		panel.add(chckbxArpeggiate);
-		stentura = new StenturaLayout();
+		stentura = new ExtStenturaLayout();
 		panel_1.add(stentura);
 	}
 
@@ -47,7 +45,7 @@ public class StenoView extends JPanel {
 		return chckbxArpeggiate;
 	}
 
-	public StenturaLayout getStentura() {
+	public ExtStenturaLayout getStentura() {
 		return stentura;
 	}
 
