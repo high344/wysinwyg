@@ -8,10 +8,13 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.fb.device.keyboard;
 
-public interface ComboboxDisplayName {
+import wysinwyg.fb.device.keyboard.hook.AbstractKeyboardHook;
 
-	public String getDisplayName();
+public interface Keyboard {
+
+	// TODO not abstract but interface
+	public AbstractKeyboardHook getHook();
 
 }

@@ -8,10 +8,10 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.utils.serial;
 
-public interface ComboboxDisplayName {
+public class SerialInit {
 
-	public String getDisplayName();
-
+	
+	
 }

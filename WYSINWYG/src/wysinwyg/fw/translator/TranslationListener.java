@@ -8,10 +8,21 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.fw.translator;
 
-public interface ComboboxDisplayName {
+/**
+ * The listener interface for receiving translation events. The class that is
+ * interested in processing a {@linkplain TranslationEvent} implements this
+ * interface.
+ * 
+ * @author FelfoldiB.
+ *
+ */
+public interface TranslationListener {
 
-	public String getDisplayName();
+	/**
+	 * Invoked when a translation event occurs.
+	 */
+	public void translationEventOccurred(TranslationEvent e);
 
 }

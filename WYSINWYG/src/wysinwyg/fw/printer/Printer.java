@@ -8,10 +8,14 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.fw.printer;
 
-public interface ComboboxDisplayName {
+import wysinwyg.fw.device.DeviceEvent;
 
-	public String getDisplayName();
+public interface Printer {
+
+	public boolean isDeviceEventVirtual(DeviceEvent e);
+
+	public void addPrinterEvent(PrinterEvent e);
 
 }

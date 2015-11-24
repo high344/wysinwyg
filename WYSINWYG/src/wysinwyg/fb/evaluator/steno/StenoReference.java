@@ -8,10 +8,10 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.fb.evaluator.steno;
 
-public interface ComboboxDisplayName {
+public interface StenoReference {
 
-	public String getDisplayName();
+	public StenoOrder getStenoReference(int code);
 
 }

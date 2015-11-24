@@ -19,3 +19,22 @@ Translators process the received evaluator symbols and find the correct dictiona
 Printer
 -------
 Sends simulated key presses and commands to the underlying operating system.
+
+Project Resources
+-------
+The project uses the following resources:
+
+Name: JNA
+Version: 4.1.0
+Link: https://github.com/java-native-access/jna
+
+Name: JSON.simple
+Version: 1.1.1
+Link: https://code.google.com/p/json-simple/
+
+Name: JNativeHook
+Version: 2.0.1
+Link: https://github.com/kwhat/jnativehook
+
+RXTX binary builds provided as a courtesy of Mfizz Inc. (http://mfizz.com/).
+Please see http://mfizz.com/oss/rxtx-for-java for more information.

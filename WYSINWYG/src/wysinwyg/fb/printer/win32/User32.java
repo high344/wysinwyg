@@ -8,10 +8,15 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.fb.printer.win32;
 
-public interface ComboboxDisplayName {
+import com.sun.jna.Library;
+import com.sun.jna.platform.win32.WinUser;
 
-	public String getDisplayName();
+public interface User32 extends Library {
+
+	public int SendInput(int nInputs, WinUser.INPUT[] pInputs, int cbsize);
+
+	public int MapVirtualKey(int uCode, int uMapType);
 
 }

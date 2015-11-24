@@ -8,10 +8,21 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.fw.evaluator;
 
-public interface ComboboxDisplayName {
+/**
+ * The listener interface for receiving evaluation events. The class that is
+ * interested in processing an {@linkplain EvaluationEvent} implements this
+ * interface.
+ * 
+ * @author FelfoldiB.
+ *
+ */
+public interface EvaluationListener {
 
-	public String getDisplayName();
+	/**
+	 * Invoked when an evaluation event occurs.
+	 */
+	public void evaluationEventOccurred(EvaluationEvent e);
 
 }

@@ -8,10 +8,26 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.fb.device.keyboard;
 
-public interface ComboboxDisplayName {
+import javax.swing.JPanel;
+import javax.swing.JCheckBox;
+import javax.swing.BoxLayout;
 
-	public String getDisplayName();
+public class KeyboardView extends JPanel {
+
+	private static final long serialVersionUID = 459644234125637827L;
+
+	private JCheckBox chckbxEcho;
+
+	public KeyboardView() {
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		chckbxEcho = new JCheckBox("Echo");
+		add(chckbxEcho);
+	}
+
+	public JCheckBox getChckbxEcho() {
+		return chckbxEcho;
+	}
 
 }

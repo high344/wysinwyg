@@ -8,10 +8,24 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.fw.device;
 
-public interface ComboboxDisplayName {
+/**
+ * The listener interface for receiving device events. The class that is
+ * interested in processing a {@linkplain DeviceEvent} implements this
+ * interface.
+ * 
+ * @author FelfoldiB.
+ *
+ */
+public interface DeviceListener {
 
-	public String getDisplayName();
+	/**
+	 * Invoked when a device event occurs.
+	 * 
+	 * @param e
+	 *            the occurred event.
+	 */
+	public void deviceEventOccurred(DeviceEvent e);
 
 }

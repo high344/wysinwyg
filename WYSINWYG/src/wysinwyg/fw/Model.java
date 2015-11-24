@@ -8,10 +8,14 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.fw;
 
-public interface ComboboxDisplayName {
-
-	public String getDisplayName();
+/**
+ * A possible Model object of the MVC framework.
+ * 
+ * @author FelfoldiB.
+ *
+ */
+public interface Model {
 
 }
