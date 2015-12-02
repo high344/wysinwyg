@@ -30,7 +30,7 @@ public class DeviceEvent extends EventObject {
 	private int scanCode;
 	private int keyState;
 	private boolean consume;
-
+	
 	public DeviceEvent(Object source, int vKeyCode, int scanCode, int keyState) {
 		super(source);
 		this.vKeyCode = vKeyCode;

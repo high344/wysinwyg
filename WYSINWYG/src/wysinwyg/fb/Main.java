@@ -12,8 +12,6 @@ package wysinwyg.fb;
 
 import javax.swing.JFrame;
 
-import wysinwyg.fw.Init;
-
 public class Main {
 
 	//TODO In need of a Mutex start...
@@ -55,10 +53,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		//Initialize WYSINWYG and put it on a frame.
-		Init wysinwyg = new WysinwygInit();
+		WysinwygController controller = new WysinwygBuilder().build();
 		
 		JFrame frame = new JFrame("WhatYouStrokeIsNotWhatYouGet");
-		frame.setContentPane(wysinwyg.getView());
+		frame.setContentPane(controller.getView());
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);

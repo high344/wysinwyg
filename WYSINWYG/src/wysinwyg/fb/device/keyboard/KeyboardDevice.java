@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import wysinwyg.fb.device.keyboard.hook.AbstractKeyboardHook;
 import wysinwyg.fb.device.keyboard.hook.KeyboardHookWin32;
@@ -44,7 +45,7 @@ public class KeyboardDevice implements Keyboard, Init, Device, DeviceListener {
 	}
 
 	@Override
-	public JComponent getView() {
+	public JPanel getView() {
 		return view;
 	}
 

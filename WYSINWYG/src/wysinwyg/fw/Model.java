@@ -16,6 +16,7 @@ package wysinwyg.fw;
  * @author FelfoldiB.
  *
  */
+@Deprecated
 public interface Model {
 
 }

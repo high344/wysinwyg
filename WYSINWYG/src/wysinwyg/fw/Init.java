@@ -18,6 +18,7 @@ import javax.swing.JComponent;
  * @author FelfoldiB.
  *
  */
+@Deprecated
 public interface Init {
 
 	/**

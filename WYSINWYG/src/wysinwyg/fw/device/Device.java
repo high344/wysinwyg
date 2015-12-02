@@ -10,19 +10,18 @@
  ******************************************************************************/
 package wysinwyg.fw.device;
 
+import wysinwyg.fw.Viewable;
 import wysinwyg.utils.ComboboxDisplayName;
 
 /**
- * The interface for defining and interacting with the {@linkplain DeviceInit}
- * and it's components.
  * 
  * @author FelfoldiB.
  *
  */
-public interface Device extends ComboboxDisplayName {
+public interface Device extends Viewable, ComboboxDisplayName {
 
 	/**
-	 * A {@code DeviceListener} wants to register itself to this device.
+	 * Register a {@code DeviceListener} to the device.
 	 * 
 	 * @param devListener
 	 *            the aforementioned {@code DeviceListener}
@@ -30,7 +29,7 @@ public interface Device extends ComboboxDisplayName {
 	public void addDeviceListener(DeviceListener devListener);
 
 	/**
-	 * A {@code DeviceListener} wants to unregister itself from this device.
+	 * Unregister a {@code DeviceListener} from the device.
 	 * 
 	 * @param devListener
 	 *            the aforementioned {@code DeviceListener}

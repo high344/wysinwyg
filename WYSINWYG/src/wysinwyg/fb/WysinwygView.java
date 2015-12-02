@@ -17,22 +17,15 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import wysinwyg.fw.device.DeviceView;
-import wysinwyg.fw.evaluator.EvaluatorView;
-import wysinwyg.fw.translator.TranslatorView;
 
 /**
- * JPanel with a {@linkplain WysinwygControlPanel} on upper left side. A
- * possible {@linkplain DeviceView} on the upper center. A possible
- * {@linkplain EvaluatorView} on the upper right side and a possible
- * {@linkplain TranslatorView} in the middle. All acquired from a
- * {@linkplain WysinwygModel}
+ * A {@linkplain JPanel} with a {@linkplain WysinwygControlPanel} and
+ * {@linkplain DeviceView}.
  * 
  * <pre>
- * |---------------------------------------------------|
- * | WysinwygControlPanel | DeviceView | EvaluatorView |
- * |---------------------------------------------------|
- * |                      TranslatorView               |
- * |---------------------------------------------------|
+ * |-----------------------------------|
+ * | WysinwygControlPanel | DeviceView |
+ * |-----------------------------------|
  * </pre>
  * 
  * @author FelfoldiB.
@@ -42,58 +35,47 @@ public class WysinwygView extends JPanel {
 
 	private static final long serialVersionUID = 2364150470979116210L;
 
-	private WysinwygModel model;
 	private WysinwygControlPanel controlPanel;
+	private DeviceView deviceView;
 
 	/**
-	 * Creating a JPanel from the {@code model} elements. If the {@code model}
-	 * is {@code null} only a WysinwygControlPanel will be set.
-	 * 
-	 * @see WysinwygView
-	 * @param model
-	 *            can be {@code null}.
+	 * Creating the {@linkplain JPanel} specified in the
+	 * {@linkplain WysinwygView}.
 	 */
-	public WysinwygView(WysinwygModel model) {
-		this.model = model;
-		buildGUI();
-	}
-
-	/**
-	 * 
-	 * @return a WysinwygControlPanel class.
-	 * @see WysinwygControlPanel
-	 */
-	public WysinwygControlPanel getControlPanel() {
-		return controlPanel;
-	}
-
-	private void buildGUI() {
+	public WysinwygView() {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(new BorderLayout(0, 0));
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane);
 
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout(5, 5));
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(new BorderLayout(5, 5));
 
 		controlPanel = new WysinwygControlPanel();
 		panel_1.add(controlPanel, BorderLayout.WEST);
 
-		if (model != null) {
-			if (model.getDevice() != null) {
-				panel_1.add(model.getDevice().getView(), BorderLayout.CENTER);
-			}
-			if (model.getEvaluator() != null) {
-				panel_1.add(model.getEvaluator().getView(), BorderLayout.EAST);
-			}
-			panel.add(panel_1, BorderLayout.NORTH);
-			if (model.getTranslator() != null) {
-				panel.add(model.getTranslator().getView(), BorderLayout.CENTER);
-			}
-		}
-		scrollPane.setViewportView(panel);
+		deviceView = new DeviceView();
+		panel_1.add(deviceView, BorderLayout.CENTER);
+
+		scrollPane.setViewportView(panel_1);
+	}
+
+	/**
+	 * 
+	 * @return a {@linkplain WysinwygControlPanel}.
+	 * @see {@linkplain WysinwygView}.
+	 */
+	public WysinwygControlPanel getControlPanel() {
+		return controlPanel;
+	}
+
+	/**
+	 * 
+	 * @return a {@linkplain DeviceView}.
+	 * @see {@linkplain WysinwygView}.
+	 */
+	public DeviceView getDeviceView() {
+		return deviceView;
 	}
 
 }

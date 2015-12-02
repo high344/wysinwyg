@@ -23,21 +23,19 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultCaret;
 
-import wysinwyg.fw.Init;
 import wysinwyg.utils.ComboboxListCellRenderer;
 
 /**
- * JPanel with a JComboBox containing {@linkplain Device devices}. If the device
- * is an instance of the {@linkplain Init init MVC} than the View component is
- * also added in a CardLayout form. If the View is {@code null}, a new JPanel is
- * added. A JTextArea of the occurring {@linkplain DeviceEvent device events} is
- * also present at the bottom.
+ * Extended {@linkplain JPanel} class with a {@linkplain JComboBox} with
+ * {@linkplain Device} type elements and a {@linkplain ComboboxListCellRenderer}
+ * for it's renderer. A {@linkplain CardLayout} form and a
+ * {@linkplain JTextArea}.
  * 
  * <pre>
  * |------------------------|
  * |        JComboBox       |
  * |------------------------|
- * | CardLayout: DeviceView |
+ * |        CardLayout      |
  * |------------------------|
  * |        JTextArea       |
  * |------------------------|
@@ -50,25 +48,15 @@ public class DeviceView extends JPanel {
 
 	private static final long serialVersionUID = 1550900345407909849L;
 
-	private DeviceModel model;
 	private JComboBox<Device> comboBox;
 	private JPanel cardsPanel;
 	private JTextArea textArea;
 
 	/**
-	 * Creating a JPanel from the {@code model} elements, if it's {@code null}
-	 * an empty JComboBox will still be present.
-	 * 
-	 * @see DeviceView
-	 * @param model
-	 *            can be {@code null}.
+	 * Creating the {@linkplain JPanel} specified in the {@linkplain DeviceView}
+	 * .
 	 */
-	public DeviceView(DeviceModel model) {
-		this.model = model;
-		buildGUI();
-	}
-
-	private void buildGUI() {
+	public DeviceView() {
 		setBorder(new TitledBorder(null, "Device:", TitledBorder.LEADING, TitledBorder.TOP, null,
 				null));
 		setLayout(new BorderLayout(0, 0));
@@ -78,12 +66,7 @@ public class DeviceView extends JPanel {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		add(panel, BorderLayout.NORTH);
 
-		if (model != null && model.getDevices() != null) {
-			comboBox = new JComboBox<Device>(model.getDevices());
-		} else {
-			comboBox = new JComboBox<Device>();
-		}
-
+		comboBox = new JComboBox<Device>();
 		comboBox.setPreferredSize(new Dimension(150, 20));
 		comboBox.setRenderer(new ComboboxListCellRenderer());
 		panel.add(comboBox);
@@ -91,19 +74,6 @@ public class DeviceView extends JPanel {
 		cardsPanel = new JPanel();
 		add(cardsPanel, BorderLayout.WEST);
 		cardsPanel.setLayout(new CardLayout(0, 0));
-
-		if (model != null && model.getDevices() != null) {
-			for (Device d : model.getDevices()) {
-				if (d instanceof Init) {
-					Init init = (Init) d;
-					if (init.getView() != null) {
-						cardsPanel.add(init.getView(), d.getDisplayName());
-					} else {
-						cardsPanel.add(new JPanel(), d.getDisplayName());
-					}
-				}
-			}
-		}
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Device Input:", TitledBorder.LEADING,
@@ -124,25 +94,29 @@ public class DeviceView extends JPanel {
 
 	/**
 	 * 
-	 * @return a JComboBox containing {@linkplain Device devices}.
+	 * @return a {@linkplain JComboBox} containing {@linkplain Device}
+	 *         type elements.
+	 * @see {@linkplain DeviceView}.
 	 */
-	public JComboBox<Device> getComboBox() {
+	protected JComboBox<Device> getComboBox() {
 		return comboBox;
 	}
 
 	/**
 	 * 
-	 * @return a JPanel class, with CardLayout.
+	 * @return a {@linkplain JPanel} class, with a {@linkplain CardLayout}.
+	 * @see {@linkplain DeviceView}.
 	 */
-	public JPanel getCardsPanel() {
+	protected JPanel getCardsPanel() {
 		return cardsPanel;
 	}
 
 	/**
 	 * 
-	 * @return a JTextArea class.
+	 * @return a {@linkplain JTextArea} class.
+	 * @see {@linkplain DeviceView}.
 	 */
-	public JTextArea getTextArea() {
+	protected JTextArea getTextArea() {
 		return textArea;
 	}
 

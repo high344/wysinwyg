@@ -13,47 +13,42 @@ package wysinwyg.fw.device;
 import java.awt.CardLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Objects;
+import java.util.List;
 
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import wysinwyg.fw.Controller;
-import wysinwyg.fw.Init;
+import wysinwyg.fw.Viewable;
 
 /**
- * Implementing listeners for the {@linkplain DeviceModel} and for the
- * {@linkplain DeviceView}
  * 
  * @author FelfoldiB.
  *
  */
-public class DeviceController implements Controller, ItemListener, DeviceListener {
+public class DeviceController implements Controller, ItemListener, DeviceListener, Viewable {
 
 	private DeviceView view;
-	private DeviceModel model;
 
 	/**
-	 * Creating a controller by implementing listeners for the
-	 * {@linkplain DeviceModel} and the {@linkplain DeviceView}.
 	 * 
-	 * @param model
-	 *            the added model, can not be {@code null}.
+	 * @param devices
 	 * @param view
-	 *            the added view, can not be {@code null}.
 	 */
-	public DeviceController(DeviceModel model, DeviceView view) {
-		Objects.requireNonNull(model);
-		Objects.requireNonNull(view);
-
+	public DeviceController(List<Device> devices, DeviceView view) {
 		this.view = view;
-		this.model = model;
-		this.model.setController(this);
 
-		if (model.getDevices() != null) {
-			for (Device d : model.getDevices()) {
-				if (d != null) {
-					d.addDeviceListener(this);
+		if (!devices.isEmpty()) {
+			if (SwingUtilities.isEventDispatchThread()) {
+				addDevices(devices);
+			} else {
+				try {
+					if (view.isVisible()) {
+						SwingUtilities.invokeAndWait(createAddDevices(devices));
+					} else {
+						addDevices(devices);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
@@ -61,22 +56,57 @@ public class DeviceController implements Controller, ItemListener, DeviceListene
 		view.getComboBox().addItemListener(this);
 	}
 
-	/**
-	 * The {@linkplain DeviceView}'s card layout will be changed to the selected
-	 * {@linkplain Device}'s view if the device is also {@linkplain Init
-	 * implementing an MVC}.
-	 */
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		CardLayout cl = (CardLayout) (view.getCardsPanel().getLayout());
-		cl.show(view.getCardsPanel(),
-				((Device) view.getComboBox().getSelectedItem()).getDisplayName());
+	private void addDevices(List<Device> devices) {
+		for (Device d : devices) {
+			if (d != null) {
+				addDevice(d);
+				d.addDeviceListener(this);
+			}
+		}
+	}
+
+	private Runnable createAddDevices(final List<Device> devices) {
+		return new Runnable() {
+
+			@Override
+			public void run() {
+				addDevices(devices);
+			}
+		};
 	}
 
 	/**
-	 * Returns the selected Device from the combo box.
 	 * 
-	 * @return a class implementing the {@linkplain Device} interface.
+	 */
+	@Override
+	public DeviceView getView() {
+		return view;
+	}
+
+	/**
+	 * 
+	 * @param device
+	 */
+	public void addDevice(Device device) {
+		view.getComboBox().addItem(device);
+		view.getCardsPanel().add(device.getView(), device.getDisplayName());
+	}
+
+	/**
+	 * The {@linkplain DeviceView}'s card layout will be changed to the selected
+	 * {@linkplain Device}'s view.
+	 */
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			CardLayout cl = (CardLayout) (view.getCardsPanel().getLayout());
+			cl.show(view.getCardsPanel(), ((Device) e.getItem()).getDisplayName());
+		}
+	}
+
+	/**
+	 * 
+	 * @return Returns the selected {@linkplain Device} from the combo box.
 	 */
 	public Device getSelectedDevice() {
 		return ((Device) view.getComboBox().getSelectedItem());
@@ -97,41 +127,6 @@ public class DeviceController implements Controller, ItemListener, DeviceListene
 			@Override
 			public void run() {
 				view.getTextArea().append(str + "\n");
-			}
-		};
-	}
-
-	/**
-	 * Called by the {@linkplain DeviceModel#setDevices(Device[])} when the data
-	 * is changed. The {@linkplain DeviceView} will be changed according to the
-	 * new data.
-	 */
-	protected void modelChanged() {
-		SwingUtilities.invokeLater(createModelChangedUpdate());
-	}
-
-	private Runnable createModelChangedUpdate() {
-		return new Runnable() {
-
-			@Override
-			public void run() {
-				view.getCardsPanel().removeAll();
-				view.getComboBox().removeAllItems();
-
-				for (Device d : model.getDevices()) {
-					if (d != null) {
-						d.addDeviceListener(DeviceController.this);
-						view.getComboBox().addItem(d);
-						if (d instanceof Init) {
-							Init init = (Init) d;
-							if (init.getView() != null) {
-								view.getCardsPanel().add(init.getView(), d.getDisplayName());
-							} else {
-								view.getCardsPanel().add(new JPanel(), d.getDisplayName());
-							}
-						}
-					}
-				}
 			}
 		};
 	}

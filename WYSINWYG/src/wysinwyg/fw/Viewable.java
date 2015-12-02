@@ -8,8 +8,23 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils.serial;
+package wysinwyg.fw;
 
-public class SerialController {
+import javax.swing.JPanel;
+
+/**
+ * The specified class implementing this interface contains a graphical
+ * component on a {@linkplain JPanel}.
+ * 
+ * @author FelfoldiB.
+ */
+public interface Viewable {
+
+	/**
+	 * 
+	 * @return The graphical component.
+	 * @see {@linkplain Viewable}.
+	 */
+	public JPanel getView();
 
 }

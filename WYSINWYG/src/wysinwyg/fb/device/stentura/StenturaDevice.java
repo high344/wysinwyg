@@ -11,16 +11,19 @@
 package wysinwyg.fb.device.stentura;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import wysinwyg.fw.Controller;
 import wysinwyg.fw.Init;
 import wysinwyg.fw.Model;
 import wysinwyg.fw.device.Device;
 import wysinwyg.fw.device.DeviceListener;
+import wysinwyg.fw.device.serial.SerialBuilder;
 
-public class StenturaDevice implements Init, Device {
+public class StenturaDevice implements Device, Init {
 
-	private StenturaView panel = new StenturaView();
+	private StenturaSerialComm comm;
+	private StenturaView panel;
 
 	private int[] CRC_TABLE = { 0x0000, 0xc0c1, 0xc181, 0x0140, 0xc301, 0x03c0, 0x0280, 0xc241,
 			0xc601, 0x06c0, 0x0780, 0xc741, 0x0500, 0xc5c1, 0xc481, 0x0440, 0xcc01, 0x0cc0, 0x0d80,
@@ -47,21 +50,14 @@ public class StenturaDevice implements Init, Device {
 			0x8c41, 0x4400, 0x84c1, 0x8581, 0x4540, 0x8701, 0x47c0, 0x4680, 0x8641, 0x8201, 0x42c0,
 			0x4380, 0x8341, 0x4100, 0x81c1, 0x8081, 0x4040 };
 
-	@Override
-	public JComponent getView() {
-		// TODO Auto-generated method stub
-		return panel;
-	}
-
-	@Override
-	public Controller getController() {
-		// TODO Auto-generated method stub
-		return null;
+	public StenturaDevice() {
+		comm = new StenturaSerialComm();
+		panel = new StenturaView();
+		comm.setSerialController(new SerialBuilder().setSerialModel(comm).setSerialView(panel.getSerialView()).build());
 	}
 
 	@Override
 	public String getDisplayName() {
-		// TODO Auto-generated method stub
 		return "Stentura";
 	}
 
@@ -166,7 +162,16 @@ public class StenturaDevice implements Init, Device {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+	@Override
+	public JPanel getView() {
+		return panel;
+	}
+
+	@Override
+	public Controller getController() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

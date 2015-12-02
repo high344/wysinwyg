@@ -11,7 +11,7 @@
 package wysinwyg.fw;
 
 /**
- * A possible Controller object of the MVC framework.
+ * The Controller interface of the MVC framework.
  * 
  * @author FelfoldiB.
  *
