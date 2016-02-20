@@ -4,8 +4,8 @@
 	<classpathentry kind="src" path="src/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="src/resources/json-simple-1.1.1.jar"/>
-	<classpathentry kind="lib" path="src/resources/jna-4.1.0.jar"/>
-	<classpathentry kind="lib" path="src/resources/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="lib" path="src/resources/jna-4.2.1.jar"/>
+	<classpathentry kind="lib" path="src/resources/jna-platform-4.2.1.jar"/>
 	<classpathentry kind="lib" path="src/resources/JNativeHook.jar"/>
 	<classpathentry kind="lib" path="src/resources/RXTXcomm.jar"/>
 	<classpathentry kind="output" path="bin"/>
