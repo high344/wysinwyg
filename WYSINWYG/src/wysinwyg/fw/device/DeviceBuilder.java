@@ -45,8 +45,10 @@ public class DeviceBuilder implements Builder {
 	 * @return the {@linkplain DeviceBuilder}.
 	 */
 	public DeviceBuilder addDevice(Device device) {
-		if (!devices.contains(device)) {
-			devices.add(device);
+		if (device != null) {
+			if (!devices.contains(device)) {
+				devices.add(device);
+			}
 		}
 		return this;
 	}
@@ -72,8 +74,10 @@ public class DeviceBuilder implements Builder {
 	 * @return the {@linkplain DeviceBuilder}.
 	 */
 	public DeviceBuilder addDeviceList(List<Device> list) {
-		for (Device d : list) {
-			addDevice(d);
+		if (list != null) {
+			for (Device d : list) {
+				addDevice(d);
+			}
 		}
 		return this;
 	}

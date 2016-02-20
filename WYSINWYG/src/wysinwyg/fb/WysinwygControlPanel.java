@@ -15,7 +15,7 @@ import javax.swing.JToggleButton;
 import javax.swing.border.TitledBorder;
 
 /**
- * A "control" titled JPanel with a "start" JToggleButton.
+ * A "Control" titled JPanel with a "Start" JToggleButton.
  * 
  * @author FelfoldiB.
  *

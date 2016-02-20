@@ -30,6 +30,8 @@ import wysinwyg.fw.device.DeviceController;
  */
 public class WysinwygController implements Controller, ActionListener, Viewable {
 
+	public static boolean debug;
+	
 	private WysinwygView view;
 	private DeviceController deviceController;
 	private JToggleButton tglbtnStart;

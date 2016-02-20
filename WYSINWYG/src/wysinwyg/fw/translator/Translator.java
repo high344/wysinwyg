@@ -14,8 +14,8 @@ import java.io.File;
 
 import wysinwyg.fw.evaluator.EvaluationListener;
 import wysinwyg.fw.translator.dictionary.Dictionary;
-import wysinwyg.utils.ComboboxDisplayName;
 import wysinwyg.utils.FileFilter;
+import wysinwyg.utils.renderer.ComboboxDisplayName;
 
 public interface Translator extends ComboboxDisplayName, EvaluationListener {
 

@@ -23,7 +23,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultCaret;
 
-import wysinwyg.utils.ComboboxListCellRenderer;
+import wysinwyg.utils.renderer.ComboboxListCellRenderer;
 
 /**
  * Extended {@linkplain JPanel} class with a {@linkplain JComboBox} with

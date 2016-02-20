@@ -11,7 +11,7 @@
 package wysinwyg.fw.evaluator;
 
 import wysinwyg.fw.device.DeviceListener;
-import wysinwyg.utils.ComboboxDisplayName;
+import wysinwyg.utils.renderer.ComboboxDisplayName;
 
 /**
  * The interface for defining and interacting with the

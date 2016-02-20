@@ -8,7 +8,7 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.utils;
+package wysinwyg.utils.renderer;
 
 public interface ComboboxDisplayName {
 

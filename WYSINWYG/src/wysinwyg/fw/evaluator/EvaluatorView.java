@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import wysinwyg.fw.Init;
-import wysinwyg.utils.ComboboxListCellRenderer;
+import wysinwyg.utils.renderer.ComboboxListCellRenderer;
 
 /**
  * JPanel with a JComboBox containing {@linkplain Evaluator evaluators}. If the

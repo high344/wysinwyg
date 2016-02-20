@@ -10,31 +10,58 @@
  ******************************************************************************/
 package wysinwyg.fb;
 
-import java.util.Arrays;
-
-import wysinwyg.fb.device.keyboard.KeyboardDevice;
-import wysinwyg.fb.device.stentura.StenturaDevice;
+import wysinwyg.fb.device.Devices;
+import wysinwyg.fb.mutex.Mutex;
+import wysinwyg.fb.mutex.MutexException;
 import wysinwyg.fw.Builder;
-import wysinwyg.fw.device.Device;
 import wysinwyg.fw.device.DeviceBuilder;
 import wysinwyg.fw.device.DeviceController;
+import wysinwyg.utils.ErrorMessage;
 
 public class WysinwygBuilder implements Builder {
 
+	static {
+		WysinwygController.debug = Boolean.parseBoolean(System.getProperty("wysinwyg.debug"));
+	}
+
 	@Override
 	public WysinwygController build() {
+
+		testOnlyInstance();
+
 		WysinwygView view = new WysinwygView();
 
-		Device[] devices = new Device[2];
-		devices[0] = new KeyboardDevice();
-		devices[1] = new StenturaDevice();
-		DeviceController deviceController = new DeviceBuilder().setDeviceView(view.getDeviceView())
-				.addDeviceList(Arrays.asList(devices)).build();
+		DeviceController deviceController = createDeviceController(view);
 
 		WysinwygController controller = new WysinwygController(view);
 		controller.setDeviceController(deviceController);
 
 		return controller;
+	}
+
+	private void testOnlyInstance() {
+		try {
+			Mutex.block();
+			Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						Mutex.release();
+					} catch (MutexException e) {
+						ErrorMessage.show(e, WysinwygController.debug);
+					}
+				}
+			}, "MutexShutdownHook"));
+		} catch (MutexException e) {
+			ErrorMessage.show(e, WysinwygController.debug);
+			System.exit(1);
+		}
+	}
+
+	private DeviceController createDeviceController(WysinwygView view) {
+		return new DeviceBuilder().setDeviceView(view.getDeviceView()).addDeviceList(new Devices().readUpDevices())
+				.build();
 	}
 
 }

@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import wysinwyg.fw.Init;
-import wysinwyg.utils.ComboboxListCellRenderer;
+import wysinwyg.utils.renderer.ComboboxListCellRenderer;
 
 public class TranslatorView extends JPanel {
 

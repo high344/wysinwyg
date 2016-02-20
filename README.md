@@ -25,7 +25,7 @@ Project Resources
 The project uses the following resources:
 
 Name: JNA
-Version: 4.1.0
+Version: 4.2.1
 Link: https://github.com/java-native-access/jna
 
 Name: JSON.simple

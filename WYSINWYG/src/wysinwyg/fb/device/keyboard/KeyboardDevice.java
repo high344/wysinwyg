@@ -17,7 +17,9 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import wysinwyg.fb.device.keyboard.hook.AbstractKeyboardHook;
+import wysinwyg.fb.device.keyboard.hook.KeyboardHookJNativeHook;
 import wysinwyg.fb.device.keyboard.hook.KeyboardHookWin32;
+import wysinwyg.fb.device.keyboard.hook.KeyboardHookX11;
 import wysinwyg.fw.Controller;
 import wysinwyg.fw.Init;
 import wysinwyg.fw.Model;
@@ -35,8 +37,9 @@ public class KeyboardDevice implements Keyboard, Init, Device, DeviceListener {
 		list = new ArrayList<DeviceListener>(10);
 		view = new KeyboardView();
 		// TODO
-		// hook = new KeyboardHookJNativeHook(this);
+		//hook = new KeyboardHookJNativeHook(this);
 		hook = new KeyboardHookWin32(this);
+		//hook = new KeyboardHookX11(this);
 	}
 
 	@Override

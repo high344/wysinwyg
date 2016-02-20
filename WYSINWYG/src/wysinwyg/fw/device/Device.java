@@ -11,7 +11,7 @@
 package wysinwyg.fw.device;
 
 import wysinwyg.fw.Viewable;
-import wysinwyg.utils.ComboboxDisplayName;
+import wysinwyg.utils.renderer.ComboboxDisplayName;
 
 /**
  * 
