@@ -10,7 +10,6 @@
  ******************************************************************************/
 package wysinwyg.fb.device.stentura;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import wysinwyg.fw.Controller;
