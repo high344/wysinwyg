@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2015 Balazs Felfoldi.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Balazs Felfoldi - initial API and implementation
+ ******************************************************************************/
 package wysinwyg.fb.device;
 
 import java.io.File;
@@ -26,7 +36,9 @@ public class Devices {
 			prop.put("device1", KeyboardDevice.class.getName());
 			prop.put("device2", StenturaDevice.class.getName());
 			try {
-				PropertiesUtils.saveProperties(prop, DEFAULT_DEVICES_file);
+				PropertiesUtils.saveProperties(prop,
+						"This file can be edited freely by adding a unique key (name is not important) and a device.",
+						DEFAULT_DEVICES_file);
 			} catch (IOException e) {
 				ErrorMessage.show(e, Boolean.parseBoolean(System.getProperty("wysinwyg.devices")));
 			}
@@ -63,5 +75,5 @@ public class Devices {
 		}
 		return arr;
 	}
-	
+
 }

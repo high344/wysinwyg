@@ -26,8 +26,10 @@ public class WysinwygBuilder implements Builder {
 
 	@Override
 	public WysinwygController build() {
-
-		testOnlyInstance();
+		String s = System.getProperty("wysinwyg.mutex");
+		if(s == null || !s.equalsIgnoreCase("false")) {
+			testOnlyInstance();
+		}
 
 		WysinwygView view = new WysinwygView();
 

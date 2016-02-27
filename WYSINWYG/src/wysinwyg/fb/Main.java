@@ -18,7 +18,6 @@ public class Main {
 	// FIXME DOCUMENTATION!
 	// TODO MAVEN build Up?
 
-	// TODO {link KeyboardDevice} Misery with hooks and places!?
 	// TODO LinuxKeyboardHook or jnative???
 	// TODO {link KeyboardDevice} More flash and substance??
 	// TODO Device Serial, RxTx, etc...

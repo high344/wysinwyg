@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2015 Balazs Felfoldi.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Balazs Felfoldi - initial API and implementation
+ ******************************************************************************/
 package wysinwyg.utils;
 
 import java.io.File;
@@ -26,10 +36,14 @@ public class PropertiesUtils {
 	}
 
 	public static void saveProperties(Properties prop, File f) throws IOException {
+		saveProperties(prop, null, f);
+	}
+
+	public static void saveProperties(Properties prop, String comments, File f) throws IOException {
 		OutputStream out = new FileOutputStream(f);
 
 		try {
-			prop.store(out, null);
+			prop.store(out, comments);
 		} catch (IOException e) {
 			throw new IOException(e);
 		} finally {
