@@ -45,19 +45,17 @@ public class SerialView extends JPanel {
 	private JTextField textFieldTimeout;
 	private JCheckBox chckbxRTSCTS;
 	private JCheckBox chckbxXonXoff;
-	private JButton btnSet;
-	private JButton btnCancel;
+	private JButton btnSave;
+	private JButton btnReload;
 
 	/**
-	 * Creating the {@linkplain JPanel} specified in the {@linkplain SerialView}
-	 * .
+	 * Creating the {@linkplain JPanel} specified in the {@linkplain SerialView} .
 	 */
 	public SerialView() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Connection:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(null, "Connection:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		add(panel);
 		panel.setLayout(new GridLayout(2, 2, 0, 0));
 
@@ -90,8 +88,7 @@ public class SerialView extends JPanel {
 
 		JPanel panel_1 = new JPanel();
 		add(panel_1);
-		panel_1.setBorder(new TitledBorder(null, "Data Format:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(null, "Data Format:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setLayout(new GridLayout(3, 6, 5, 5));
 
 		JLabel lblNewLabel_2 = new JLabel("Data Bits:");
@@ -115,8 +112,7 @@ public class SerialView extends JPanel {
 		JPanel panel_2 = new JPanel();
 		FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
-		panel_2.setBorder(new TitledBorder(null, "Timeout:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		panel_2.setBorder(new TitledBorder(null, "Timeout:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		add(panel_2);
 
 		chckbxTimeout = new JCheckBox("Use Timeout");
@@ -134,8 +130,7 @@ public class SerialView extends JPanel {
 		panel_3.setLayout(new GridLayout(0, 2, 0, 0));
 
 		JPanel panel_7 = new JPanel();
-		panel_7.setBorder(new TitledBorder(null, "Flow Control:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		panel_7.setBorder(new TitledBorder(null, "Flow Control:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_3.add(panel_7);
 
 		chckbxRTSCTS = new JCheckBox("RTS / CTS");
@@ -153,14 +148,14 @@ public class SerialView extends JPanel {
 		verticalBox.add(Box.createVerticalGlue());
 		panel_6.setLayout(new BoxLayout(panel_6, BoxLayout.X_AXIS));
 
-		btnSet = new JButton("Set");
-		panel_6.add(btnSet);
+		btnSave = new JButton("Save");
+		panel_6.add(btnSave);
 
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		panel_6.add(horizontalStrut);
 
-		btnCancel = new JButton("Cancel");
-		panel_6.add(btnCancel);
+		btnReload = new JButton("Reload");
+		panel_6.add(btnReload);
 	}
 
 	/**
@@ -255,20 +250,20 @@ public class SerialView extends JPanel {
 
 	/**
 	 * 
-	 * @return a {@linkplain JButton} for setting the values.
+	 * @return a {@linkplain JButton} for saving the values.
 	 * @see {@linkplain SerialView}.
 	 */
-	protected JButton getBtnSet() {
-		return btnSet;
+	protected JButton getBtnSave() {
+		return btnSave;
 	}
 
 	/**
 	 * 
-	 * @return a {@linkplain JButton} for canceling the values.
+	 * @return a {@linkplain JButton} for reloading the values.
 	 * @see {@linkplain SerialView}.
 	 */
-	protected JButton getBtnCancel() {
-		return btnCancel;
+	protected JButton getBtnReload() {
+		return btnReload;
 	}
 
 }

@@ -12,7 +12,7 @@ package wysinwyg.fb;
 
 import javax.swing.JFrame;
 
-public class Main {
+public class MainWysinwyg {
 
 	// TODO Whole buildup without UI...
 	// FIXME DOCUMENTATION!

@@ -13,21 +13,18 @@ package wysinwyg.fb.device.keyboard;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import wysinwyg.fb.WysinwygPath;
 import wysinwyg.fb.device.keyboard.hook.AbstractKeyboardHook;
-import wysinwyg.fb.device.keyboard.hook.KeyboardHookJNativeHook;
 import wysinwyg.fb.device.keyboard.hook.KeyboardHookWin32;
 import wysinwyg.fb.device.keyboard.hook.KeyboardHookX11;
-import wysinwyg.fw.Controller;
-import wysinwyg.fw.Init;
-import wysinwyg.fw.Model;
+import wysinwyg.fw.Viewable;
 import wysinwyg.fw.device.Device;
 import wysinwyg.fw.device.DeviceEvent;
 import wysinwyg.fw.device.DeviceListener;
 
-public class KeyboardDevice implements Keyboard, Init, Device, DeviceListener {
+public class KeyboardDevice implements Viewable, Device, DeviceListener {
 
 	private KeyboardView view;
 	private AbstractKeyboardHook hook;
@@ -36,13 +33,15 @@ public class KeyboardDevice implements Keyboard, Init, Device, DeviceListener {
 	public KeyboardDevice() {
 		list = new ArrayList<DeviceListener>(10);
 		view = new KeyboardView();
-		// TODO
-		//hook = new KeyboardHookJNativeHook(this);
-		hook = new KeyboardHookWin32(this);
-		//hook = new KeyboardHookX11(this);
+		if ("win".equals(WysinwygPath.getOS())) {
+			hook = new KeyboardHookWin32(this);
+		} else if ("linux".equals(WysinwygPath.getOS())) {
+			hook = new KeyboardHookX11(this);
+		} else {
+			// TODO not supported
+		}
 	}
 
-	@Override
 	public AbstractKeyboardHook getHook() {
 		return hook;
 	}
@@ -50,12 +49,6 @@ public class KeyboardDevice implements Keyboard, Init, Device, DeviceListener {
 	@Override
 	public JPanel getView() {
 		return view;
-	}
-
-	@Override
-	public Controller getController() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -89,12 +82,6 @@ public class KeyboardDevice implements Keyboard, Init, Device, DeviceListener {
 		for (DeviceListener d : list) {
 			d.deviceEventOccurred(e);
 		}
-	}
-
-	@Override
-	public Model getModel() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

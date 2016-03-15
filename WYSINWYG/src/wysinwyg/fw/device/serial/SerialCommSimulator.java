@@ -11,18 +11,17 @@
 package wysinwyg.fw.device.serial;
 
 /**
- * This is a simulator class for the serial MVC environment, containing default
- * values for the baudrate, databits, stopbits and parity. See
- * {@linkplain SerialBuilder}, {@linkplain SerialController},
- * {@linkplain SerialView} for reference.
+ * This is a simulator class for the serial MVC environment, containing default values for the baudrate, databits,
+ * stopbits and parity. See {@linkplain SerialBuilder}, {@linkplain SerialController}, {@linkplain SerialView} for
+ * reference.
  * 
  * @author FelfoldiB.
  *
  */
 public class SerialCommSimulator implements SerialComm {
 
-	protected Integer[] baudrate = { 50, 75, 110, 134, 150, 200, 300, 600, 1200, 1800, 2400, 4800,
-			9600, 19200, 38400, 57600, 115200 };
+	protected Integer[] baudrate = { 50, 75, 110, 134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, 9600, 19200, 38400,
+			57600, 115200 };
 
 	protected Integer[] databits = { 5, 6, 7, 8 };
 
@@ -36,12 +35,12 @@ public class SerialCommSimulator implements SerialComm {
 	}
 
 	@Override
-	public void btnSetActionOccurred() {
+	public void btnSaveActionOccurred() {
 
 	}
 
 	@Override
-	public void btnCancelOccurred() {
+	public void btnReloadActionOccurred() {
 
 	}
 

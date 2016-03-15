@@ -25,6 +25,8 @@ import wysinwyg.utils.JarUtils;
  */
 class RXTXLibraryLoader {
 
+	private static boolean success = false;
+
 	private RXTXLibraryLoader() {
 
 	}
@@ -34,22 +36,25 @@ class RXTXLibraryLoader {
 	 * @throws Exception
 	 */
 	static synchronized void load() throws Exception {
-		URL url = RXTXLibraryLoader.class.getResource("/rxtx" + "/" + WysinwygPath.getOS() + "/"
-				+ WysinwygPath.getArch());
-		if (url != null) {
-			Field USR_PATHS = ClassLoader.class.getDeclaredField("usr_paths");
-			USR_PATHS.setAccessible(true);
-			if (url.toString().startsWith("jar")) {
-				File f = new File(WysinwygPath.getHome() + File.separator + "rxtx" + File.separator
-						+ WysinwygPath.getOS() + File.separator + WysinwygPath.getArch());
-				f.mkdirs();
-				URL url2 = RXTXLibraryLoader.class.getProtectionDomain().getCodeSource().getLocation();
-				File f2 = new File(url2.getFile());
-				JarUtils.copyJarFileContent(f2, "rxtx" + "/" + WysinwygPath.getOS() + "/" + WysinwygPath.getArch()
-						+ "/", f);
-				addLibraryPath(f.getPath());
-			} else {
-				addLibraryPath(url.getPath());
+		if (!success) {
+			URL url = RXTXLibraryLoader.class.getResource("/rxtx" + "/" + WysinwygPath.getOS() + "/"
+					+ WysinwygPath.getArch());
+			if (url != null) {
+				Field USR_PATHS = ClassLoader.class.getDeclaredField("usr_paths");
+				USR_PATHS.setAccessible(true);
+				if (url.toString().startsWith("jar")) {
+					File f = new File(WysinwygPath.getHome() + File.separator + "rxtx" + File.separator
+							+ WysinwygPath.getOS() + File.separator + WysinwygPath.getArch());
+					f.mkdirs();
+					URL url2 = RXTXLibraryLoader.class.getProtectionDomain().getCodeSource().getLocation();
+					File f2 = new File(url2.getFile());
+					JarUtils.copyJarFileContent(f2, "rxtx" + "/" + WysinwygPath.getOS() + "/" + WysinwygPath.getArch()
+							+ "/", f);
+					addLibraryPath(f.getPath());
+				} else {
+					addLibraryPath(url.getPath());
+				}
+				success = true;
 			}
 		}
 	}

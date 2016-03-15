@@ -13,9 +13,8 @@ package wysinwyg.fw.device.serial;
 import java.awt.event.ActionEvent;
 
 /**
- * Interface for the serial communication in an MVC environment. See
- * {@linkplain SerialBuilder}, {@linkplain SerialController},
- * {@linkplain SerialView} for reference.
+ * Interface for the serial communication in an MVC environment. See {@linkplain SerialBuilder},
+ * {@linkplain SerialController}, {@linkplain SerialView} for reference.
  * 
  * @author FelfoldiB.
  *
@@ -23,24 +22,21 @@ import java.awt.event.ActionEvent;
 public interface SerialComm {
 
 	/**
-	 * If this interface is connected to a {@linkplain SerialView} by a
-	 * {@linkplain SerialController} This method will be called by the Scan
-	 * button's {@linkplain ActionEvent}.
+	 * If this interface is connected to a {@linkplain SerialView} by a {@linkplain SerialController} This method will
+	 * be called by the Scan button's {@linkplain ActionEvent}.
 	 */
 	public void btnScanActionOccurred();
 
 	/**
-	 * If this interface is connected to a {@linkplain SerialView} by a
-	 * {@linkplain SerialController} This method will be called by the Set
-	 * button's {@linkplain ActionEvent}.
+	 * If this interface is connected to a {@linkplain SerialView} by a {@linkplain SerialController} This method will
+	 * be called by the Set button's {@linkplain ActionEvent}.
 	 */
-	public void btnSetActionOccurred();
+	public void btnSaveActionOccurred();
 
 	/**
-	 * If this interface is connected to a {@linkplain SerialView} by a
-	 * {@linkplain SerialController} This method will be called by the Cancel
-	 * button's {@linkplain ActionEvent}.
+	 * If this interface is connected to a {@linkplain SerialView} by a {@linkplain SerialController} This method will
+	 * be called by the Cancel button's {@linkplain ActionEvent}.
 	 */
-	public void btnCancelOccurred();
+	public void btnReloadActionOccurred();
 
 }
