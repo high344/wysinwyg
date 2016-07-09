@@ -29,13 +29,13 @@ public interface SerialComm {
 
 	/**
 	 * If this interface is connected to a {@linkplain SerialView} by a {@linkplain SerialController} This method will
-	 * be called by the Set button's {@linkplain ActionEvent}.
+	 * be called by the Save button's {@linkplain ActionEvent}.
 	 */
 	public void btnSaveActionOccurred();
 
 	/**
 	 * If this interface is connected to a {@linkplain SerialView} by a {@linkplain SerialController} This method will
-	 * be called by the Cancel button's {@linkplain ActionEvent}.
+	 * be called by the Reload button's {@linkplain ActionEvent}.
 	 */
 	public void btnReloadActionOccurred();
 

@@ -12,7 +12,7 @@ package wysinwyg.fb.printer.win32;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-import wysinwyg.fw.device.DeviceEvent;
+import wysinwyg.fb.device.keyboard.KeyboardEvent;
 import wysinwyg.fw.printer.Printer;
 import wysinwyg.fw.printer.PrinterEvent;
 
@@ -110,8 +110,8 @@ public class Win32Printer implements Printer {
 	}
 
 	@Override
-	public boolean isDeviceEventVirtual(DeviceEvent e) {
-		if (e.getvKeyCode() == 231) {
+	public boolean isKeyboardEventVirtual(KeyboardEvent ke) {
+		if (ke.getvKeyCode() == 231) {
 			return true;
 		}
 		return false;

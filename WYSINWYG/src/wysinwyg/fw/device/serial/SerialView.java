@@ -10,6 +10,7 @@
  ******************************************************************************/
 package wysinwyg.fw.device.serial;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,6 +25,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -48,23 +52,42 @@ public class SerialView extends JPanel {
 	private JButton btnSave;
 	private JButton btnReload;
 
+	private JPanel currentOpt;
+	private Object[][] opt = new Object[9][2];
+
 	/**
 	 * Creating the {@linkplain JPanel} specified in the {@linkplain SerialView} .
 	 */
 	public SerialView() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+		JPanel panel_9 = new JPanel();
+		add(panel_9);
+		panel_9.setLayout(new GridLayout(1, 0, 0, 0));
+
+		currentOpt = new JPanel();
+		currentOpt.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"Current options:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), new EmptyBorder(
+				0, 20, 0, 0)));
+
+		currentOpt.setLayout(new GridLayout(9, 1, 0, 0));
+
+		createCurrentOptionPanels();
+
+		JPanel panel_8 = new JPanel();
+		panel_9.add(panel_8);
+		panel_9.add(currentOpt);
+		panel_8.setLayout(new BoxLayout(panel_8, BoxLayout.Y_AXIS));
+
 		JPanel panel = new JPanel();
+		panel_8.add(panel);
 		panel.setBorder(new TitledBorder(null, "Connection:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		add(panel);
 		panel.setLayout(new GridLayout(2, 2, 0, 0));
 
 		JPanel panel_4 = new JPanel();
-		FlowLayout flowLayout_1 = (FlowLayout) panel_4.getLayout();
-		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		panel.add(panel_4);
 
-		JLabel lblNewLabel = new JLabel("Port:");
+		JLabel lblNewLabel = new JLabel((String) opt[0][0]);
 		panel_4.add(lblNewLabel);
 
 		comboBoxPortName = new JComboBox<String>();
@@ -77,43 +100,41 @@ public class SerialView extends JPanel {
 		panel_4.add(btnScan);
 
 		JPanel panel_5 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_5.getLayout();
-		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel.add(panel_5);
 
-		JLabel lblNewLabel_1 = new JLabel("Baudrate:");
+		JLabel lblNewLabel_1 = new JLabel((String) opt[1][0]);
 		panel_5.add(lblNewLabel_1);
 		comboBoxBaud = new JComboBox<Integer>();
 		panel_5.add(comboBoxBaud);
 
 		JPanel panel_1 = new JPanel();
-		add(panel_1);
+		panel_8.add(panel_1);
 		panel_1.setBorder(new TitledBorder(null, "Data Format:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setLayout(new GridLayout(3, 6, 5, 5));
 
-		JLabel lblNewLabel_2 = new JLabel("Data Bits:");
+		JLabel lblNewLabel_2 = new JLabel((String) opt[2][0]);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_1.add(lblNewLabel_2);
 		comboBoxDataB = new JComboBox<Integer>();
 		panel_1.add(comboBoxDataB);
 
-		JLabel lblNewLabel_3 = new JLabel("Stop Bits:");
+		JLabel lblNewLabel_3 = new JLabel((String) opt[3][0]);
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_1.add(lblNewLabel_3);
 		comboBoxStopB = new JComboBox<String>();
 		panel_1.add(comboBoxStopB);
 
-		JLabel lblNewLabel_4 = new JLabel("Parity:");
+		JLabel lblNewLabel_4 = new JLabel((String) opt[4][0]);
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_1.add(lblNewLabel_4);
 		comboBoxParity = new JComboBox<String>();
 		panel_1.add(comboBoxParity);
 
 		JPanel panel_2 = new JPanel();
+		panel_8.add(panel_2);
 		FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
-		panel_2.setBorder(new TitledBorder(null, "Timeout:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		add(panel_2);
+		panel_2.setBorder(new TitledBorder(null, (String) opt[5][0]+":", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		chckbxTimeout = new JCheckBox("Use Timeout");
 		panel_2.add(chckbxTimeout);
@@ -133,13 +154,14 @@ public class SerialView extends JPanel {
 		panel_7.setBorder(new TitledBorder(null, "Flow Control:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_3.add(panel_7);
 
-		chckbxRTSCTS = new JCheckBox("RTS / CTS");
+		chckbxRTSCTS = new JCheckBox((String) opt[7][0]);
 		panel_7.add(chckbxRTSCTS);
 
-		chckbxXonXoff = new JCheckBox("Xon / Xoff");
+		chckbxXonXoff = new JCheckBox((String) opt[8][0]);
 		panel_7.add(chckbxXonXoff);
 
 		Box verticalBox = Box.createVerticalBox();
+		verticalBox.setBorder(new TitledBorder(null, "Control:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_3.add(verticalBox);
 
 		verticalBox.add(Box.createVerticalGlue());
@@ -156,6 +178,61 @@ public class SerialView extends JPanel {
 
 		btnReload = new JButton("Reload");
 		panel_6.add(btnReload);
+	}
+
+	private void createCurrentOptionPanels() {
+		String[] str = { "Port", "Baudrate", "Data Bits", "Stop Bits", "Parity", "Timeout", "Timeout sec", "RTS / CTS",
+				"Xon / Xoff" };
+
+		for (int i = 0; i < opt.length; i++) {
+			opt[i][0] = str[i];
+			opt[i][1] = new JLabel();
+
+			JPanel panel = new JPanel();
+			panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+			JLabel lbl = new JLabel(str[i] + ": ");
+			panel.add(lbl);
+
+			panel.add((JLabel) opt[i][1]);
+			currentOpt.add(panel);
+		}
+	}
+
+	protected JLabel getPortJLabel() {
+		return (JLabel) opt[0][1];
+	}
+
+	protected JLabel getBaudrateJLabel() {
+		return (JLabel) opt[1][1];
+	}
+
+	protected JLabel getDataBitsJLabel() {
+		return (JLabel) opt[2][1];
+	}
+
+	protected JLabel getStopBitsJLabel() {
+		return (JLabel) opt[3][1];
+	}
+
+	protected JLabel getParityJLabel() {
+		return (JLabel) opt[4][1];
+	}
+
+	protected JLabel getTimeoutJLabel() {
+		return (JLabel) opt[5][1];
+	}
+
+	protected JLabel getTimeoutSecJLabel() {
+		return (JLabel) opt[6][1];
+	}
+
+	protected JLabel getRTSCTSJLabel() {
+		return (JLabel) opt[7][1];
+	}
+
+	protected JLabel getXonXoffJLabel() {
+		return (JLabel) opt[8][1];
 	}
 
 	/**

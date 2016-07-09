@@ -12,56 +12,17 @@ package wysinwyg.fw.device;
 
 import java.util.EventObject;
 
-/**
- * The event that is passed on to the registered {@linkplain DeviceListener
- * device listeners}.
- * 
- * @author FelfoldiB.
- *
- */
 public class DeviceEvent extends EventObject {
 
-	private static final long serialVersionUID = 2191122736234629451L;
+	private static final long serialVersionUID = 3273199165035708065L;
 
-	public static final int DEVICE_KEY_PRESSED = 0;
-	public static final int DEVICE_KEY_RELEASED = 1;
-
-	private int vKeyCode;
-	private int scanCode;
-	private int keyState;
-	private boolean consume;
-	
-	public DeviceEvent(Object source, int vKeyCode, int scanCode, int keyState) {
+	public DeviceEvent(Object source) {
 		super(source);
-		this.vKeyCode = vKeyCode;
-		this.scanCode = scanCode;
-		this.keyState = keyState;
-	}
-
-	public int getvKeyCode() {
-		return vKeyCode;
-	}
-
-	public int getScanCode() {
-		return scanCode;
-	}
-
-	public int getKeyState() {
-		return keyState;
-	}
-
-	public boolean isConsumeEnabled() {
-		return consume;
-	}
-
-	public void setConsumeEnabled(boolean b) {
-		consume = b;
 	}
 
 	@Override
 	public String toString() {
-		return "DeviceEvent [vKeyCode=" + vKeyCode + ", scanCode=" + scanCode + ", keyState="
-				+ ((keyState == 0) ? "pressed" : "released") + ", consume=" + consume + "]";
+		return "DeviceEvent [source=" + source + "]";
 	}
 
 }

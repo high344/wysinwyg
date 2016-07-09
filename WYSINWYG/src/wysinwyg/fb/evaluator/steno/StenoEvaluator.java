@@ -10,50 +10,36 @@
  ******************************************************************************/
 package wysinwyg.fb.evaluator.steno;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 
-import wysinwyg.fw.Controller;
-import wysinwyg.fw.Init;
-import wysinwyg.fw.Model;
+import wysinwyg.fb.device.keyboard.KeyboardEvent;
+import wysinwyg.fb.device.keyboard.KeyboardKeyState;
 import wysinwyg.fw.device.DeviceEvent;
+import wysinwyg.fw.evaluator.AbstractEvaluator;
 import wysinwyg.fw.evaluator.EvaluationEvent;
-import wysinwyg.fw.evaluator.EvaluationListener;
-import wysinwyg.fw.evaluator.Evaluator;
 
-public class StenoEvaluator implements Init, Evaluator, EvaluationListener {
+public class StenoEvaluator extends AbstractEvaluator {
 
-	private boolean arpeggiate;
 	private StenoReference reference;
 	private StenoView view;
 	private char[] charStroke = new char[23];
 	private StenoOrder[] stenos = StenoOrder.values();
-	private List<EvaluationListener> list;
 	private int rawPower;
 
 	public StenoEvaluator(StenoReference refrence) {
 		Objects.requireNonNull(refrence);
 		this.reference = refrence;
-
-		list = new ArrayList<EvaluationListener>(3);
 		zeroCharStroke();
 		view = new StenoView();
 		view.getStentura().removeAllJToggleButtonMouseListener();
 	}
 
 	@Override
-	public JComponent getView() {
+	public JPanel getView() {
 		return view;
-	}
-
-	@Override
-	public Controller getController() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -62,60 +48,32 @@ public class StenoEvaluator implements Init, Evaluator, EvaluationListener {
 	}
 
 	@Override
-	public void deviceEventOccurred(DeviceEvent e) {
-		if (e.getKeyState() == DeviceEvent.DEVICE_KEY_PRESSED) {
+	protected EvaluationEvent evaluateDeviceEvent(DeviceEvent de) {
+		KeyboardEvent ke = (KeyboardEvent) de;
+		if (ke.getKeyState() == KeyboardKeyState.DEVICE_KEY_PRESSED) {
 			StenoOrder steno = null;
-			if ((steno = reference.getStenoReference(e.getvKeyCode())) != null) {
-				rawPower += e.getvKeyCode();
+			if ((steno = reference.getStenoReference(ke.getvKeyCode())) != null) {
+				rawPower += ke.getvKeyCode();
 				charStroke[steno.ordinal()] = '1';
 				view.getStentura().getJToggleButton(steno.name()).setSelected(true);
 			}
-		} else if (e.getKeyState() == DeviceEvent.DEVICE_KEY_RELEASED) {
-			if (reference.getStenoReference(e.getvKeyCode()) != null) {
-				rawPower -= e.getvKeyCode();
+		} else if (ke.getKeyState() == KeyboardKeyState.DEVICE_KEY_RELEASED) {
+			if (reference.getStenoReference(ke.getvKeyCode()) != null) {
+				rawPower -= ke.getvKeyCode();
 				if (rawPower < 0) {
 					rawPower = 0;
 				}
-				if (rawPower == 0 && !arpeggiate) {
+				if (rawPower == 0 && !view.getChckbxArpeggiate().isSelected()) {
 					view.getStentura().setAllJToggleButtonSelected(false);
 					evaluteKeyReleased();
 				}
 				// TODO 32
-			} else if (arpeggiate && e.getvKeyCode() == 32) {
+			} else if (view.getChckbxArpeggiate().isSelected() && ke.getvKeyCode() == 32) {
 				view.getStentura().setAllJToggleButtonSelected(false);
 				evaluteKeyReleased();
 			}
 		}
-		e.setConsumeEnabled(true);
-	}
-
-	@Override
-	public void addEvaluationListener(EvaluationListener evaListener) {
-		list.add(evaListener);
-	}
-
-	@Override
-	public void removeEvaluationListener(EvaluationListener evaListener) {
-		list.remove(evaListener);
-	}
-
-	@Override
-	public void evaluationEventOccurred(EvaluationEvent e) {
-		for (EvaluationListener eva : list) {
-			eva.evaluationEventOccurred(e);
-		}
-	}
-
-	@Override
-	public void startEvaluation() {
-		arpeggiate = view.getChckbxArpeggiate().isSelected();
-	}
-
-	@Override
-	public void stopEvaluation() {
-		rawPower = 0;
-		zeroCharStroke();
-		view.getStentura().setAllJToggleButtonSelected(false);
+		return null;
 	}
 
 	private void zeroCharStroke() {
@@ -153,12 +111,6 @@ public class StenoEvaluator implements Init, Evaluator, EvaluationListener {
 			}
 		}
 		return true;
-	}
-
-	@Override
-	public Model getModel() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

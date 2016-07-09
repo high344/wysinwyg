@@ -10,19 +10,36 @@
  ******************************************************************************/
 package wysinwyg.fw.evaluator;
 
-import wysinwyg.fw.Viewable;
-import wysinwyg.fw.device.DeviceListener;
-import wysinwyg.utils.renderer.ComboboxDisplayName;
+import java.util.ArrayList;
+import java.util.List;
 
-public interface Evaluator extends Viewable, ComboboxDisplayName, DeviceListener, EvaluationListener {
+import wysinwyg.fw.device.DeviceEvent;
 
+public abstract class AbstractEvaluator implements Evaluator {
+
+	protected List<EvaluationListener> list;
+
+	public AbstractEvaluator() {
+		list = new ArrayList<EvaluationListener>(3);
+	}
+	
+	@Override
+	public void deviceEventOccurred(DeviceEvent de) {
+		EvaluationEvent ee = evaluateDeviceEvent(de);
+		if (ee != null) {
+			evaluationEventOccurred(ee);
+		}
+	}
+	
 	/**
 	 * A {@code EvaluationListener} wants to register itself to this device.
 	 * 
 	 * @param devListener
 	 *            the aforementioned {@code EvaluationListener}
 	 */
-	public void addEvaluationListener(EvaluationListener evaListener);
+	public void addEvaluationListener(EvaluationListener evaListener) {
+		list.add(evaListener);
+	}
 
 	/**
 	 * A {@code EvaluationListener} wants to unregister itself from this device.
@@ -30,6 +47,17 @@ public interface Evaluator extends Viewable, ComboboxDisplayName, DeviceListener
 	 * @param devListener
 	 *            the aforementioned {@code EvaluationListener}
 	 */
-	public void removeEvaluationListener(EvaluationListener evaListener);
+	public void removeEvaluationListener(EvaluationListener evaListener) {
+		list.remove(evaListener);
+	}
+
+	@Override
+	public void evaluationEventOccurred(EvaluationEvent ee) {
+		for (EvaluationListener eva : list) {
+			eva.evaluationEventOccurred(ee);
+		}
+	}
+
+	protected abstract EvaluationEvent evaluateDeviceEvent(DeviceEvent de);
 
 }

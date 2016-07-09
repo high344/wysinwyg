@@ -10,11 +10,11 @@
  ******************************************************************************/
 package wysinwyg.fw.printer;
 
-import wysinwyg.fw.device.DeviceEvent;
+import wysinwyg.fb.device.keyboard.KeyboardEvent;
 
 public interface Printer {
 
-	public boolean isDeviceEventVirtual(DeviceEvent e);
+	public boolean isKeyboardEventVirtual(KeyboardEvent ke);
 
 	public void addPrinterEvent(PrinterEvent e);
 

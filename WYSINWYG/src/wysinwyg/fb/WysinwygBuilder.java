@@ -11,11 +11,14 @@
 package wysinwyg.fb;
 
 import wysinwyg.fb.device.Devices;
+import wysinwyg.fb.evaluator.Evaluators;
 import wysinwyg.fb.mutex.Mutex;
 import wysinwyg.fb.mutex.MutexException;
 import wysinwyg.fw.Builder;
 import wysinwyg.fw.device.DeviceBuilder;
 import wysinwyg.fw.device.DeviceController;
+import wysinwyg.fw.evaluator.EvaluatorBuilder;
+import wysinwyg.fw.evaluator.EvaluatorController;
 import wysinwyg.utils.ErrorMessage;
 
 public class WysinwygBuilder implements Builder {
@@ -34,9 +37,11 @@ public class WysinwygBuilder implements Builder {
 		WysinwygView view = new WysinwygView();
 
 		DeviceController deviceController = createDeviceController(view);
+		EvaluatorController evaluatorController = createEvaulatorController(view);
 
 		WysinwygController controller = new WysinwygController(view);
 		controller.setDeviceController(deviceController);
+		controller.setEvaluatorController(evaluatorController);
 
 		return controller;
 	}
@@ -63,6 +68,11 @@ public class WysinwygBuilder implements Builder {
 
 	private DeviceController createDeviceController(WysinwygView view) {
 		return new DeviceBuilder().setDeviceView(view.getDeviceView()).addDeviceList(new Devices().readUpDevices())
+				.build();
+	}
+	
+	private EvaluatorController createEvaulatorController(WysinwygView view) {
+		return new EvaluatorBuilder().setEvaluatorView(view.getEvaluatorView()).addEvaluatorList(new Evaluators().getEvaluators())
 				.build();
 	}
 

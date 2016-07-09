@@ -48,7 +48,7 @@ public class Devices {
 	private File propertiesFile;
 
 	public Devices() {
-		propertiesFile = DEFAULT_DEVICES_file;
+		this(DEFAULT_DEVICES_file);
 	}
 
 	public Devices(File propertiesFile) {
@@ -69,7 +69,7 @@ public class Devices {
 			try {
 				Class<?> c = Class.forName((String) p.getValue());
 				arr.add((Device) c.newInstance());
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			} catch (Exception e) {
 				ErrorMessage.show(e, Boolean.parseBoolean(System.getProperty("wysinwyg.devices")));
 			}
 		}

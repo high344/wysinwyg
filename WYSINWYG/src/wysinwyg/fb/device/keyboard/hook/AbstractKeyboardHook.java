@@ -10,11 +10,12 @@
  ******************************************************************************/
 package wysinwyg.fb.device.keyboard.hook;
 
-import wysinwyg.fw.device.DeviceEvent;
+import wysinwyg.fb.device.keyboard.KeyboardEvent;
+import wysinwyg.fb.device.keyboard.KeyboardKeyState;
 import wysinwyg.fw.device.DeviceListener;
 import wysinwyg.fw.printer.Printer;
 
-public abstract class AbstractKeyboardHook implements DeviceListener {
+public abstract class AbstractKeyboardHook {
 
 	protected DeviceListener devListener;
 	protected boolean echo = false;
@@ -25,26 +26,26 @@ public abstract class AbstractKeyboardHook implements DeviceListener {
 		this.devListener = devListener;
 	}
 
-	@Override
-	public void deviceEventOccurred(DeviceEvent e) {
+	public void keyboardEventOccurred(KeyboardEvent e) {
+		KeyboardEvent ke = (KeyboardEvent) e;
 		if (printer != null) {
-			if (printer.isDeviceEventVirtual(e)) {
+			if (printer.isKeyboardEventVirtual(e)) {
 				e.setConsumeEnabled(false);
 				return;
 			}
 		}
-		if (e.getKeyState() == DeviceEvent.DEVICE_KEY_PRESSED) {
+		if (ke.getKeyState() == KeyboardKeyState.DEVICE_KEY_PRESSED) {
 			if (echo) {
 				devListener.deviceEventOccurred(e);
 			} else {
-				if (last != e.getScanCode()) {
-					last = e.getScanCode();
+				if (last != ke.getScanCode()) {
+					last = ke.getScanCode();
 					devListener.deviceEventOccurred(e);
 				}
 				e.setConsumeEnabled(true);
 			}
-		} else if (e.getKeyState() == DeviceEvent.DEVICE_KEY_RELEASED) {
-			if (last == e.getScanCode()) {
+		} else if (ke.getKeyState() == KeyboardKeyState.DEVICE_KEY_RELEASED) {
+			if (last == ke.getScanCode()) {
 				last = 0;
 			}
 			devListener.deviceEventOccurred(e);

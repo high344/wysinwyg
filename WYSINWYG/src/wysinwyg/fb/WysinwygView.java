@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import wysinwyg.fw.device.DeviceView;
+import wysinwyg.fw.evaluator.EvaluatorView;
 
 /**
  * A {@linkplain JPanel} with a {@linkplain WysinwygControlPanel} and
@@ -37,6 +38,7 @@ public class WysinwygView extends JPanel {
 
 	private WysinwygControlPanel controlPanel;
 	private DeviceView deviceView;
+	private EvaluatorView evaluatorView;
 
 	/**
 	 * Creating the {@linkplain JPanel} specified in the
@@ -56,6 +58,9 @@ public class WysinwygView extends JPanel {
 
 		deviceView = new DeviceView();
 		panel_1.add(deviceView, BorderLayout.CENTER);
+		
+		evaluatorView = new EvaluatorView();
+		panel_1.add(evaluatorView, BorderLayout.EAST);
 
 		scrollPane.setViewportView(panel_1);
 	}
@@ -76,6 +81,15 @@ public class WysinwygView extends JPanel {
 	 */
 	public DeviceView getDeviceView() {
 		return deviceView;
+	}
+	
+	/**
+	 * 
+	 * @return a {@linkplain DeviceView}.
+	 * @see {@linkplain WysinwygView}.
+	 */
+	public EvaluatorView getEvaluatorView() {
+		return evaluatorView;
 	}
 
 }

@@ -44,10 +44,10 @@ package wysinwyg.fb.evaluator.steno;
  */
 public enum StenoOrder {
 
-	hm("#", "#"), S_("S-", "S"), T_("T-", "T"), K_("K-", "K"), P_("P-", "P"), W_("W-", "W"), H_(
-			"H-", "H"), R_("R-", "R"), A_("A-", "A"), O_("O-", "O"), st("*", "*"), _E("-E", "E"), _U(
-			"-U", "U"), _F("-F", "F"), _R("-R", "R"), _P("-P", "P"), _B("-B", "B"), _L("-L", "L"), _G(
-			"-G", "G"), _T("-T", "T"), _S("-S", "S"), _D("-D", "D"), _Z("-Z", "Z");
+	hm("#", "#"), S_("S-", "S"), T_("T-", "T"), K_("K-", "K"), P_("P-", "P"), W_("W-", "W"), H_("H-", "H"), R_("R-",
+			"R"), A_("A-", "A"), O_("O-", "O"), st("*", "*"), _E("-E", "E"), _U("-U", "U"), _F("-F", "F"), _R("-R", "R"), _P(
+			"-P", "P"), _B("-B", "B"), _L("-L", "L"), _G("-G", "G"), _T("-T", "T"), _S("-S", "S"), _D("-D", "D"), _Z(
+			"-Z", "Z");
 
 	private String name;
 	private String simpleName;

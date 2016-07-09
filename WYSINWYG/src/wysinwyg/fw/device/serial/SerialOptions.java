@@ -8,21 +8,26 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.fw.evaluator;
+package wysinwyg.fw.device.serial;
 
-/**
- * The listener interface for receiving evaluation events. The class that is
- * interested in processing an {@linkplain EvaluationEvent} implements this
- * interface.
- * 
- * @author FelfoldiB.
- *
- */
-public interface EvaluationListener {
+public interface SerialOptions {
 
-	/**
-	 * Invoked when an evaluation event occurs.
-	 */
-	public void evaluationEventOccurred(EvaluationEvent ee);
+	public String getCommPortName();
+
+	public Integer getBaudrateValue();
+
+	public Integer getDatabitsValue();
+
+	public String getStopBitsValue();
+
+	public String getParityValue();
+
+	public boolean isChckbxTimeoutSelected();
+
+	public String getTextFieldTimeout();
+
+	public boolean isChckbxRTSCTSSelected();
+
+	public boolean isCchckbxXonXoffSelected();
 
 }

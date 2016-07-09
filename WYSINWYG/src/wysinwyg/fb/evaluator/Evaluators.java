@@ -8,26 +8,23 @@
  * Contributors:
  *     Balazs Felfoldi - initial API and implementation
  ******************************************************************************/
-package wysinwyg.fw.evaluator;
+package wysinwyg.fb.evaluator;
+
+import java.util.Arrays;
+import java.util.List;
 
 import wysinwyg.fb.evaluator.steno.StenoEvaluator;
 import wysinwyg.fb.evaluator.steno.StenoReferenceWin32;
-import wysinwyg.fw.Model;
+import wysinwyg.fw.evaluator.Evaluator;
 
-/**
- * Loading the available evaluators.
- * 
- * @author FelfoldiB.
- *
- */
-public class EvaluatorModel implements Model {
+public class Evaluators {
 
 	private Evaluator[] evas = new Evaluator[1];
 
 	/**
 	 * Load devices: {@linkplain StenoEvaluator}.
 	 */
-	public EvaluatorModel() {
+	public Evaluators() {
 		load();
 	}
 
@@ -35,8 +32,8 @@ public class EvaluatorModel implements Model {
 		evas[0] = new StenoEvaluator(new StenoReferenceWin32());
 	}
 
-	public Evaluator[] getEvaluators() {
-		return evas;
+	public List<Evaluator> getEvaluators() {
+		return Arrays.asList(evas);
 	}
 
 }

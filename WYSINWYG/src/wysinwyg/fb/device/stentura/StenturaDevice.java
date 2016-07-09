@@ -25,7 +25,7 @@ import wysinwyg.fw.device.serial.SerialBuilder;
 
 public class StenturaDevice implements Device, DeviceListener {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		byte[] b = new byte[] { 82, 69, 65, 76, 84, 73, 77, 69, 46, 48, 48, 48, };
 		System.out.println(Arrays.toString(b));
 		System.out.println(new StenturaDevice().CRC(b));
@@ -39,14 +39,8 @@ public class StenturaDevice implements Device, DeviceListener {
 	private List<DeviceListener> list;
 	private Thread serialPortListenerThread;
 
-	public StenturaDevice() {
-		try {
-			RXTXLibraryLoader.load();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public StenturaDevice() throws Exception {
+		RXTXLibraryLoader.load();
 		comm = new StenturaSerialComm();
 		panel = new StenturaView();
 		list = new ArrayList<DeviceListener>(10);
@@ -90,7 +84,7 @@ public class StenturaDevice implements Device, DeviceListener {
 			d.deviceEventOccurred(e);
 		}
 	}
-	
+
 	private Runnable createSerialPortListenerThread() {
 		return new Runnable() {
 
@@ -187,7 +181,5 @@ public class StenturaDevice implements Device, DeviceListener {
 			0x5b40, 0x9901, 0x59c0, 0x5880, 0x9841, 0x8801, 0x48c0, 0x4980, 0x8941, 0x4b00, 0x8bc1, 0x8a81, 0x4a40,
 			0x4e00, 0x8ec1, 0x8f81, 0x4f40, 0x8d01, 0x4dc0, 0x4c80, 0x8c41, 0x4400, 0x84c1, 0x8581, 0x4540, 0x8701,
 			0x47c0, 0x4680, 0x8641, 0x8201, 0x42c0, 0x4380, 0x8341, 0x4100, 0x81c1, 0x8081, 0x4040 };
-
-
 
 }

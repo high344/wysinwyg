@@ -93,8 +93,7 @@ public class DeviceController implements Controller, ItemListener, DeviceListene
 	}
 
 	/**
-	 * The {@linkplain DeviceView}'s card layout will be changed to the selected
-	 * {@linkplain Device}'s view.
+	 * The {@linkplain DeviceView}'s card layout will be changed to the selected {@linkplain Device}'s view.
 	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -113,8 +112,7 @@ public class DeviceController implements Controller, ItemListener, DeviceListene
 	}
 
 	/**
-	 * The {@linkplain DeviceView}'s text area will be updated with the
-	 * DeviceEvent.
+	 * The {@linkplain DeviceView}'s text area will be updated with the DeviceEvent.
 	 */
 	@Override
 	public void deviceEventOccurred(DeviceEvent e) {

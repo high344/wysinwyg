@@ -22,15 +22,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import wysinwyg.fw.Init;
 import wysinwyg.utils.renderer.ComboboxListCellRenderer;
 
 /**
- * JPanel with a JComboBox containing {@linkplain Evaluator evaluators}. If the
- * evaluator is an instance of the {@linkplain Init init MVC} than the View
- * component is also added in a CardLayout form. If the View is {@code null}, a
- * new JPanel is added. A JTextField with the last {@linkplain EvaluationEvent
- * evaluation event} is also present at the bottom.
+ * 
  * 
  * <pre>
  * |---------------------------|
@@ -49,27 +44,20 @@ public class EvaluatorView extends JPanel {
 
 	private static final long serialVersionUID = -6402526837916236566L;
 
-	private EvaluatorModel model;
 	private JComboBox<Evaluator> comboBox;
 	private JPanel cardsPanel;
 	private JTextField textFieldLastStroke;
 
 	/**
-	 * Creating a JPanel from the {@code model} elements, if it's {@code null}
-	 * an empty JComboBox and a JTextField will still be present.
+	 * Creating a JPanel from the {@code model} elements, if it's {@code null} an empty JComboBox and a JTextField will
+	 * still be present.
 	 * 
 	 * @see EvaluatorView
 	 * @param model
 	 *            can be {@code null}.
 	 */
-	public EvaluatorView(EvaluatorModel model) {
-		this.model = model;
-		buildGUI();
-	}
-
-	private void buildGUI() {
-		setBorder(new TitledBorder(null, "Evaluator:", TitledBorder.LEADING, TitledBorder.TOP,
-				null, null));
+	public EvaluatorView() {
+		setBorder(new TitledBorder(null, "Evaluator:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_1 = new JPanel();
@@ -77,11 +65,7 @@ public class EvaluatorView extends JPanel {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		add(panel_1, BorderLayout.NORTH);
 
-		if (model != null && model.getEvaluators() != null) {
-			comboBox = new JComboBox<Evaluator>(model.getEvaluators());
-		} else {
-			comboBox = new JComboBox<Evaluator>();
-		}
+		comboBox = new JComboBox<Evaluator>();
 
 		panel_1.add(comboBox);
 		comboBox.setPreferredSize(new Dimension(150, 20));
@@ -90,19 +74,6 @@ public class EvaluatorView extends JPanel {
 		cardsPanel = new JPanel();
 		add(cardsPanel);
 		cardsPanel.setLayout(new CardLayout(0, 0));
-
-		if (model != null && model.getEvaluators() != null) {
-			for (Evaluator d : model.getEvaluators()) {
-				if (d instanceof Init) {
-					Init init = (Init) d;
-					if (init.getView() != null) {
-						cardsPanel.add(init.getView(), d.getDisplayName());
-					} else {
-						cardsPanel.add(new JPanel(), d.getDisplayName());
-					}
-				}
-			}
-		}
 
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.SOUTH);

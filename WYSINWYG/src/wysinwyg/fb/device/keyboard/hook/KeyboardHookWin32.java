@@ -10,7 +10,8 @@
  ******************************************************************************/
 package wysinwyg.fb.device.keyboard.hook;
 
-import wysinwyg.fw.device.DeviceEvent;
+import wysinwyg.fb.device.keyboard.KeyboardEvent;
+import wysinwyg.fb.device.keyboard.KeyboardKeyState;
 import wysinwyg.fw.device.DeviceListener;
 
 import com.sun.jna.Pointer;
@@ -75,12 +76,17 @@ public class KeyboardHookWin32 extends AbstractKeyboardHook {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					/*
-					 * if (result == -1) {
-					 * System.err.println("error in get message"); break; } else
-					 * { System.err.println("got message");
-					 * lib.TranslateMessage(msg); lib.DispatchMessage(msg); }
-					 */
+
+					/* @formatter:off
+					if (result == -1) {
+						System.err.println("error in get message");
+						break;
+					} else {
+						System.err.println("got message");
+						lib.TranslateMessage(msg);
+						lib.DispatchMessage(msg);
+					}*/
+
 				}
 				thread = null;
 				stop = false;
@@ -95,25 +101,25 @@ public class KeyboardHookWin32 extends AbstractKeyboardHook {
 
 			@Override
 			public LRESULT callback(int nCode, WPARAM wParam, KBDLLHOOKSTRUCT info) {
-				int state = 0;
+				KeyboardKeyState state = null;
 
 				if (nCode >= 0) {
 					switch (wParam.intValue()) {
 					case WinUser.WM_KEYUP:
 					case WinUser.WM_SYSKEYUP:
-						state = DeviceEvent.DEVICE_KEY_RELEASED;
+						state = KeyboardKeyState.DEVICE_KEY_RELEASED;
 						break;
 					case WinUser.WM_KEYDOWN:
 					case WinUser.WM_SYSKEYDOWN:
-						state = DeviceEvent.DEVICE_KEY_PRESSED;
+						state = KeyboardKeyState.DEVICE_KEY_PRESSED;
 						break;
 					}
 				}
 
-				DeviceEvent event = new DeviceEvent(this, info.vkCode, info.scanCode, state);
-				deviceEventOccurred(event);
+				KeyboardEvent event = new KeyboardEvent(this, info.vkCode, info.scanCode, state);
+				keyboardEventOccurred(event);
 
-				if (event.isConsumeEnabled()) {
+				if (event.isConsumable()) {
 					return new LRESULT(1);
 				} else {
 					Pointer ptr = info.getPointer();

@@ -13,34 +13,73 @@ package wysinwyg.fw.evaluator;
 import java.awt.CardLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Objects;
+import java.util.List;
 
 import javax.swing.SwingUtilities;
 
 import wysinwyg.fw.Controller;
+import wysinwyg.fw.Viewable;
 
-/**
- * Implementing listeners between {@linkplain EvaluatorModel} and
- * {@linkplain EvaluatorView}
- * 
- * @author FelfoldiB.
- *
- */
-public class EvaluatorController implements Controller, ItemListener, EvaluationListener {
+public class EvaluatorController implements Controller, ItemListener, EvaluationListener, Viewable {
 
 	private EvaluatorView view;
 
-	public EvaluatorController(EvaluatorModel model, EvaluatorView view) {
-		Objects.requireNonNull(model);
-		Objects.requireNonNull(view);
-
+	public EvaluatorController(List<Evaluator> evaluators, EvaluatorView view) {
 		this.view = view;
 
-		for (Evaluator d : model.getEvaluators()) {
-			d.addEvaluationListener(this);
+		if (!evaluators.isEmpty()) {
+			if (SwingUtilities.isEventDispatchThread()) {
+				addEvaluators(evaluators);
+			} else {
+				try {
+					if (view.isVisible()) {
+						SwingUtilities.invokeAndWait(createAddEvaluators(evaluators));
+					} else {
+						addEvaluators(evaluators);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		view.getComboBox().addItemListener(this);
+	}
+
+	private void addEvaluators(List<Evaluator> evaluators) {
+		for (Evaluator e : evaluators) {
+			if (e != null) {
+				addEvaluator(e);
+				e.addEvaluationListener(this);
+			}
+		}
+	}
+
+	private Runnable createAddEvaluators(final List<Evaluator> evaluators) {
+		return new Runnable() {
+
+			@Override
+			public void run() {
+				addEvaluators(evaluators);
+			}
+		};
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public EvaluatorView getView() {
+		return view;
+	}
+
+	/**
+	 * 
+	 * @param device
+	 */
+	public void addEvaluator(Evaluator evaluator) {
+		view.getComboBox().addItem(evaluator);
+		view.getCardsPanel().add(evaluator.getView(), evaluator.getDisplayName());
 	}
 
 	/**
@@ -55,16 +94,15 @@ public class EvaluatorController implements Controller, ItemListener, Evaluation
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		CardLayout cl = (CardLayout) (view.getCardsPanel().getLayout());
-		cl.show(view.getCardsPanel(),
-				((Evaluator) view.getComboBox().getSelectedItem()).getDisplayName());
+		cl.show(view.getCardsPanel(), ((Evaluator) view.getComboBox().getSelectedItem()).getDisplayName());
 	}
 
 	@Override
 	public void evaluationEventOccurred(EvaluationEvent e) {
-		SwingUtilities.invokeLater(createTextAreaUpdate(e.getResult()));
+		SwingUtilities.invokeLater(createTextFieldUpdate(e.getResult()));
 	}
 
-	private Runnable createTextAreaUpdate(final String str) {
+	private Runnable createTextFieldUpdate(final String str) {
 		return new Runnable() {
 
 			@Override

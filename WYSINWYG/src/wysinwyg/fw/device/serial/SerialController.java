@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.text.AbstractDocument;
 
@@ -27,7 +28,7 @@ import wysinwyg.utils.NumberDocumentFilter;
  * @author FelfoldiB.
  *
  */
-public class SerialController implements Controller, ActionListener, Viewable {
+public class SerialController implements Controller, ActionListener, Viewable, SerialOptions {
 
 	private SerialComm serial;
 	private SerialView view;
@@ -74,12 +75,13 @@ public class SerialController implements Controller, ActionListener, Viewable {
 		removeAll(view.getComboBoxPortName());
 	}
 
+	@Override
 	public String getCommPortName() {
 		return (String) view.getComboBoxPortName().getSelectedItem();
 	}
 
 	public void setCommPortName(String s) {
-		setItem(view.getComboBoxPortName(), s);
+		setItem(view.getComboBoxPortName(), s, view.getPortJLabel());
 	}
 
 	public void addBaudrateValue(Integer i) {
@@ -98,12 +100,13 @@ public class SerialController implements Controller, ActionListener, Viewable {
 		removeAll(view.getComboBoxBaud());
 	}
 
+	@Override
 	public Integer getBaudrateValue() {
 		return (Integer) view.getComboBoxBaud().getSelectedItem();
 	}
 
 	public void setBaudrateValue(Integer i) {
-		setItem(view.getComboBoxBaud(), i);
+		setItem(view.getComboBoxBaud(), i, view.getBaudrateJLabel());
 	}
 
 	public void addDatabitsValue(Integer i) {
@@ -122,12 +125,13 @@ public class SerialController implements Controller, ActionListener, Viewable {
 		removeAll(view.getComboBoxDataB());
 	}
 
+	@Override
 	public Integer getDatabitsValue() {
 		return (Integer) view.getComboBoxDataB().getSelectedItem();
 	}
 
 	public void setDatabitsValue(Integer i) {
-		setItem(view.getComboBoxDataB(), i);
+		setItem(view.getComboBoxDataB(), i, view.getDataBitsJLabel());
 	}
 
 	public void addStopBitsValue(String str) {
@@ -146,12 +150,13 @@ public class SerialController implements Controller, ActionListener, Viewable {
 		removeAll(view.getComboBoxStopB());
 	}
 
+	@Override
 	public String getStopBitsValue() {
 		return (String) view.getComboBoxStopB().getSelectedItem();
 	}
 
 	public void setStopBitsValue(String s) {
-		setItem(view.getComboBoxStopB(), s);
+		setItem(view.getComboBoxStopB(), s, view.getStopBitsJLabel());
 	}
 
 	public void addParityValue(String str) {
@@ -170,12 +175,13 @@ public class SerialController implements Controller, ActionListener, Viewable {
 		removeAll(view.getComboBoxParity());
 	}
 
+	@Override
 	public String getParityValue() {
 		return (String) view.getComboBoxParity().getSelectedItem();
 	}
 
 	public void setParityValue(String s) {
-		setItem(view.getComboBoxParity(), s);
+		setItem(view.getComboBoxParity(), s, view.getParityJLabel());
 	}
 
 	private <T> void add(final JComboBox<T> v, final T item) {
@@ -238,24 +244,27 @@ public class SerialController implements Controller, ActionListener, Viewable {
 		}
 	}
 
-	private <T> void setItem(final JComboBox<T> v, final T item) {
+	private <T> void setItem(final JComboBox<T> v, final T item, final JLabel lbl) {
 		if (SwingUtilities.isEventDispatchThread()) {
 			v.setSelectedItem(item);
+			lbl.setText(item.toString());
 		} else {
 			SwingUtilities.invokeLater(new Runnable() {
 
 				@Override
 				public void run() {
 					v.setSelectedItem(item);
+					lbl.setText(item.toString());
 				}
 			});
 		}
 	}
 
 	public void setChckbxTimeoutSelected(boolean b) {
-		setSelected(view.getChckbxTimeout(), b);
+		setSelected(view.getChckbxTimeout(), b, view.getTimeoutJLabel());
 	}
 
+	@Override
 	public boolean isChckbxTimeoutSelected() {
 		return view.getChckbxTimeout().isSelected();
 	}
@@ -263,46 +272,53 @@ public class SerialController implements Controller, ActionListener, Viewable {
 	public void setTextFieldTimeout(final String s) {
 		if (SwingUtilities.isEventDispatchThread()) {
 			view.getTextFieldTimeout().setText(s);
+			view.getTimeoutSecJLabel().setText(s);
 		} else {
 			SwingUtilities.invokeLater(new Runnable() {
 
 				@Override
 				public void run() {
 					view.getTextFieldTimeout().setText(s);
+					view.getTimeoutSecJLabel().setText(s);
 				}
 			});
 		}
 	}
 
+	@Override
 	public String getTextFieldTimeout() {
 		return view.getTextFieldTimeout().getText();
 	}
 
 	public void setChckbxRTSCTSSelected(boolean b) {
-		setSelected(view.getChckbxRTSCTS(), b);
+		setSelected(view.getChckbxRTSCTS(), b, view.getRTSCTSJLabel());
 	}
 
+	@Override
 	public boolean isChckbxRTSCTSSelected() {
 		return view.getChckbxRTSCTS().isSelected();
 	}
 
 	public void setCchckbxXonXoffSelected(boolean b) {
-		setSelected(view.getChckbxXonXoff(), b);
+		setSelected(view.getChckbxXonXoff(), b, view.getXonXoffJLabel());
 	}
 
+	@Override
 	public boolean isCchckbxXonXoffSelected() {
 		return view.getChckbxXonXoff().isSelected();
 	}
 
-	private <T> void setSelected(final JCheckBox v, final boolean b) {
+	private <T> void setSelected(final JCheckBox v, final boolean b, final JLabel lbl) {
 		if (SwingUtilities.isEventDispatchThread()) {
 			v.setSelected(b);
+			lbl.setText(Boolean.toString(b));
 		} else {
 			SwingUtilities.invokeLater(new Runnable() {
 
 				@Override
 				public void run() {
 					v.setSelected(b);
+					lbl.setText(Boolean.toString(b));
 				}
 			});
 		}

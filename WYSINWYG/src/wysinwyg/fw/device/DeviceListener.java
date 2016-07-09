@@ -11,9 +11,8 @@
 package wysinwyg.fw.device;
 
 /**
- * The listener interface for receiving device events. The class that is
- * interested in processing a {@linkplain DeviceEvent} implements this
- * interface.
+ * The listener interface for receiving device events. The class that is interested in processing a
+ * {@linkplain DeviceEvent} implements this interface.
  * 
  * @author FelfoldiB.
  *
@@ -26,6 +25,6 @@ public interface DeviceListener {
 	 * @param e
 	 *            the occurred event.
 	 */
-	public void deviceEventOccurred(DeviceEvent e);
+	public void deviceEventOccurred(DeviceEvent de);
 
 }

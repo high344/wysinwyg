@@ -16,9 +16,8 @@ import java.util.List;
 import wysinwyg.fw.Builder;
 
 /**
- * Building a device MCV environment for the given {@linkplain Device devices}.
- * Calling the {@link #build()} method will create and connect the components.
- * If no {@linkplain DeviceView} is added, the builder will create one.
+ * Building a device MCV environment for the given {@linkplain Device devices}. Calling the {@link #build()} method will
+ * create and connect the components. If no {@linkplain DeviceView} is added, the builder will create one.
  * 
  * @author FelfoldiB.
  *
@@ -37,8 +36,7 @@ public class DeviceBuilder implements Builder {
 	}
 
 	/**
-	 * Adding a device to the list. Adding the same device multiple times has no
-	 * effect.
+	 * Adding a device to the list. Adding the same device multiple times has no effect.
 	 * 
 	 * @param device
 	 *            The device to be added.
@@ -66,8 +64,7 @@ public class DeviceBuilder implements Builder {
 	}
 
 	/**
-	 * Adding the devices to the list. Adding the same device multiple times has
-	 * no effect.
+	 * Adding the devices to the list. Adding the same device multiple times has no effect.
 	 * 
 	 * @param list
 	 *            The list of devices to be added.

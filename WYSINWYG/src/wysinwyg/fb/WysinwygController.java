@@ -22,6 +22,8 @@ import wysinwyg.fw.Controller;
 import wysinwyg.fw.Viewable;
 import wysinwyg.fw.device.Device;
 import wysinwyg.fw.device.DeviceController;
+import wysinwyg.fw.evaluator.AbstractEvaluator;
+import wysinwyg.fw.evaluator.EvaluatorController;
 
 /**
  * 
@@ -31,9 +33,10 @@ import wysinwyg.fw.device.DeviceController;
 public class WysinwygController implements Controller, ActionListener, Viewable {
 
 	public static boolean debug;
-	
+
 	private WysinwygView view;
 	private DeviceController deviceController;
+	private EvaluatorController evaulatorController;
 	private JToggleButton tglbtnStart;
 
 	private Device runningDevice;
@@ -43,8 +46,8 @@ public class WysinwygController implements Controller, ActionListener, Viewable 
 
 		tglbtnStart = view.getControlPanel().getTglbtnStart();
 		// remove the space key button event when focused
-		tglbtnStart.getInputMap(JComponent.WHEN_FOCUSED).put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "none");
+		tglbtnStart.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false),
+				"none");
 
 		tglbtnStart.addActionListener(this);
 	}
@@ -68,14 +71,23 @@ public class WysinwygController implements Controller, ActionListener, Viewable 
 	public void setDeviceController(DeviceController deviceController) {
 		this.deviceController = deviceController;
 	}
+	
+	public void setEvaluatorController(EvaluatorController evaulatorController) {
+		this.evaulatorController = evaulatorController;
+	}
 
 	public void start() {
-		runningDevice = deviceController.getSelectedDevice();
-		runningDevice.startDevice();
+		if (deviceController != null) {
+			runningDevice = deviceController.getSelectedDevice();
+			runningDevice.addDeviceListener((AbstractEvaluator) evaulatorController.getSelectedEvaluator());
+			runningDevice.startDevice();
+		}
 	}
 
 	public void stop() {
-		runningDevice.stopDevice();
+		if (runningDevice != null) {
+			runningDevice.stopDevice();
+		}
 	}
 
 }

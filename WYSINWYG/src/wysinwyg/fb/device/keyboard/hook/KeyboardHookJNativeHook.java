@@ -20,7 +20,8 @@ import org.jnativehook.NativeInputEvent;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
-import wysinwyg.fw.device.DeviceEvent;
+import wysinwyg.fb.device.keyboard.KeyboardEvent;
+import wysinwyg.fb.device.keyboard.KeyboardKeyState;
 import wysinwyg.fw.device.DeviceListener;
 
 public class KeyboardHookJNativeHook extends AbstractKeyboardHook implements NativeKeyListener {
@@ -64,10 +65,10 @@ public class KeyboardHookJNativeHook extends AbstractKeyboardHook implements Nat
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent nke) {
 		try {
-			DeviceEvent event = new DeviceEvent(this, nke.getKeyCode(), nke.getRawCode(),
-					DeviceEvent.DEVICE_KEY_PRESSED);
-			deviceEventOccurred(event);
-			if (event.isConsumeEnabled()) {
+			KeyboardEvent event = new KeyboardEvent(this, nke.getKeyCode(), nke.getRawCode(),
+					KeyboardKeyState.DEVICE_KEY_PRESSED);
+			keyboardEventOccurred(event);
+			if (event.isConsumable()) {
 				f.setShort(nke, (short) 1);
 			}
 		} catch (Exception e) {
@@ -78,10 +79,10 @@ public class KeyboardHookJNativeHook extends AbstractKeyboardHook implements Nat
 	@Override
 	public void nativeKeyReleased(NativeKeyEvent nke) {
 		try {
-			DeviceEvent event = new DeviceEvent(this, nke.getKeyCode(), nke.getRawCode(),
-					DeviceEvent.DEVICE_KEY_RELEASED);
-			deviceEventOccurred(event);
-			if (event.isConsumeEnabled()) {
+			KeyboardEvent event = new KeyboardEvent(this, nke.getKeyCode(), nke.getRawCode(),
+					KeyboardKeyState.DEVICE_KEY_RELEASED);
+			keyboardEventOccurred(event);
+			if (event.isConsumable()) {
 				f.setShort(nke, (short) 1);
 			}
 		} catch (Exception e) {

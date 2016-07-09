@@ -24,7 +24,7 @@ import wysinwyg.fw.device.Device;
 import wysinwyg.fw.device.DeviceEvent;
 import wysinwyg.fw.device.DeviceListener;
 
-public class KeyboardDevice implements Viewable, Device, DeviceListener {
+public class KeyboardDevice implements Device, DeviceListener {
 
 	private KeyboardView view;
 	private AbstractKeyboardHook hook;
