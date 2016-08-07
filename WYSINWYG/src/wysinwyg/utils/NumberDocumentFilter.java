@@ -34,8 +34,7 @@ public class NumberDocumentFilter extends DocumentFilter {
 	}
 
 	@Override
-	public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
-			throws BadLocationException {
+	public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
 		if (!testNumber(string)) {
 			return;
 		}

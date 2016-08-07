@@ -13,10 +13,9 @@ package wysinwyg.fw.device.serial;
 import wysinwyg.fw.Builder;
 
 /**
- * Building a serial MCV environment for the given {@linkplain SerialComm}.
- * Calling the {@link #build()} method will create and connect the components.
- * If no serialComm is added a {@linkplain SerialCommSimulator} will be created.
- * If no {@linkplain SerialView} is added, the builder will create one.
+ * Building a serial MCV environment for the given {@linkplain SerialComm}. Calling the {@link #build()} method will
+ * create and connect the components. If no serialComm is added a {@linkplain SerialCommSimulator} will be created. If
+ * no {@linkplain SerialView} is added, the builder will create one.
  * 
  * @author FelfoldiB.
  *

@@ -29,5 +29,5 @@ public class WysinwygException extends Exception {
 	public WysinwygException(Throwable cause) {
 		super(cause);
 	}
-	
+
 }

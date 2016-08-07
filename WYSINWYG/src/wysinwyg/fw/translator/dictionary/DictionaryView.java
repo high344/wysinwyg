@@ -40,8 +40,7 @@ public class DictionaryView extends JPanel {
 	}
 
 	private void buildGUI() {
-		setBorder(new TitledBorder(null, "Dictionary:", TitledBorder.LEADING, TitledBorder.TOP,
-				null, null));
+		setBorder(new TitledBorder(null, "Dictionary:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();

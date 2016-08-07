@@ -11,9 +11,8 @@
 package wysinwyg.fw.evaluator;
 
 /**
- * The listener interface for receiving evaluation events. The class that is
- * interested in processing an {@linkplain EvaluationEvent} implements this
- * interface.
+ * The listener interface for receiving evaluation events. The class that is interested in processing an
+ * {@linkplain EvaluationEvent} implements this interface.
  * 
  * @author FelfoldiB.
  *

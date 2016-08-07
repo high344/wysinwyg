@@ -11,6 +11,7 @@
 package wysinwyg.fw.device;
 
 import wysinwyg.fw.Viewable;
+import wysinwyg.fw.evaluator.Evaluator;
 import wysinwyg.utils.renderer.ComboboxDisplayName;
 
 /**
@@ -19,6 +20,8 @@ import wysinwyg.utils.renderer.ComboboxDisplayName;
  *
  */
 public interface Device extends Viewable, ComboboxDisplayName {
+
+	public void setEvaluator(Evaluator eva);
 
 	/**
 	 * Register a {@code DeviceListener} to the device.

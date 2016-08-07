@@ -13,8 +13,6 @@ package wysinwyg.fw.evaluator;
 import java.util.ArrayList;
 import java.util.List;
 
-import wysinwyg.fw.device.DeviceEvent;
-
 public abstract class AbstractEvaluator implements Evaluator {
 
 	protected List<EvaluationListener> list;
@@ -22,15 +20,7 @@ public abstract class AbstractEvaluator implements Evaluator {
 	public AbstractEvaluator() {
 		list = new ArrayList<EvaluationListener>(3);
 	}
-	
-	@Override
-	public void deviceEventOccurred(DeviceEvent de) {
-		EvaluationEvent ee = evaluateDeviceEvent(de);
-		if (ee != null) {
-			evaluationEventOccurred(ee);
-		}
-	}
-	
+
 	/**
 	 * A {@code EvaluationListener} wants to register itself to this device.
 	 * 
@@ -57,7 +47,5 @@ public abstract class AbstractEvaluator implements Evaluator {
 			eva.evaluationEventOccurred(ee);
 		}
 	}
-
-	protected abstract EvaluationEvent evaluateDeviceEvent(DeviceEvent de);
 
 }

@@ -39,10 +39,8 @@ public class TranslatorController implements Controller, ItemListener {
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		CardLayout cl = (CardLayout) (view.getCardsPanel().getLayout());
-		cl.show(view.getCardsPanel(),
-				((Translator) view.getComboBox().getSelectedItem()).getDisplayName());
-		model.getDictionary().getController()
-				.setNewTranslator((Translator) view.getComboBox().getSelectedItem());
+		cl.show(view.getCardsPanel(), ((Translator) view.getComboBox().getSelectedItem()).getDisplayName());
+		model.getDictionary().getController().setNewTranslator((Translator) view.getComboBox().getSelectedItem());
 	}
 
 }

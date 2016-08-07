@@ -10,24 +10,31 @@
  ******************************************************************************/
 package wysinwyg.fb.device.keyboard;
 
-import javax.swing.JPanel;
-import javax.swing.JCheckBox;
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
 
 public class KeyboardView extends JPanel {
 
 	private static final long serialVersionUID = 459644234125637827L;
 
 	private JCheckBox chckbxEcho;
+	private JCheckBox chckbxArpeggiate;
 
 	public KeyboardView() {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		chckbxEcho = new JCheckBox("Echo");
+		chckbxArpeggiate = new JCheckBox("Arpeggiate");
 		add(chckbxEcho);
+		add(chckbxArpeggiate);
 	}
 
 	public JCheckBox getChckbxEcho() {
 		return chckbxEcho;
+	}
+
+	public JCheckBox getChckbxArpeggiate() {
+		return chckbxArpeggiate;
 	}
 
 }

@@ -10,11 +10,14 @@
  ******************************************************************************/
 package wysinwyg.fw.evaluator;
 
+import java.util.Deque;
+
 import wysinwyg.fw.Viewable;
-import wysinwyg.fw.device.DeviceListener;
 import wysinwyg.utils.renderer.ComboboxDisplayName;
 
-public interface Evaluator extends Viewable, ComboboxDisplayName, DeviceListener, EvaluationListener {
+public interface Evaluator extends Viewable, ComboboxDisplayName, EvaluationListener {
+
+	public void evaluateCode(Deque<Integer> array);
 
 	/**
 	 * A {@code EvaluationListener} wants to register itself to this device.

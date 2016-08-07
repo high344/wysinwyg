@@ -21,14 +21,13 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.CompoundBorder;
 
-public class DictionaryTableCell extends AbstractCellEditor implements TableCellEditor,
-		TableCellRenderer {
+public class DictionaryTableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 
 	private static final long serialVersionUID = -3048732428259105965L;
 
@@ -56,8 +55,7 @@ public class DictionaryTableCell extends AbstractCellEditor implements TableCell
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		textArea = new JTextArea();
-		textArea.setBorder(new CompoundBorder(new EmptyBorder(0, 3, 0, 3), new LineBorder(
-				new Color(0, 0, 0))));
+		textArea.setBorder(new CompoundBorder(new EmptyBorder(0, 3, 0, 3), new LineBorder(new Color(0, 0, 0))));
 		panel_1.add(textArea);
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
@@ -76,15 +74,14 @@ public class DictionaryTableCell extends AbstractCellEditor implements TableCell
 	}
 
 	@Override
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected,
-			int row, int column) {
+	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 		update(table, value, true);
 		return panel;
 	}
 
 	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-			boolean hasFocus, int row, int column) {
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
 		update(table, value, isSelected);
 		return panel;
 	}

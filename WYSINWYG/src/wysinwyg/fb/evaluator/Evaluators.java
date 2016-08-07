@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import wysinwyg.fb.evaluator.steno.StenoEvaluator;
-import wysinwyg.fb.evaluator.steno.StenoReferenceWin32;
 import wysinwyg.fw.evaluator.Evaluator;
 
 public class Evaluators {
@@ -29,7 +28,7 @@ public class Evaluators {
 	}
 
 	private void load() {
-		evas[0] = new StenoEvaluator(new StenoReferenceWin32());
+		evas[0] = new StenoEvaluator();
 	}
 
 	public List<Evaluator> getEvaluators() {

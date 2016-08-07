@@ -30,7 +30,7 @@ public class DictionaryInit implements Init {
 	public Model getModel() {
 		return model;
 	}
-	
+
 	@Override
 	public DictionaryController getController() {
 		return controller;

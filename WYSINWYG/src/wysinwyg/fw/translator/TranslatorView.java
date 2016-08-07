@@ -36,8 +36,7 @@ public class TranslatorView extends JPanel {
 	}
 
 	private void buildGUI() {
-		setBorder(new TitledBorder(null, "Translator:", TitledBorder.LEADING, TitledBorder.TOP,
-				null, null));
+		setBorder(new TitledBorder(null, "Translator:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();

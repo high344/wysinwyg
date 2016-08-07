@@ -20,13 +20,12 @@ import wysinwyg.fw.device.DeviceView;
 import wysinwyg.fw.evaluator.EvaluatorView;
 
 /**
- * A {@linkplain JPanel} with a {@linkplain WysinwygControlPanel} and
- * {@linkplain DeviceView}.
+ * A {@linkplain JPanel} with a {@linkplain WysinwygControlPanel} and {@linkplain DeviceView}.
  * 
  * <pre>
- * |-----------------------------------|
- * | WysinwygControlPanel | DeviceView |
- * |-----------------------------------|
+ * |---------------------------------------------------|
+ * | WysinwygControlPanel | DeviceView | EvaluatorView |
+ * |-----------------------------------|---------------|
  * </pre>
  * 
  * @author FelfoldiB.
@@ -41,8 +40,7 @@ public class WysinwygView extends JPanel {
 	private EvaluatorView evaluatorView;
 
 	/**
-	 * Creating the {@linkplain JPanel} specified in the
-	 * {@linkplain WysinwygView}.
+	 * Creating the {@linkplain JPanel} specified in the {@linkplain WysinwygView}.
 	 */
 	public WysinwygView() {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,7 +56,7 @@ public class WysinwygView extends JPanel {
 
 		deviceView = new DeviceView();
 		panel_1.add(deviceView, BorderLayout.CENTER);
-		
+
 		evaluatorView = new EvaluatorView();
 		panel_1.add(evaluatorView, BorderLayout.EAST);
 
@@ -82,7 +80,7 @@ public class WysinwygView extends JPanel {
 	public DeviceView getDeviceView() {
 		return deviceView;
 	}
-	
+
 	/**
 	 * 
 	 * @return a {@linkplain DeviceView}.

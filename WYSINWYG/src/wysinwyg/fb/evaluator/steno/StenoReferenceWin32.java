@@ -10,7 +10,6 @@
  ******************************************************************************/
 package wysinwyg.fb.evaluator.steno;
 
-
 public class StenoReferenceWin32 implements StenoReference {
 
 	private static final int VK_Q = 0x51;

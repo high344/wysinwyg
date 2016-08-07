@@ -43,8 +43,7 @@ public class PloverController implements Controller {
 				try {
 					Document doc = view.getTextAreaStrokes().getDocument();
 					for (int i = 0; i < stenoElements.size(); i++) {
-						doc.insertString(doc.getLength(), stenoElements.getElement(i).getStroke()
-								+ "\n", null);
+						doc.insertString(doc.getLength(), stenoElements.getElement(i).getStroke() + "\n", null);
 					}
 				} catch (BadLocationException e) {
 					e.printStackTrace();
@@ -81,8 +80,7 @@ public class PloverController implements Controller {
 						view.getTextAreaStrokeResults().setText("");
 						Document doc = view.getTextAreaStrokeResults().getDocument();
 						for (Map.Entry<String, String> str : z.entrySet()) {
-							doc.insertString(doc.getLength(), str.getKey() + " : " + str.getValue()
-									+ "\n", null);
+							doc.insertString(doc.getLength(), str.getKey() + " : " + str.getValue() + "\n", null);
 						}
 					}
 				} catch (BadLocationException e) {

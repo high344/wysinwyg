@@ -26,10 +26,8 @@ import javax.swing.text.DefaultCaret;
 import wysinwyg.utils.renderer.ComboboxListCellRenderer;
 
 /**
- * Extended {@linkplain JPanel} class with a {@linkplain JComboBox} with
- * {@linkplain Device} type elements and a {@linkplain ComboboxListCellRenderer}
- * for it's renderer. A {@linkplain CardLayout} form and a
- * {@linkplain JTextArea}.
+ * Extended {@linkplain JPanel} class with a {@linkplain JComboBox} with {@linkplain Device} type elements and a
+ * {@linkplain ComboboxListCellRenderer} for it's renderer. A {@linkplain CardLayout} form and a {@linkplain JTextArea}.
  * 
  * <pre>
  * |------------------------|
@@ -53,12 +51,10 @@ public class DeviceView extends JPanel {
 	private JTextArea textArea;
 
 	/**
-	 * Creating the {@linkplain JPanel} specified in the {@linkplain DeviceView}
-	 * .
+	 * Creating the {@linkplain JPanel} specified in the {@linkplain DeviceView} .
 	 */
 	public DeviceView() {
-		setBorder(new TitledBorder(null, "Device:", TitledBorder.LEADING, TitledBorder.TOP, null,
-				null));
+		setBorder(new TitledBorder(null, "Device:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
@@ -76,8 +72,7 @@ public class DeviceView extends JPanel {
 		cardsPanel.setLayout(new CardLayout(0, 0));
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "Device Input:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(null, "Device Input:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
@@ -94,8 +89,7 @@ public class DeviceView extends JPanel {
 
 	/**
 	 * 
-	 * @return a {@linkplain JComboBox} containing {@linkplain Device}
-	 *         type elements.
+	 * @return a {@linkplain JComboBox} containing {@linkplain Device} type elements.
 	 * @see {@linkplain DeviceView}.
 	 */
 	protected JComboBox<Device> getComboBox() {

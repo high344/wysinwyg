@@ -11,9 +11,8 @@
 package wysinwyg.fw.translator;
 
 /**
- * The listener interface for receiving translation events. The class that is
- * interested in processing a {@linkplain TranslationEvent} implements this
- * interface.
+ * The listener interface for receiving translation events. The class that is interested in processing a
+ * {@linkplain TranslationEvent} implements this interface.
  * 
  * @author FelfoldiB.
  *

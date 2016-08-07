@@ -22,7 +22,7 @@ public class ErrorMessage {
 	public static void main(String[] args) {
 		ErrorMessage.show(null, true);
 	}
-	
+
 	public static void show(Exception e, boolean debug) {
 		String msg = null;
 		if (e == null) {

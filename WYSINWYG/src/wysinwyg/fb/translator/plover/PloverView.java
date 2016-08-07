@@ -40,8 +40,7 @@ public class PloverView extends JPanel {
 		panel_3.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "Translation:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		panel_2.setBorder(new TitledBorder(null, "Translation:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_3.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
@@ -60,8 +59,7 @@ public class PloverView extends JPanel {
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new TitledBorder(null, "Stroke results:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		panel_4.setBorder(new TitledBorder(null, "Stroke results:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.add(panel_4, BorderLayout.CENTER);
 		panel_4.setLayout(new BorderLayout(0, 0));
 
@@ -75,8 +73,7 @@ public class PloverView extends JPanel {
 		scrollPane_1.setViewportView(textAreaStrokeResults);
 
 		JPanel panel_5 = new JPanel();
-		panel_5.setBorder(new TitledBorder(null, "Strokes:", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		panel_5.setBorder(new TitledBorder(null, "Strokes:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.add(panel_5, BorderLayout.WEST);
 		panel_5.setLayout(new BorderLayout(0, 0));
 

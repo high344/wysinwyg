@@ -71,7 +71,7 @@ public class WysinwygController implements Controller, ActionListener, Viewable 
 	public void setDeviceController(DeviceController deviceController) {
 		this.deviceController = deviceController;
 	}
-	
+
 	public void setEvaluatorController(EvaluatorController evaulatorController) {
 		this.evaulatorController = evaulatorController;
 	}
@@ -79,7 +79,7 @@ public class WysinwygController implements Controller, ActionListener, Viewable 
 	public void start() {
 		if (deviceController != null) {
 			runningDevice = deviceController.getSelectedDevice();
-			runningDevice.addDeviceListener((AbstractEvaluator) evaulatorController.getSelectedEvaluator());
+			runningDevice.setEvaluator(evaulatorController.getSelectedEvaluator());
 			runningDevice.startDevice();
 		}
 	}

@@ -111,25 +111,16 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 			translationEventOccurred(new TranslationEvent(this, e.getStroke(), e.getTranslation()));
 
 			/*
-			int lastStrokeSuffixType = 0;
-			Element e2 = stenoElements.getElement(longestStroke);
-			if(e2 != null) {
-				lastStrokeSuffixType = e2.getSuffixType();
-			}
-			
-			e.setPrintedString(getPrintedStringForTranslation(e.getTranslation(), lastStrokeSuffixType));
-			e.setSuffixType(getSuffixTypeForTranslation(e.getTranslation()));
-			e.setRemovedString(concatPrintedString(longestStroke));
-			
-			System.out.println(e);
-			if(e.getRemovedString() != null) {
-				//TODO
-				printer.print(e.getPrintedString(), e.getRemovedString().length());
-			} else {
-				//TODO
-				printer.print(e.getPrintedString(), 0);
-			}
-			*/
+			 * int lastStrokeSuffixType = 0; Element e2 = stenoElements.getElement(longestStroke); if(e2 != null) {
+			 * lastStrokeSuffixType = e2.getSuffixType(); }
+			 * 
+			 * e.setPrintedString(getPrintedStringForTranslation(e.getTranslation(), lastStrokeSuffixType));
+			 * e.setSuffixType(getSuffixTypeForTranslation(e.getTranslation()));
+			 * e.setRemovedString(concatPrintedString(longestStroke));
+			 * 
+			 * System.out.println(e); if(e.getRemovedString() != null) { //TODO printer.print(e.getPrintedString(),
+			 * e.getRemovedString().length()); } else { //TODO printer.print(e.getPrintedString(), 0); }
+			 */
 			controller.updateTranslation(e.getTranslation());
 		}
 		controller.updateStrokes(stenoElements);

@@ -134,7 +134,8 @@ public class SerialView extends JPanel {
 		panel_8.add(panel_2);
 		FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
-		panel_2.setBorder(new TitledBorder(null, (String) opt[5][0]+":", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBorder(new TitledBorder(null, (String) opt[5][0] + ":", TitledBorder.LEADING, TitledBorder.TOP,
+				null, null));
 
 		chckbxTimeout = new JCheckBox("Use Timeout");
 		panel_2.add(chckbxTimeout);

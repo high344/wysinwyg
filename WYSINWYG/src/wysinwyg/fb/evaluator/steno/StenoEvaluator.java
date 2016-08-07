@@ -11,13 +11,10 @@
 package wysinwyg.fb.evaluator.steno;
 
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.Deque;
 
 import javax.swing.JPanel;
 
-import wysinwyg.fb.device.keyboard.KeyboardEvent;
-import wysinwyg.fb.device.keyboard.KeyboardKeyState;
-import wysinwyg.fw.device.DeviceEvent;
 import wysinwyg.fw.evaluator.AbstractEvaluator;
 import wysinwyg.fw.evaluator.EvaluationEvent;
 
@@ -27,11 +24,9 @@ public class StenoEvaluator extends AbstractEvaluator {
 	private StenoView view;
 	private char[] charStroke = new char[23];
 	private StenoOrder[] stenos = StenoOrder.values();
-	private int rawPower;
 
-	public StenoEvaluator(StenoReference refrence) {
-		Objects.requireNonNull(refrence);
-		this.reference = refrence;
+	public StenoEvaluator() {
+		this.reference = new StenoReferenceWin32();
 		zeroCharStroke();
 		view = new StenoView();
 		view.getStentura().removeAllJToggleButtonMouseListener();
@@ -48,32 +43,17 @@ public class StenoEvaluator extends AbstractEvaluator {
 	}
 
 	@Override
-	protected EvaluationEvent evaluateDeviceEvent(DeviceEvent de) {
-		KeyboardEvent ke = (KeyboardEvent) de;
-		if (ke.getKeyState() == KeyboardKeyState.DEVICE_KEY_PRESSED) {
+	public void evaluateCode(Deque<Integer> array) {
+		view.getStentura().setAllJToggleButtonSelected(false);
+		while (!array.isEmpty()) {
+			Integer i = array.pop();
 			StenoOrder steno = null;
-			if ((steno = reference.getStenoReference(ke.getvKeyCode())) != null) {
-				rawPower += ke.getvKeyCode();
+			if ((steno = reference.getStenoReference(i)) != null) {
 				charStroke[steno.ordinal()] = '1';
 				view.getStentura().getJToggleButton(steno.name()).setSelected(true);
 			}
-		} else if (ke.getKeyState() == KeyboardKeyState.DEVICE_KEY_RELEASED) {
-			if (reference.getStenoReference(ke.getvKeyCode()) != null) {
-				rawPower -= ke.getvKeyCode();
-				if (rawPower < 0) {
-					rawPower = 0;
-				}
-				if (rawPower == 0 && !view.getChckbxArpeggiate().isSelected()) {
-					view.getStentura().setAllJToggleButtonSelected(false);
-					evaluteKeyReleased();
-				}
-				// TODO 32
-			} else if (view.getChckbxArpeggiate().isSelected() && ke.getvKeyCode() == 32) {
-				view.getStentura().setAllJToggleButtonSelected(false);
-				evaluteKeyReleased();
-			}
 		}
-		return null;
+		evaluteKeyReleased();
 	}
 
 	private void zeroCharStroke() {

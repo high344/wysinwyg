@@ -26,29 +26,28 @@ public abstract class AbstractKeyboardHook {
 		this.devListener = devListener;
 	}
 
-	public void keyboardEventOccurred(KeyboardEvent e) {
-		KeyboardEvent ke = (KeyboardEvent) e;
+	public void keyboardEventOccurred(KeyboardEvent ke) {
 		if (printer != null) {
-			if (printer.isKeyboardEventVirtual(e)) {
-				e.setConsumeEnabled(false);
+			if (printer.isKeyboardEventVirtual(ke)) {
+				ke.setConsumeEnabled(false);
 				return;
 			}
 		}
 		if (ke.getKeyState() == KeyboardKeyState.DEVICE_KEY_PRESSED) {
 			if (echo) {
-				devListener.deviceEventOccurred(e);
+				devListener.deviceEventOccurred(ke);
 			} else {
 				if (last != ke.getScanCode()) {
 					last = ke.getScanCode();
-					devListener.deviceEventOccurred(e);
+					devListener.deviceEventOccurred(ke);
 				}
-				e.setConsumeEnabled(true);
+				ke.setConsumeEnabled(true);
 			}
 		} else if (ke.getKeyState() == KeyboardKeyState.DEVICE_KEY_RELEASED) {
 			if (last == ke.getScanCode()) {
 				last = 0;
 			}
-			devListener.deviceEventOccurred(e);
+			devListener.deviceEventOccurred(ke);
 		}
 	}
 

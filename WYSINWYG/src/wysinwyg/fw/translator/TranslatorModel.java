@@ -15,8 +15,7 @@ import wysinwyg.fw.Model;
 import wysinwyg.fw.translator.dictionary.DictionaryInit;
 
 /**
- * Loading the available translators and initializing a
- * {@linkplain DictionaryInit dictionary}.
+ * Loading the available translators and initializing a {@linkplain DictionaryInit dictionary}.
  * 
  * @author FelfoldiB.
  *
@@ -27,8 +26,7 @@ public class TranslatorModel implements Model {
 	private DictionaryInit dictionary;
 
 	/**
-	 * Load translators: {@linkplain PloverTranslator}. Initialize a
-	 * {@linkplain DictionaryInit dictionary}.
+	 * Load translators: {@linkplain PloverTranslator}. Initialize a {@linkplain DictionaryInit dictionary}.
 	 */
 	public TranslatorModel() {
 		load();

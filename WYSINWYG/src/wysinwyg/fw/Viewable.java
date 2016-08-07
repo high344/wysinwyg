@@ -13,8 +13,7 @@ package wysinwyg.fw;
 import javax.swing.JPanel;
 
 /**
- * The specified class implementing this interface contains a graphical
- * component on a {@linkplain JPanel}.
+ * The specified class implementing this interface contains a graphical component on a {@linkplain JPanel}.
  * 
  * @author FelfoldiB.
  */

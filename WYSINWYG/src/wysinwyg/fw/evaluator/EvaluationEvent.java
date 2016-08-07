@@ -13,8 +13,7 @@ package wysinwyg.fw.evaluator;
 import java.util.EventObject;
 
 /**
- * The event that is passed on to the registered {@linkplain EvaluationListener
- * device listeners}.
+ * The event that is passed on to the registered {@linkplain EvaluationListener device listeners}.
  * 
  * @author FelfoldiB.
  *

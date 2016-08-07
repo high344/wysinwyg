@@ -53,8 +53,7 @@ public class _DictionaryTableCellRenderer extends DefaultTableCellRenderer {
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		textArea = new JTextArea();
-		textArea.setBorder(new CompoundBorder(new EmptyBorder(0, 3, 0, 3),
-				new LineBorder(new Color(0, 0, 0))));
+		textArea.setBorder(new CompoundBorder(new EmptyBorder(0, 3, 0, 3), new LineBorder(new Color(0, 0, 0))));
 		panel_1.add(textArea);
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
@@ -66,16 +65,15 @@ public class _DictionaryTableCellRenderer extends DefaultTableCellRenderer {
 		btnRemoveValue = new JButton("Remove Value");
 		panel.add(btnRemoveValue);
 	}
-	
+
 	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value,
-			boolean isSelected, boolean hasFocus, int row, int column) {
-		super.getTableCellRendererComponent(table, value, isSelected,
-				hasFocus, row, column);
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		update(table, value, isSelected);
 		return panel;
 	}
-	
+
 	private void update(JTable table, Object value, boolean isSelected) {
 		Dictionary v = (Dictionary) value;
 		System.out.println(v.getPath());

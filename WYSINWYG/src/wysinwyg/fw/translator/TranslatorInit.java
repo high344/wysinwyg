@@ -38,7 +38,7 @@ public class TranslatorInit implements Init {
 	public Model getModel() {
 		return model;
 	}
-	
+
 	@Override
 	public TranslatorView getView() {
 		return view;
@@ -48,7 +48,5 @@ public class TranslatorInit implements Init {
 	public TranslatorController getController() {
 		return controller;
 	}
-
-	
 
 }

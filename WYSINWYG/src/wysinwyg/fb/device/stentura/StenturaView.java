@@ -24,7 +24,7 @@ public class StenturaView extends JPanel {
 
 	private StenturaLayout stenturaLayout;
 	private SerialView serialView;
-	
+
 	public StenturaView() {
 		setLayout(new BorderLayout(0, 0));
 
@@ -40,7 +40,7 @@ public class StenturaView extends JPanel {
 		serialView = new SerialView();
 		tabbedPane.addTab("Serial Communication", null, serialView, null);
 	}
-	
+
 	public StenturaLayout getStenturaLayout() {
 		return stenturaLayout;
 	}
@@ -48,5 +48,5 @@ public class StenturaView extends JPanel {
 	public SerialView getSerialView() {
 		return serialView;
 	}
-	
+
 }

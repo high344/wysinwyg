@@ -30,7 +30,7 @@ public class WysinwygBuilder implements Builder {
 	@Override
 	public WysinwygController build() {
 		String s = System.getProperty("wysinwyg.mutex");
-		if(s == null || !s.equalsIgnoreCase("false")) {
+		if (s == null || !s.equalsIgnoreCase("false")) {
 			testOnlyInstance();
 		}
 
@@ -70,10 +70,10 @@ public class WysinwygBuilder implements Builder {
 		return new DeviceBuilder().setDeviceView(view.getDeviceView()).addDeviceList(new Devices().readUpDevices())
 				.build();
 	}
-	
+
 	private EvaluatorController createEvaulatorController(WysinwygView view) {
-		return new EvaluatorBuilder().setEvaluatorView(view.getEvaluatorView()).addEvaluatorList(new Evaluators().getEvaluators())
-				.build();
+		return new EvaluatorBuilder().setEvaluatorView(view.getEvaluatorView())
+				.addEvaluatorList(new Evaluators().getEvaluators()).build();
 	}
 
 }

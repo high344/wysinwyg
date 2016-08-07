@@ -89,8 +89,7 @@ public class WysinwygPath {
 		}
 
 		if (arch == null) {
-			ErrorMessage.show(
-					new WysinwygException("Current Operating System Architecture is not suppoerted!"), debug);
+			ErrorMessage.show(new WysinwygException("Current Operating System Architecture is not suppoerted!"), debug);
 			System.exit(1);
 		}
 	}

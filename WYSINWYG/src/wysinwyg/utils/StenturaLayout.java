@@ -24,10 +24,9 @@ public class StenturaLayout extends JPanel {
 
 	private static final long serialVersionUID = -3732867237085126757L;
 
-	protected String[] sten1 = { "#", "hm", "S", "S_", "T", "T_", "P", "P_", "H", "H_", "*", "st",
-			"F", "_F", "P", "_P", "L", "_L", "T", "_T", "D", "_D" };
-	protected String[] sten2 = { "K", "K_", "W", "W_", "R", "R_", "R", "_R", "B", "_B", "G", "_G",
-			"S", "_S", "Z", "_Z" };
+	protected String[] sten1 = { "#", "hm", "S", "S_", "T", "T_", "P", "P_", "H", "H_", "*", "st", "F", "_F", "P",
+			"_P", "L", "_L", "T", "_T", "D", "_D" };
+	protected String[] sten2 = { "K", "K_", "W", "W_", "R", "R_", "R", "_R", "B", "_B", "G", "_G", "S", "_S", "Z", "_Z" };
 	protected String[] sten3 = { "A", "A_", "O", "O_", "E", "_E", "U", "_U" };
 
 	protected Map<String, JToggleButton> map = new HashMap<String, JToggleButton>(23);
@@ -36,8 +35,7 @@ public class StenturaLayout extends JPanel {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, Double.MIN_VALUE };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 

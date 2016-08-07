@@ -27,7 +27,6 @@ public class MainWysinwyg {
 	// TODO Device serial whole Passport protocol, simulation.
 	// TODO Device serial whole Gemini PR protocol, simulation.
 	// TODO {@link DeviceController} appending text length.
-	// TODO {@link DeviceEvent} simplify it, extend a KeyboardEvent
 
 	// TODO {@link EvaluatorModel} read up evaluators..
 	// TODO create a hun evaluator for the feelz.

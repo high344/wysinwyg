@@ -10,8 +10,6 @@
  ******************************************************************************/
 package wysinwyg.fb.device.stentura;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +20,7 @@ import wysinwyg.fw.device.Device;
 import wysinwyg.fw.device.DeviceEvent;
 import wysinwyg.fw.device.DeviceListener;
 import wysinwyg.fw.device.serial.SerialBuilder;
+import wysinwyg.fw.evaluator.Evaluator;
 
 public class StenturaDevice implements Device, DeviceListener {
 
@@ -31,7 +30,7 @@ public class StenturaDevice implements Device, DeviceListener {
 		System.out.println(new StenturaDevice().CRC(b));
 		byte[] c = new byte[] { 73, -14 };
 
-		System.out.println(Short.toUnsignedInt(ByteBuffer.wrap(c).order(ByteOrder.LITTLE_ENDIAN).getShort()));
+		// System.out.println(Short.toUnsignedInt(ByteBuffer.wrap(c).order(ByteOrder.LITTLE_ENDIAN).getShort()));
 	}
 
 	private StenturaSerialComm comm;
@@ -181,5 +180,11 @@ public class StenturaDevice implements Device, DeviceListener {
 			0x5b40, 0x9901, 0x59c0, 0x5880, 0x9841, 0x8801, 0x48c0, 0x4980, 0x8941, 0x4b00, 0x8bc1, 0x8a81, 0x4a40,
 			0x4e00, 0x8ec1, 0x8f81, 0x4f40, 0x8d01, 0x4dc0, 0x4c80, 0x8c41, 0x4400, 0x84c1, 0x8581, 0x4540, 0x8701,
 			0x47c0, 0x4680, 0x8641, 0x8201, 0x42c0, 0x4380, 0x8341, 0x4100, 0x81c1, 0x8081, 0x4040 };
+
+	@Override
+	public void setEvaluator(Evaluator eva) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

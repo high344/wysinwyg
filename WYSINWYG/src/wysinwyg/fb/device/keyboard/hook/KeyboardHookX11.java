@@ -52,8 +52,8 @@ public class KeyboardHookX11 extends AbstractKeyboardHook {
 			@Override
 			public void run() {
 				Display display = lib.XOpenDisplay(null);
-				lib.XGrabKeyboard(display, lib.XDefaultRootWindow(display), 1, X11.GrabModeAsync,
-						X11.GrabModeAsync, new NativeLong(X11.CurrentTime));
+				lib.XGrabKeyboard(display, lib.XDefaultRootWindow(display), 1, X11.GrabModeAsync, X11.GrabModeAsync,
+						new NativeLong(X11.CurrentTime));
 
 				System.out.println("Keyboard hook set...");
 

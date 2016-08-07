@@ -37,8 +37,7 @@ public class Win32Printer implements Printer {
 
 	private Win32Printer() {
 		queue = new LinkedBlockingQueue<PrinterEvent>();
-		User32 user32 = (User32) Native.loadLibrary("user32", User32.class,
-				W32APIOptions.DEFAULT_OPTIONS);
+		User32 user32 = (User32) Native.loadLibrary("user32", User32.class, W32APIOptions.DEFAULT_OPTIONS);
 		Thread thread = new Thread(createPrinterThread(user32), "Win32Printer");
 		thread.start();
 	}
@@ -72,8 +71,7 @@ public class Win32Printer implements Printer {
 				INPUT[] in = (INPUT[]) new INPUT().toArray(2);
 				if (chc == 1) {
 					setInput(in[0], 0, ch, KEYBDINPUT.KEYEVENTF_UNICODE);
-					setInput(in[1], 0, ch, KEYBDINPUT.KEYEVENTF_UNICODE
-							| KEYBDINPUT.KEYEVENTF_KEYUP);
+					setInput(in[1], 0, ch, KEYBDINPUT.KEYEVENTF_UNICODE | KEYBDINPUT.KEYEVENTF_KEYUP);
 				} else if (chc == 2) {
 					setInput(in[0], 0, Character.highSurrogate(ch), KEYBDINPUT.KEYEVENTF_UNICODE);
 					setInput(in[1], 0, Character.lowSurrogate(ch), KEYBDINPUT.KEYEVENTF_UNICODE);
