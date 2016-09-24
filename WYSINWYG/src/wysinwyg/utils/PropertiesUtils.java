@@ -16,6 +16,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 public class PropertiesUtils {
@@ -49,6 +52,29 @@ public class PropertiesUtils {
 		} finally {
 			out.close();
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> List<T> readUpObjects(File f, boolean debug) {
+		Properties prop = null;
+		try {
+			prop = loadProperties(f);
+		} catch (IOException e) {
+			ErrorMessage.show(e, debug);
+			return null;
+		}
+
+		List<T> arr = new ArrayList<T>(prop.size());
+		for (Entry<Object, Object> p : prop.entrySet()) {
+			try {
+				Class<?> c = Class.forName((String) p.getValue());
+				// TODO
+				arr.add((T) c.newInstance());
+			} catch (Exception e) {
+				ErrorMessage.show(e, debug);
+			}
+		}
+		return arr;
 	}
 
 }

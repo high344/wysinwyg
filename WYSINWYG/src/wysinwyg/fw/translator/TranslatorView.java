@@ -19,23 +19,16 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import wysinwyg.fw.Init;
 import wysinwyg.utils.renderer.ComboboxListCellRenderer;
 
 public class TranslatorView extends JPanel {
 
 	private static final long serialVersionUID = 3424951162521741376L;
 
-	private TranslatorModel model;
 	private JComboBox<Translator> comboBox;
 	private JPanel cardsPanel;
 
-	public TranslatorView(TranslatorModel model) {
-		this.model = model;
-		buildGUI();
-	}
-
-	private void buildGUI() {
+	public TranslatorView() {
 		setBorder(new TitledBorder(null, "Translator:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 
@@ -44,37 +37,14 @@ public class TranslatorView extends JPanel {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		add(panel, BorderLayout.NORTH);
 
-		if (model != null && model.getTranslators() != null) {
-			comboBox = new JComboBox<Translator>(model.getTranslators());
-		} else {
-			comboBox = new JComboBox<Translator>();
-		}
-		panel.add(comboBox);
+		comboBox = new JComboBox<Translator>();
 		comboBox.setPreferredSize(new Dimension(150, 20));
 		comboBox.setRenderer(new ComboboxListCellRenderer());
+		panel.add(comboBox);
 
 		cardsPanel = new JPanel();
 		add(cardsPanel, BorderLayout.WEST);
 		cardsPanel.setLayout(new CardLayout(0, 0));
-
-		if (model != null && model.getTranslators() != null) {
-			for (Translator d : model.getTranslators()) {
-				if (d instanceof Init) {
-					Init init = (Init) d;
-					if (init.getView() != null) {
-						cardsPanel.add(init.getView(), d.getDisplayName());
-					} else {
-						cardsPanel.add(new JPanel(), d.getDisplayName());
-					}
-				}
-			}
-		}
-
-		if (model != null) {
-			if (model.getDictionary() != null) {
-				add(model.getDictionary().getView(), BorderLayout.CENTER);
-			}
-		}
 
 	}
 

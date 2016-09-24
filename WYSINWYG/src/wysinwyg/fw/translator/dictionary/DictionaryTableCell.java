@@ -18,8 +18,10 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -45,18 +47,23 @@ public class DictionaryTableCell extends AbstractCellEditor implements TableCell
 
 		btnUp = new JButton("Up");
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
 		panel.add(btnUp);
 
 		btnDown = new JButton("Down");
 		panel.add(btnDown);
-
+		
+		panel.add(new JSeparator(SwingConstants.VERTICAL));
+		
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1);
+		panel.add(new JSeparator(SwingConstants.VERTICAL));
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		textArea = new JTextArea();
 		textArea.setBorder(new CompoundBorder(new EmptyBorder(0, 3, 0, 3), new LineBorder(new Color(0, 0, 0))));
 		panel_1.add(textArea);
+		
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
 		textArea.setBackground(UIManager.getColor("TextField.background"));

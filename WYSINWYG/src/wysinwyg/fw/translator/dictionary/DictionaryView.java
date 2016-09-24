@@ -29,17 +29,11 @@ public class DictionaryView extends JPanel {
 
 	private static final long serialVersionUID = 6536417544245864384L;
 
-	private DictionaryModel model;
 	private JButton btnAdd;
 	private JButton btnRemove;
 	private JTable table;
 
-	public DictionaryView(DictionaryModel model) {
-		this.model = model;
-		buildGUI();
-	}
-
-	private void buildGUI() {
+	public DictionaryView() {
 		setBorder(new TitledBorder(null, "Dictionary:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 
@@ -79,15 +73,14 @@ public class DictionaryView extends JPanel {
 		scrollPane.setPreferredSize(new Dimension(600, 200));
 		add(scrollPane);
 
-		if (model != null) {
-			table = new JTable(model.getDictionaryTableModel());
-			table.setDefaultRenderer(DictionaryTableCell.class, new DictionaryTableCell());
-			table.setDefaultEditor(DictionaryTableCell.class, new DictionaryTableCell());
-			table.setRowHeight(50);
-			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			table.getTableHeader().setReorderingAllowed(false);
-			scrollPane.setViewportView(table);
-		}
+		table = new JTable(new DictionaryTableModel());
+		table.setDefaultRenderer(DictionaryTableCell.class, new DictionaryTableCell());
+		table.setDefaultEditor(DictionaryTableCell.class, new DictionaryTableCell());
+		table.setRowHeight(50);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.getTableHeader().setReorderingAllowed(false);
+		scrollPane.setViewportView(table);
+		
 	}
 
 	public JButton getBtnAdd() {

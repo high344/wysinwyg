@@ -10,19 +10,16 @@
  ******************************************************************************/
 package wysinwyg.fb.device.stentura;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.JPanel;
 
-import wysinwyg.fw.device.Device;
+import wysinwyg.fw.device.AbstractDevice;
 import wysinwyg.fw.device.DeviceEvent;
-import wysinwyg.fw.device.DeviceListener;
 import wysinwyg.fw.device.serial.SerialBuilder;
 import wysinwyg.fw.evaluator.Evaluator;
 
-public class StenturaDevice implements Device, DeviceListener {
+public class StenturaDevice extends AbstractDevice {
 
 	public static void main(String[] args) throws Exception {
 		byte[] b = new byte[] { 82, 69, 65, 76, 84, 73, 77, 69, 46, 48, 48, 48, };
@@ -35,14 +32,12 @@ public class StenturaDevice implements Device, DeviceListener {
 
 	private StenturaSerialComm comm;
 	private StenturaView panel;
-	private List<DeviceListener> list;
 	private Thread serialPortListenerThread;
 
 	public StenturaDevice() throws Exception {
 		RXTXLibraryLoader.load();
 		comm = new StenturaSerialComm();
 		panel = new StenturaView();
-		list = new ArrayList<DeviceListener>(10);
 		comm.setSerialController(new SerialBuilder().setSerialModel(comm).setSerialView(panel.getSerialView()).build());
 		serialPortListenerThread = new Thread(createSerialPortListenerThread(), "serialPortListenerThread");
 	}
@@ -58,16 +53,6 @@ public class StenturaDevice implements Device, DeviceListener {
 	}
 
 	@Override
-	public void addDeviceListener(DeviceListener devListener) {
-		list.add(devListener);
-	}
-
-	@Override
-	public void removeDeviceListener(DeviceListener devListener) {
-		list.remove(devListener);
-	}
-
-	@Override
 	public void startDevice() {
 		serialPortListenerThread.start();
 	}
@@ -79,9 +64,7 @@ public class StenturaDevice implements Device, DeviceListener {
 
 	@Override
 	public void deviceEventOccurred(DeviceEvent e) {
-		for (DeviceListener d : list) {
-			d.deviceEventOccurred(e);
-		}
+		super.deviceEventOccurred(e);
 	}
 
 	private Runnable createSerialPortListenerThread() {

@@ -50,9 +50,9 @@ class RXTXLibraryLoader {
 					File f2 = new File(url2.getFile());
 					JarUtils.copyJarFileContent(f2, "rxtx" + "/" + WysinwygPath.getOS() + "/" + WysinwygPath.getArch()
 							+ "/", f);
-					addLibraryPath(f.getPath());
+					addLibraryPath(USR_PATHS, f.getPath());
 				} else {
-					addLibraryPath(url.getPath());
+					addLibraryPath(USR_PATHS, url.getPath());
 				}
 				success = true;
 			}
@@ -64,11 +64,8 @@ class RXTXLibraryLoader {
 	 * @param path
 	 * @throws Exception
 	 */
-	private static void addLibraryPath(String path) throws Exception {
-		Field usrPathsField = ClassLoader.class.getDeclaredField("usr_paths");
-		usrPathsField.setAccessible(true);
-
-		String[] paths = (String[]) usrPathsField.get(null);
+	private static void addLibraryPath(Field field, String path) throws Exception {
+		String[] paths = (String[]) field.get(null);
 
 		for (String p : paths) {
 			if (p.equals(path)) {
@@ -78,7 +75,7 @@ class RXTXLibraryLoader {
 
 		String[] newPaths = Arrays.copyOf(paths, paths.length + 1);
 		newPaths[newPaths.length - 1] = path;
-		usrPathsField.set(null, newPaths);
+		field.set(null, newPaths);
 	}
 
 }

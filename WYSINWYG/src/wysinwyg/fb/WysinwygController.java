@@ -22,8 +22,10 @@ import wysinwyg.fw.Controller;
 import wysinwyg.fw.Viewable;
 import wysinwyg.fw.device.Device;
 import wysinwyg.fw.device.DeviceController;
-import wysinwyg.fw.evaluator.AbstractEvaluator;
+import wysinwyg.fw.evaluator.Evaluator;
 import wysinwyg.fw.evaluator.EvaluatorController;
+import wysinwyg.fw.translator.Translator;
+import wysinwyg.fw.translator.TranslatorController;
 
 /**
  * 
@@ -37,9 +39,10 @@ public class WysinwygController implements Controller, ActionListener, Viewable 
 	private WysinwygView view;
 	private DeviceController deviceController;
 	private EvaluatorController evaulatorController;
+	private TranslatorController translatorController;
 	private JToggleButton tglbtnStart;
 
-	private Device runningDevice;
+	private Device device;
 
 	public WysinwygController(WysinwygView view) {
 		this.view = view;
@@ -76,17 +79,26 @@ public class WysinwygController implements Controller, ActionListener, Viewable 
 		this.evaulatorController = evaulatorController;
 	}
 
+	public void setTranslatorController(TranslatorController translatorController) {
+		this.translatorController = translatorController;
+	}
+
 	public void start() {
 		if (deviceController != null) {
-			runningDevice = deviceController.getSelectedDevice();
-			runningDevice.setEvaluator(evaulatorController.getSelectedEvaluator());
-			runningDevice.startDevice();
+			device = deviceController.getSelectedDevice();
+			Evaluator eva = evaulatorController.getSelectedEvaluator();
+			Translator translator = translatorController.getSelectedTranslator();
+			
+			device.setEvaluator(eva);
+			eva.setTranslator(translator);
+			
+			device.startDevice();
 		}
 	}
 
 	public void stop() {
-		if (runningDevice != null) {
-			runningDevice.stopDevice();
+		if (device != null) {
+			device.stopDevice();
 		}
 	}
 

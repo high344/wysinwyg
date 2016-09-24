@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
+import wysinwyg.fw.translator.dictionary.DictionaryView;
 
 public class PloverView extends JPanel {
 
@@ -27,6 +28,7 @@ public class PloverView extends JPanel {
 	private JTextArea textAreaTranslation;
 	private JTextArea textAreaStrokeResults;
 	private JTextArea textAreaStrokes;
+	private DictionaryView dictionaryView;
 
 	public PloverView() {
 		setLayout(new BorderLayout(0, 0));
@@ -85,6 +87,9 @@ public class PloverView extends JPanel {
 		textAreaStrokes = new JTextArea();
 		textAreaStrokes.setEditable(false);
 		scrollPane.setViewportView(textAreaStrokes);
+		
+		dictionaryView = new DictionaryView();
+		add(dictionaryView, BorderLayout.WEST);
 	}
 
 	public JTextArea getTextAreaTranslation() {
@@ -97,6 +102,10 @@ public class PloverView extends JPanel {
 
 	public JTextArea getTextAreaStrokes() {
 		return textAreaStrokes;
+	}
+
+	public DictionaryView getDictionaryView() {
+		return dictionaryView;
 	}
 
 }

@@ -11,6 +11,8 @@
 package wysinwyg.fw.translator.dictionary;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -20,37 +22,42 @@ public class DictionaryTableModel extends AbstractTableModel {
 
 	private String[] names = { "Dictionary" };
 	private Class<?>[] clazz = { DictionaryTableCell.class };
+	private List<Dictionary> dictionaries = new ArrayList<Dictionary>();
 
-	private DictionaryModel model;
-
-	public DictionaryTableModel(DictionaryModel model) {
-		this.model = model;
+	public void addDictionary(List<Dictionary> dictionaries) {
+		this.dictionaries = dictionaries;
+		fireTableDataChanged();
 	}
-
+	
 	public void addDictionary(File file) {
+		/*
 		if (model.getTranslator().addDictionary(file) == true) {
 			fireTableDataChanged();
-		}
+		}*/
 	}
 
 	public void removeDictionary(int row) {
 		if (validRow(row)) {
+			/*
 			if (model.getTranslator().removeDictionary(row) == true) {
 				fireTableStructureChanged();
-			}
+			}*/
 		}
 	}
 
 	public void swapDictionaries(int rowA, int rowB) {
 		if (validRow(rowA) && validRow(rowB)) {
+			/*
 			if (model.getTranslator().changeDictionaryOrders(rowA, rowB) == true) {
 				fireTableStructureChanged();
-			}
+			}*/
 		}
 	}
 
 	private boolean validRow(int row) {
-		return row > -1 && model.getTranslator().getDictionaryCount() > row;
+		/*
+		return row > -1 && model.getTranslator().getDictionaryCount() > row;*/
+		return false;
 	}
 
 	@Override
@@ -60,7 +67,7 @@ public class DictionaryTableModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return model.getTranslator().getDictionaryCount();
+		return dictionaries.size();
 	}
 
 	@Override
@@ -81,7 +88,7 @@ public class DictionaryTableModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (columnIndex == 0) {
-			return model.getTranslator().getDictionary(rowIndex);
+			return dictionaries.get(rowIndex);
 		}
 		return null;
 	}

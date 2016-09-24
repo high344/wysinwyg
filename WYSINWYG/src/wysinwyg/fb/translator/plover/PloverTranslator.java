@@ -14,27 +14,27 @@ import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import wysinwyg.fb.evaluator.steno.StenoOrder;
 import wysinwyg.fw.Controller;
-import wysinwyg.fw.Init;
-import wysinwyg.fw.Model;
-import wysinwyg.fw.evaluator.EvaluationEvent;
 import wysinwyg.fw.translator.AbstractTranslator;
 import wysinwyg.fw.translator.TranslationEvent;
 import wysinwyg.fw.translator.dictionary.Dictionary;
+import wysinwyg.fw.translator.dictionary.DictionaryBuilder;
+import wysinwyg.fw.translator.dictionary.DictionaryController;
 import wysinwyg.utils.CapacityArrayDeque;
 
-public class PloverTranslator extends AbstractTranslator implements Init {
+public class PloverTranslator extends AbstractTranslator {
 
 	private TreeMap<String, Map<String, String>> entries;
 	private CapacityArrayDeque<Element> stenoElements = new CapacityArrayDeque<Element>(11);
 	private PloverView view;
 	private PloverController controller;
+	private DictionaryController dController;
 
-	public PloverTranslator(String[] supportedFileExtensions) {
-		super(supportedFileExtensions);
+	public PloverTranslator() {
+		super(new String[] { ".json" });
 
 		PloverTranslationValidator ptv = new PloverTranslationValidator();
 		this.addTranslationListener(ptv);
@@ -42,10 +42,12 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 		entries = new TreeMap<String, Map<String, String>>();
 		ClassLoader classLoader = getClass().getClassLoader();
 		File f = new File(classLoader.getResource("dict.json").getFile());
+
 		addDictionary(f);
 
 		view = new PloverView();
 		controller = new PloverController(view);
+		dController = new DictionaryBuilder().addDictionaryList(dictionaries).setDictionaryView(view.getDictionaryView()).build();
 	}
 
 	@Override
@@ -54,10 +56,8 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 	}
 
 	@Override
-	public void evaluationEventOccurred(EvaluationEvent e) {
-		if (e.getResult() != null) {
-			findTranslation(e.getResult());
-		}
+	public void translate(String translate) {
+		findTranslation(translate);
 	}
 
 	@Override
@@ -79,11 +79,10 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 	}
 
 	@Override
-	public JComponent getView() {
+	public JPanel getView() {
 		return view;
 	}
 
-	@Override
 	public Controller getController() {
 		return controller;
 	}
@@ -108,19 +107,27 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 				e.setTranslation(result);
 			}
 
-			translationEventOccurred(new TranslationEvent(this, e.getStroke(), e.getTranslation()));
+			super.translationEventOccurred(new TranslationEvent(this, e.getStroke(), e.getTranslation()));
 
-			/*
-			 * int lastStrokeSuffixType = 0; Element e2 = stenoElements.getElement(longestStroke); if(e2 != null) {
-			 * lastStrokeSuffixType = e2.getSuffixType(); }
-			 * 
-			 * e.setPrintedString(getPrintedStringForTranslation(e.getTranslation(), lastStrokeSuffixType));
-			 * e.setSuffixType(getSuffixTypeForTranslation(e.getTranslation()));
-			 * e.setRemovedString(concatPrintedString(longestStroke));
-			 * 
-			 * System.out.println(e); if(e.getRemovedString() != null) { //TODO printer.print(e.getPrintedString(),
-			 * e.getRemovedString().length()); } else { //TODO printer.print(e.getPrintedString(), 0); }
-			 */
+			/* @formatter:off
+			int lastStrokeSuffixType = 0;
+			Element e2 = stenoElements.getElement(longestStroke);
+			if (e2 != null) {
+				lastStrokeSuffixType = e2.getSuffixType();
+			}
+
+			e.setPrintedString(getPrintedStringForTranslation(e.getTranslation(), lastStrokeSuffixType));
+			e.setSuffixType(getSuffixTypeForTranslation(e.getTranslation()));
+			e.setRemovedString(concatPrintedString(longestStroke));
+
+			System.out.println(e);
+			if (e.getRemovedString() != null) {
+				// TODO printer.print(e.getPrintedString(),
+				e.getRemovedString().length();
+			} else {
+				// TODO printer.print(e.getPrintedString(), 0);
+			}*/
+
 			controller.updateTranslation(e.getTranslation());
 		}
 		controller.updateStrokes(stenoElements);
@@ -199,12 +206,6 @@ public class PloverTranslator extends AbstractTranslator implements Init {
 		default:
 			break;
 		}
-		return null;
-	}
-
-	@Override
-	public Model getModel() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

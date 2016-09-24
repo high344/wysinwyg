@@ -12,39 +12,41 @@ package wysinwyg.fw.translator.dictionary;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Objects;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import wysinwyg.fw.Controller;
 import wysinwyg.fw.translator.Translator;
 
 public class DictionaryController implements Controller, ActionListener {
 
-	private DictionaryModel model;
 	private DictionaryView view;
-	private DictionaryTableCell dtc;
 
-	public DictionaryController(DictionaryModel model, DictionaryView view) {
-		Objects.requireNonNull(model);
-		Objects.requireNonNull(view);
-
-		this.model = model;
+	public DictionaryController(List<Dictionary> dictionaries, DictionaryView view) {
 		this.view = view;
-
+		
+		((DictionaryTableModel) view.getTable().getModel()).addDictionary(dictionaries);
+		
 		view.getBtnAdd().addActionListener(this);
 		view.getBtnRemove().addActionListener(this);
 
+		
+		
+		/*
 		dtc = (DictionaryTableCell) view.getTable().getDefaultEditor(DictionaryTableCell.class);
 		if (dtc != null) {
 			dtc.getBtnUp().addActionListener(this);
 			dtc.getBtnDown().addActionListener(this);
-		}
+		}*/
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		/*
 		Object source = e.getSource();
 		if (source == dtc.getBtnUp()) {
 			int row = view.getTable().getSelectedRow();
@@ -75,11 +77,7 @@ public class DictionaryController implements Controller, ActionListener {
 				return;
 			}
 			model.getDictionaryTableModel().removeDictionary(row);
-		}
-	}
-
-	public void setNewTranslator(Translator translator) {
-		model.setTranslator(translator);
+		}*/
 	}
 
 }

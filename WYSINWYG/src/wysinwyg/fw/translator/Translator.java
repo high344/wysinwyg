@@ -12,13 +12,15 @@ package wysinwyg.fw.translator;
 
 import java.io.File;
 
-import wysinwyg.fw.evaluator.EvaluationListener;
+import wysinwyg.fw.Viewable;
 import wysinwyg.fw.translator.dictionary.Dictionary;
 import wysinwyg.utils.FileFilter;
 import wysinwyg.utils.renderer.ComboboxDisplayName;
 
-public interface Translator extends ComboboxDisplayName, EvaluationListener {
+public interface Translator extends ComboboxDisplayName, Viewable {
 
+	public void translate(String translate);
+	
 	public boolean addDictionary(File file);
 
 	public boolean removeDictionary(File file);

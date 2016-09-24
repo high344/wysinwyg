@@ -190,29 +190,41 @@ public class PloverTranslationValidator implements TranslationListener {
 		return COMMAND_NOT_PRESENT;
 	}
 
-	/*
-	 * 
-	 * public static void main(String[] args) { PloverTranslator trans = new PloverTranslator(); String[] test = {
-	 * "{,}but if you want to know what I believe{,}   {-|}   i'll tell you..{.}" ,
-	 * "they begin as random events that most people don't even notice.", "{-|}but they grow{.}   ",
-	 * "     they multiply...", "Some people call that  ", "{^ \"}fate\".", "I call it ", "{&Cha}", "{&os}{    }",
-	 * "{&The}", "{&ory.}", "asdasd{^asd^}" };
-	 * 
-	 * for(String str: test) { System.out.println(str+" "+trans.getSuffixTypeForTranslation(str)); }
-	 * 
-	 * }
-	 * 
-	 * public PloverTranslator() { this.commandBegin = '{'; this.commandEnd = '}'; this.commandBeginCount =
-	 * Character.charCount('{'); this.commandEndCount = Character.charCount('}');
-	 * 
-	 * entries = new TreeMap<String, Map<String, String>>(); init(); }
-	 */
+	/* @formatter:off
+	public static void main(String[] args) {
+		PloverTranslator trans = new PloverTranslator();
+		String[] test = { "{,}but if you want to know what I believe{,}   {-|}   i'll tell you..{.}",
+				"they begin as random events that most people don't even notice.", "{-|}but they grow{.}   ",
+				"     they multiply...", "Some people call that  ", "{^ \"}fate\".", "I call it ", "{&Cha}",
+				"{&os}{    }", "{&The}", "{&ory.}", "asdasd{^asd^}" };
 
-	/*
-	 * public boolean consumeKey(NativeKeyEvent nke) { System.out.println("consume: "+nke.paramString()); if
-	 * (!nke.isActionKey() //&& isConsumeEnabled && nke.getKeyCode() != NativeKeyEvent.VC_BACKSPACE && nke.getKeyCode()
-	 * != NativeKeyEvent.VC_DELETE && nke.getKeyCode() != NativeKeyEvent.VC_ESCAPE && nke.getKeyCode() !=
-	 * NativeKeyEvent.VC_ENTER && nke.getKeyCode() != NativeKeyEvent.VC_TAB) { return true; } return false; }
-	 */
+		for (String str : test) {
+			System.out.println(str + " " + trans.getSuffixTypeForTranslation(str));
+		}
+
+	}
+
+	public PloverTranslator() {
+		this.commandBegin = '{';
+		this.commandEnd = '}';
+		this.commandBeginCount = Character.charCount('{');
+		this.commandEndCount = Character.charCount('}');
+
+		entries = new TreeMap<String, Map<String, String>>();
+		init();
+	}
+
+	public boolean consumeKey(NativeKeyEvent nke) {
+		System.out.println("consume: " + nke.paramString());
+		if (!nke.isActionKey() // && isConsumeEnabled && nke.getKeyCode() != NativeKeyEvent.VC_BACKSPACE &&
+								// nke.getKeyCode()
+				!= NativeKeyEvent.VC_DELETE
+				&& nke.getKeyCode() != NativeKeyEvent.VC_ESCAPE
+				&& nke.getKeyCode() != NativeKeyEvent.VC_ENTER
+				&& nke.getKeyCode() != NativeKeyEvent.VC_TAB) {
+			return true;
+		}
+		return false;
+	}*/
 
 }

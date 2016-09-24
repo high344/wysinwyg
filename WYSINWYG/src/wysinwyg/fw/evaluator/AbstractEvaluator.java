@@ -13,12 +13,20 @@ package wysinwyg.fw.evaluator;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractEvaluator implements Evaluator {
+import wysinwyg.fw.translator.Translator;
+
+public abstract class AbstractEvaluator implements Evaluator, EvaluationListener {
 
 	protected List<EvaluationListener> list;
-
+	protected Translator translator;
+	
 	public AbstractEvaluator() {
 		list = new ArrayList<EvaluationListener>(3);
+	}
+	
+	@Override
+	public void setTranslator(Translator translator) {
+		this.translator = translator;
 	}
 
 	/**

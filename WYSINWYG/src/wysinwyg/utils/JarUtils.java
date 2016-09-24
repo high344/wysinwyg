@@ -57,7 +57,7 @@ public class JarUtils {
 	 * @return
 	 * @throws IOException
 	 */
-	public static List<String> isFileInJar(File jarFile, String filename) throws IOException {
+	public static List<String> filesInJar(File jarFile, String filename) throws IOException {
 		JarFile jar = new JarFile(jarFile);
 		try {
 			Enumeration<JarEntry> en = jar.entries();

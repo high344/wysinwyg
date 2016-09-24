@@ -11,9 +11,7 @@
 package wysinwyg.fb.device.keyboard;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -21,22 +19,17 @@ import wysinwyg.fb.WysinwygPath;
 import wysinwyg.fb.device.keyboard.hook.AbstractKeyboardHook;
 import wysinwyg.fb.device.keyboard.hook.KeyboardHookWin32;
 import wysinwyg.fb.device.keyboard.hook.KeyboardHookX11;
-import wysinwyg.fw.device.Device;
+import wysinwyg.fw.device.AbstractDevice;
 import wysinwyg.fw.device.DeviceEvent;
-import wysinwyg.fw.device.DeviceListener;
-import wysinwyg.fw.evaluator.Evaluator;
 
-public class KeyboardDevice implements Device, DeviceListener {
+public class KeyboardDevice extends AbstractDevice {
 
 	private KeyboardView view;
 	private AbstractKeyboardHook hook;
-	private List<DeviceListener> list;
 	private int rawPower;
 	private Deque<Integer> array = new ArrayDeque<Integer>(100);
-	private Evaluator eva;
 
 	public KeyboardDevice() {
-		list = new ArrayList<DeviceListener>(10);
 		view = new KeyboardView();
 		if ("win".equals(WysinwygPath.getOS())) {
 			hook = new KeyboardHookWin32(this);
@@ -52,11 +45,6 @@ public class KeyboardDevice implements Device, DeviceListener {
 	}
 
 	@Override
-	public void setEvaluator(Evaluator eva) {
-		this.eva = eva;
-	}
-
-	@Override
 	public JPanel getView() {
 		return view;
 	}
@@ -64,16 +52,6 @@ public class KeyboardDevice implements Device, DeviceListener {
 	@Override
 	public String getDisplayName() {
 		return "NKRO Keyboard";
-	}
-
-	@Override
-	public void addDeviceListener(DeviceListener devListener) {
-		list.add(devListener);
-	}
-
-	@Override
-	public void removeDeviceListener(DeviceListener devListener) {
-		list.remove(devListener);
 	}
 
 	@Override
@@ -89,9 +67,7 @@ public class KeyboardDevice implements Device, DeviceListener {
 
 	@Override
 	public void deviceEventOccurred(DeviceEvent e) {
-		for (DeviceListener d : list) {
-			d.deviceEventOccurred(e);
-		}
+		super.deviceEventOccurred(e);
 		KeyboardEvent ke = (KeyboardEvent) e;
 		if (ke.getKeyState() == KeyboardKeyState.DEVICE_KEY_PRESSED) {
 			rawPower += ke.getvKeyCode();

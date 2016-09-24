@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import wysinwyg.fw.device.DeviceView;
 import wysinwyg.fw.evaluator.EvaluatorView;
+import wysinwyg.fw.translator.TranslatorView;
 
 /**
  * A {@linkplain JPanel} with a {@linkplain WysinwygControlPanel} and {@linkplain DeviceView}.
@@ -26,6 +27,9 @@ import wysinwyg.fw.evaluator.EvaluatorView;
  * |---------------------------------------------------|
  * | WysinwygControlPanel | DeviceView | EvaluatorView |
  * |-----------------------------------|---------------|
+ * | TranslatorView                                    |
+ * |-----------------------------------|---------------|
+ * 
  * </pre>
  * 
  * @author FelfoldiB.
@@ -38,6 +42,8 @@ public class WysinwygView extends JPanel {
 	private WysinwygControlPanel controlPanel;
 	private DeviceView deviceView;
 	private EvaluatorView evaluatorView;
+	private JPanel panel;
+	private TranslatorView translatorView;
 
 	/**
 	 * Creating the {@linkplain JPanel} specified in the {@linkplain WysinwygView}.
@@ -61,6 +67,13 @@ public class WysinwygView extends JPanel {
 		panel_1.add(evaluatorView, BorderLayout.EAST);
 
 		scrollPane.setViewportView(panel_1);
+
+		panel = new JPanel();
+		panel_1.add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new BorderLayout(0, 0));
+
+		translatorView = new TranslatorView();
+		panel.add(translatorView);
 	}
 
 	/**
@@ -88,6 +101,15 @@ public class WysinwygView extends JPanel {
 	 */
 	public EvaluatorView getEvaluatorView() {
 		return evaluatorView;
+	}
+
+	/**
+	 * 
+	 * @return a {@linkplain TranslatorView}.
+	 * @see {@linkplain WysinwygView}.
+	 */
+	public TranslatorView getTranslatorView() {
+		return translatorView;
 	}
 
 }

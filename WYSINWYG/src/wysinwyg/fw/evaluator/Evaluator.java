@@ -13,10 +13,13 @@ package wysinwyg.fw.evaluator;
 import java.util.Deque;
 
 import wysinwyg.fw.Viewable;
+import wysinwyg.fw.translator.Translator;
 import wysinwyg.utils.renderer.ComboboxDisplayName;
 
-public interface Evaluator extends Viewable, ComboboxDisplayName, EvaluationListener {
+public interface Evaluator extends Viewable, ComboboxDisplayName {
 
+	public void setTranslator(Translator translator);
+	
 	public void evaluateCode(Deque<Integer> array);
 
 	/**

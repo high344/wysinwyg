@@ -12,9 +12,7 @@ package wysinwyg.fb.device;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Properties;
 
 import wysinwyg.fb.WysinwygPath;
@@ -36,9 +34,11 @@ public class Devices {
 			prop.put("device1", KeyboardDevice.class.getName());
 			prop.put("device2", StenturaDevice.class.getName());
 			try {
-				PropertiesUtils.saveProperties(prop,
-						"This file can be edited freely by adding a unique key (name is not important) and a device.",
-						DEFAULT_DEVICES_file);
+				PropertiesUtils
+						.saveProperties(
+								prop,
+								"This file can be edited freely by adding a unique key (name is not important) and a device implementing the \"wysinwyg.fw.device.Device\" interface.",
+								DEFAULT_DEVICES_file);
 			} catch (IOException e) {
 				ErrorMessage.show(e, Boolean.parseBoolean(System.getProperty("wysinwyg.devices")));
 			}
@@ -56,24 +56,8 @@ public class Devices {
 	}
 
 	public List<Device> readUpDevices() {
-		Properties prop = null;
-		try {
-			prop = PropertiesUtils.loadProperties(propertiesFile);
-		} catch (IOException e) {
-			ErrorMessage.show(e, Boolean.parseBoolean(System.getProperty("wysinwyg.devices")));
-			return null;
-		}
-
-		List<Device> arr = new ArrayList<Device>(prop.size());
-		for (Entry<Object, Object> p : prop.entrySet()) {
-			try {
-				Class<?> c = Class.forName((String) p.getValue());
-				arr.add((Device) c.newInstance());
-			} catch (Exception e) {
-				ErrorMessage.show(e, Boolean.parseBoolean(System.getProperty("wysinwyg.devices")));
-			}
-		}
-		return arr;
+		return PropertiesUtils.<Device> readUpObjects(propertiesFile,
+				Boolean.parseBoolean(System.getProperty("wysinwyg.devices")));
 	}
 
 }

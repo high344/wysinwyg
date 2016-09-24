@@ -13,23 +13,73 @@ package wysinwyg.fw.translator;
 import java.awt.CardLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Objects;
+import java.util.List;
+
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import wysinwyg.fw.Controller;
+import wysinwyg.fw.Viewable;
 
-public class TranslatorController implements Controller, ItemListener {
+public class TranslatorController implements Controller, ItemListener, Viewable, TranslationListener {
 
-	private TranslatorModel model;
 	private TranslatorView view;
 
-	public TranslatorController(TranslatorModel model, TranslatorView view) {
-		Objects.requireNonNull(model);
-		Objects.requireNonNull(view);
-
-		this.model = model;
+	public TranslatorController(List<Translator> translators, TranslatorView view) {
 		this.view = view;
 
+		if (!translators.isEmpty()) {
+			if (SwingUtilities.isEventDispatchThread()) {
+				addTranslators(translators);
+			} else {
+				try {
+					if (view.isVisible()) {
+						SwingUtilities.invokeAndWait(createAddTranslators(translators));
+					} else {
+						addTranslators(translators);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 		view.getComboBox().addItemListener(this);
+	}
+
+	private void addTranslators(List<Translator> translators) {
+		for (Translator t : translators) {
+			if (t != null) {
+				addTranslator(t);
+				t.addTranslationListener(this);
+			}
+		}
+	}
+
+	private Runnable createAddTranslators(final List<Translator> translators) {
+		return new Runnable() {
+
+			@Override
+			public void run() {
+				addTranslators(translators);
+			}
+		};
+	}
+
+	@Override
+	public JPanel getView() {
+		return view;
+	}
+
+	public void addTranslator(Translator translator) {
+		view.getComboBox().addItem(translator);
+		view.getCardsPanel().add(translator.getView(), translator.getDisplayName());
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		CardLayout cl = (CardLayout) (view.getCardsPanel().getLayout());
+		cl.show(view.getCardsPanel(), ((Translator) view.getComboBox().getSelectedItem()).getDisplayName());
 	}
 
 	public Translator getSelectedTranslator() {
@@ -37,10 +87,8 @@ public class TranslatorController implements Controller, ItemListener {
 	}
 
 	@Override
-	public void itemStateChanged(ItemEvent e) {
-		CardLayout cl = (CardLayout) (view.getCardsPanel().getLayout());
-		cl.show(view.getCardsPanel(), ((Translator) view.getComboBox().getSelectedItem()).getDisplayName());
-		model.getDictionary().getController().setNewTranslator((Translator) view.getComboBox().getSelectedItem());
+	public void translationEventOccurred(TranslationEvent e) {
+		// TODO Auto-generated method stub
 	}
 
 }

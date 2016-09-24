@@ -28,14 +28,12 @@ public class MainWysinwyg {
 	// TODO Device serial whole Gemini PR protocol, simulation.
 	// TODO {@link DeviceController} appending text length.
 
-	// TODO {@link EvaluatorModel} read up evaluators..
 	// TODO create a hun evaluator for the feelz.
 	// TODO {@link StenoEvaluator} changeable key codes in a database, save,
 	// reload, etc...
 	// TODO {@link StenoEvaluator} changeable arpeggiate key code, and a
 	// button...
 
-	// TODO {@link TranslatorModel} read up translators..
 	// TODO {@link DictionaryView} DictionaryTableCell vs.
 	// DictionaryTableCellRenderer
 	// TODO {@link DictionaryTableModel} fireTableStructureChanged is overkill
