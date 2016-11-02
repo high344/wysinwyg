@@ -10,6 +10,7 @@
  ******************************************************************************/
 package wysinwyg.fw.translator.dictionary;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,11 @@ import wysinwyg.utils.FileFilter;
 
 public interface DictionaryOptions {
 
+	public List<Dictionary> getDictionaries();
+
 	public FileFilter getDictionaryFileFilter();
+
+	public Dictionary initDictironay(File f);
 
 	public Map<String, String> loadDictionary(Dictionary dictionary);
 

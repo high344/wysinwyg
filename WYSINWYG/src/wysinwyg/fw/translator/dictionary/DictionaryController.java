@@ -12,72 +12,124 @@ package wysinwyg.fw.translator.dictionary;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import wysinwyg.fw.Controller;
-import wysinwyg.fw.translator.Translator;
+import wysinwyg.fw.Viewable;
 
-public class DictionaryController implements Controller, ActionListener {
+public class DictionaryController implements Controller, ActionListener, Viewable {
 
 	private DictionaryView view;
+	private DictionaryOptions options;
 
-	public DictionaryController(List<Dictionary> dictionaries, DictionaryView view) {
+	public DictionaryController(DictionaryOptions options, DictionaryView view) {
+		this.options = options;
 		this.view = view;
-		
-		((DictionaryTableModel) view.getTable().getModel()).addDictionary(dictionaries);
-		
+
+		List<Dictionary> list = loadList();
+
+		if (!list.isEmpty()) {
+			if (SwingUtilities.isEventDispatchThread()) {
+				view.getTable().getModel().newDictionary(list);
+			} else {
+				try {
+					if (view.isVisible()) {
+						SwingUtilities.invokeAndWait(createAddDictionaries(list));
+					} else {
+						view.getTable().getModel().newDictionary(list);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		view.getTable().addTableRowListener(this);
 		view.getBtnAdd().addActionListener(this);
 		view.getBtnRemove().addActionListener(this);
+		view.getBtnSave().addActionListener(this);
+		view.getBtnReload().addActionListener(this);
+	}
 
-		
-		
-		/*
-		dtc = (DictionaryTableCell) view.getTable().getDefaultEditor(DictionaryTableCell.class);
-		if (dtc != null) {
-			dtc.getBtnUp().addActionListener(this);
-			dtc.getBtnDown().addActionListener(this);
-		}*/
+	private Runnable createAddDictionaries(final List<Dictionary> dictionaries) {
+		return new Runnable() {
+
+			@Override
+			public void run() {
+				view.getTable().getModel().newDictionary(dictionaries);
+			}
+		};
+	}
+
+	private List<Dictionary> loadList() {
+		List<Dictionary> list = null;
+		Objects.requireNonNull(list = options.getDictionaries());
+		return new ArrayList<Dictionary>(list);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/*
 		Object source = e.getSource();
-		if (source == dtc.getBtnUp()) {
-			int row = view.getTable().getSelectedRow();
-			if (row > 0) {
-				model.getDictionaryTableModel().swapDictionaries(row, row - 1);
+		if (view.getTable().isBtnDown(source)) {
+			if (view.getTable().moveDownRow()) {
+				view.getBtnSave().setText("Save*");
 			}
-		} else if (source == dtc.getBtnDown()) {
-			int row = view.getTable().getSelectedRow();
-			if (model.getDictionaryTableModel().getRowCount() - 1 > row) {
-				model.getDictionaryTableModel().swapDictionaries(row, row + 1);
+		} else if (view.getTable().isBtnUp(source)) {
+			if (view.getTable().moveUpRow()) {
+				view.getBtnSave().setText("Save*");
 			}
-		} else if (source == dtc.getBtnAddValue()) {
-			// TODO
-		} else if (source == dtc.getBtnRemoveValue()) {
-			// TODO
-		} else if (source == view.getBtnAdd()) {
-			JFileChooser chooser = new JFileChooser();
-			chooser.addChoosableFileFilter(model.getTranslator().getDictionaryFileFilter());
-			chooser.setAcceptAllFileFilterUsed(false);
-			int returnVal = chooser.showOpenDialog(null);
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				model.getDictionaryTableModel().addDictionary(chooser.getSelectedFile());
+		} else if (view.getTable().isBtnOpen(source)) {
+			Dictionary d = view.getTable().getSelectedDictonary();
+			if(d != null) {
+				options.loadDictionary(d);
 			}
-		} else if (source == view.getBtnRemove()) {
+		} else if (view.getBtnAdd() == source) {
+			if (options != null) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.addChoosableFileFilter(options.getDictionaryFileFilter());
+				chooser.setAcceptAllFileFilterUsed(false);
+				int returnVal = chooser.showOpenDialog(null);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					Dictionary d = options.initDictironay(chooser.getSelectedFile());
+					if (d != null) {
+						view.getTable().getModel().addDictionary(d);
+					}
+				}
+			}
+		} else if (view.getBtnRemove() == source) {
 			int row = view.getTable().getSelectedRow();
 			if (row == -1) {
 				JOptionPane.showMessageDialog(null, "Select a row");
 				return;
 			}
-			model.getDictionaryTableModel().removeDictionary(row);
-		}*/
+			if(view.getTable().getModel().removeDictionary(row)) {
+				view.getTable().removeEditor();
+				view.getBtnSave().setText("Save*");
+			}
+		} else if (view.getBtnSave() == source) {
+			if (options != null) {
+				options.dictionaryOrderChanged(view.getTable().getModel().copyList());
+				view.getBtnSave().setText("Save");
+			}
+		} else if (view.getBtnReload() == source) {
+			if (options != null) {
+				view.getTable().getModel().newDictionary(loadList());
+				view.getTable().removeEditor();
+				view.getBtnSave().setText("Save");
+			}
+		}
+	}
+
+	@Override
+	public JPanel getView() {
+		return view;
 	}
 
 }

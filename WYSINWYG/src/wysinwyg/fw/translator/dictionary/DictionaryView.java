@@ -21,8 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
 public class DictionaryView extends JPanel {
@@ -31,7 +29,9 @@ public class DictionaryView extends JPanel {
 
 	private JButton btnAdd;
 	private JButton btnRemove;
-	private JTable table;
+	private JButton btnSave;
+	private JButton btnReload;
+	private DictionaryTable table;
 
 	public DictionaryView() {
 		setBorder(new TitledBorder(null, "Dictionary:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -44,43 +44,43 @@ public class DictionaryView extends JPanel {
 
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1);
-		panel_1.setLayout(new GridLayout(3, 2, 0, 5));
+		panel_1.setLayout(new GridLayout(0, 1, 0, 5));
 
 		btnAdd = new JButton("Add");
 		panel_1.add(btnAdd);
 
-		JPanel panel_2 = new JPanel(new GridBagLayout());
-		panel_1.add(panel_2);
-
-		JSeparator separator = new JSeparator();
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.weightx = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-
-		panel_2.add(separator, gbc);
+		panel_1.add(createGridBLayoutSeparator());
 
 		btnRemove = new JButton("Remove");
 		panel_1.add(btnRemove);
 
-		separator = new JSeparator();
-		gbc = new GridBagConstraints();
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.weightx = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		panel_1.add(createGridBLayoutSeparator());
+
+		btnSave = new JButton("Save");
+		panel_1.add(btnSave);
+
+		panel_1.add(createGridBLayoutSeparator());
+
+		btnReload = new JButton("Reload");
+		panel_1.add(btnReload);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setPreferredSize(new Dimension(600, 200));
 		add(scrollPane);
 
-		table = new JTable(new DictionaryTableModel());
-		table.setDefaultRenderer(DictionaryTableCell.class, new DictionaryTableCell());
-		table.setDefaultEditor(DictionaryTableCell.class, new DictionaryTableCell());
-		table.setRowHeight(50);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getTableHeader().setReorderingAllowed(false);
+		table = new DictionaryTable();
 		scrollPane.setViewportView(table);
-		
+	}
+
+	private JPanel createGridBLayoutSeparator() {
+		JPanel panel2 = new JPanel(new GridBagLayout());
+		JSeparator separator = new JSeparator();
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.weightx = 1;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		panel2.add(separator, gbc);
+		return panel2;
 	}
 
 	public JButton getBtnAdd() {
@@ -91,7 +91,15 @@ public class DictionaryView extends JPanel {
 		return btnRemove;
 	}
 
-	public JTable getTable() {
+	public JButton getBtnSave() {
+		return btnSave;
+	}
+
+	public JButton getBtnReload() {
+		return btnReload;
+	}
+
+	public DictionaryTable getTable() {
 		return table;
 	}
 

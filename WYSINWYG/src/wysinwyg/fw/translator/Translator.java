@@ -10,34 +10,12 @@
  ******************************************************************************/
 package wysinwyg.fw.translator;
 
-import java.io.File;
-
 import wysinwyg.fw.Viewable;
-import wysinwyg.fw.translator.dictionary.Dictionary;
-import wysinwyg.utils.FileFilter;
 import wysinwyg.utils.renderer.ComboboxDisplayName;
 
 public interface Translator extends ComboboxDisplayName, Viewable {
 
 	public void translate(String translate);
-	
-	public boolean addDictionary(File file);
-
-	public boolean removeDictionary(File file);
-
-	public boolean removeDictionary(int index);
-
-	public boolean changeDictionaryOrders(int a, int b);
-
-	public int getDictionaryCount();
-
-	public Dictionary getDictionary(int index);
-
-	public FileFilter getDictionaryFileFilter();
-
-	public boolean loadUpDictionary(int index);
-
-	public void loadUpAllDictionary();
 
 	public void addTranslationListener(TranslationListener transListener);
 

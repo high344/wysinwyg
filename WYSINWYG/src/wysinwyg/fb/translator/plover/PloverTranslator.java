@@ -27,27 +27,28 @@ import wysinwyg.utils.CapacityArrayDeque;
 
 public class PloverTranslator extends AbstractTranslator {
 
-	private TreeMap<String, Map<String, String>> entries;
+	
 	private CapacityArrayDeque<Element> stenoElements = new CapacityArrayDeque<Element>(11);
 	private PloverView view;
 	private PloverController controller;
+	private PloverDictionaryOptions dOptions;
 	private DictionaryController dController;
 
 	public PloverTranslator() {
-		super(new String[] { ".json" });
+		dOptions = new PloverDictionaryOptions(new String[] { ".json" });
 
 		PloverTranslationValidator ptv = new PloverTranslationValidator();
 		this.addTranslationListener(ptv);
 
-		entries = new TreeMap<String, Map<String, String>>();
+		
 		ClassLoader classLoader = getClass().getClassLoader();
 		File f = new File(classLoader.getResource("dict.json").getFile());
 
-		addDictionary(f);
+		dOptions.addDictionary(f);
 
 		view = new PloverView();
 		controller = new PloverController(view);
-		dController = new DictionaryBuilder().addDictionaryList(dictionaries).setDictionaryView(view.getDictionaryView()).build();
+		dController = new DictionaryBuilder(dOptions).setDictionaryView(view.getDictionaryView()).build();
 	}
 
 	@Override
@@ -61,19 +62,14 @@ public class PloverTranslator extends AbstractTranslator {
 	}
 
 	@Override
-	protected Dictionary initDictionary(File file) {
-		return new PloverJSonDictionary(file.getPath(), entries);
-	}
-
-	@Override
 	public void startTranslation() {
-		entries.clear();
-		loadUpAllDictionary();
+		dOptions.entries.clear();
+		dOptions.loadUpAllDictionary();
 	}
 
 	@Override
 	public void stopTranslation() {
-		entries.clear();
+		dOptions.entries.clear();
 		stenoElements.clear();
 		// controller.updateTextFieldStroke("");
 	}
@@ -149,7 +145,7 @@ public class PloverTranslator extends AbstractTranslator {
 
 	public String findLongestFittingStroke(String lastElement, String allElement) {
 		System.out.println("last: " + lastElement + " all:" + allElement);
-		Map<String, String> z = entries.get(lastElement);
+		Map<String, String> z = dOptions.entries.get(lastElement);
 		if (z == null) {
 			return null;
 		}
@@ -177,7 +173,7 @@ public class PloverTranslator extends AbstractTranslator {
 	}
 
 	public String getLongestTranslation(String lastElement, String longestStroke) {
-		Map<String, String> z = entries.get(lastElement);
+		Map<String, String> z = dOptions.entries.get(lastElement);
 		return z.get(longestStroke);
 	}
 

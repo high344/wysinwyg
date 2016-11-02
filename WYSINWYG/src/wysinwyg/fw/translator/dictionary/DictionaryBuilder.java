@@ -10,24 +10,51 @@
  ******************************************************************************/
 package wysinwyg.fw.translator.dictionary;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 import wysinwyg.fw.Builder;
 
 public class DictionaryBuilder implements Builder {
 
 	private DictionaryView view;
-	private List<Dictionary> dictionaries = new ArrayList<Dictionary>(5);
+	private DictionaryOptions options;
 
-	public int getTranslatorListSize() {
-		return dictionaries.size();
+	public DictionaryBuilder(DictionaryOptions options) {
+		Objects.requireNonNull(options, "");
+		this.options = options;
 	}
+
+	public DictionaryBuilder setDictionaryView(DictionaryView view) {
+		this.view = view;
+		return this;
+	}
+
+	@Override
+	public DictionaryController build() {
+		if (view == null) {
+			view = new DictionaryView();
+		}
+		return new DictionaryController(options, view);
+	}
+
+	/* @formatter:off
+	private List<Dictionary> dictionaries = new ArrayList<Dictionary>(5);
 
 	public DictionaryBuilder addDictionary(Dictionary dictionary) {
 		if (dictionary != null) {
 			if (!dictionaries.contains(dictionary)) {
 				dictionaries.add(dictionary);
+			}
+		}
+		return this;
+	}
+
+	public DictionaryBuilder addDictionary(Dictionary... dictionary) {
+		if (dictionary != null) {
+			for (Dictionary d : dictionary) {
+				if (!dictionaries.contains(d)) {
+					dictionaries.add(d);
+				}
 			}
 		}
 		return this;
@@ -45,19 +72,6 @@ public class DictionaryBuilder implements Builder {
 			}
 		}
 		return this;
-	}
-
-	public DictionaryBuilder setDictionaryView(DictionaryView view) {
-		this.view = view;
-		return this;
-	}
-
-	@Override
-	public DictionaryController build() {
-		if (view == null) {
-			view = new DictionaryView();
-		}
-		return new DictionaryController(dictionaries, view);
-	}
+	}*/
 
 }

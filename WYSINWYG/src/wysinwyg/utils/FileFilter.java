@@ -15,8 +15,8 @@ import java.io.File;
 public class FileFilter extends javax.swing.filechooser.FileFilter {
 
 	private String[] supportedFileExtensions;
-
-	public FileFilter(String[] supportedFileExtensions) {
+	
+	public FileFilter(String... supportedFileExtensions) {
 		this.supportedFileExtensions = supportedFileExtensions;
 	}
 

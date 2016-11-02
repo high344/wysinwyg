@@ -10,8 +10,8 @@
  ******************************************************************************/
 package wysinwyg.fw.translator.dictionary;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -21,43 +21,40 @@ public class DictionaryTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -1389920478065237769L;
 
 	private String[] names = { "Dictionary" };
-	private Class<?>[] clazz = { DictionaryTableCell.class };
+	private Class<?>[] clazz = { DictionaryTableCellRenderer.class };
 	private List<Dictionary> dictionaries = new ArrayList<Dictionary>();
 
-	public void addDictionary(List<Dictionary> dictionaries) {
+	public void newDictionary(List<Dictionary> dictionaries) {
 		this.dictionaries = dictionaries;
 		fireTableDataChanged();
 	}
-	
-	public void addDictionary(File file) {
-		/*
-		if (model.getTranslator().addDictionary(file) == true) {
+
+	public void addDictionary(Dictionary d) {
+		if (dictionaries.add(d) == true) {
 			fireTableDataChanged();
-		}*/
+		}
 	}
 
-	public void removeDictionary(int row) {
+	public boolean removeDictionary(int row) {
 		if (validRow(row)) {
-			/*
-			if (model.getTranslator().removeDictionary(row) == true) {
-				fireTableStructureChanged();
-			}*/
+			dictionaries.remove(row);
+			fireTableRowsDeleted(row, row);
+			return true;
 		}
+		return false;
 	}
 
-	public void swapDictionaries(int rowA, int rowB) {
+	public boolean swapDictionaries(int rowA, int rowB) {
 		if (validRow(rowA) && validRow(rowB)) {
-			/*
-			if (model.getTranslator().changeDictionaryOrders(rowA, rowB) == true) {
-				fireTableStructureChanged();
-			}*/
+			Collections.swap(dictionaries, rowA, rowB);
+			fireTableCellUpdated(rowA, rowB);
+			return true;
 		}
+		return false;
 	}
 
 	private boolean validRow(int row) {
-		/*
-		return row > -1 && model.getTranslator().getDictionaryCount() > row;*/
-		return false;
+		return row > -1 && dictionaries.size() > row;
 	}
 
 	@Override
@@ -92,5 +89,10 @@ public class DictionaryTableModel extends AbstractTableModel {
 		}
 		return null;
 	}
+	
+	public List<Dictionary> copyList() {
+		return new ArrayList<Dictionary>(dictionaries);
+	}
+	
 
 }
