@@ -1,6 +1,7 @@
 package wysinwyg.fb.translator.plover;
 
 import java.io.File;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -116,7 +117,7 @@ public class PloverDictionaryOptions implements DictionaryOptions {
 	}
 	
 	@Override
-	public Map<String, String> loadDictionary(Dictionary dictionary) {
+	public List<SimpleEntry<String, String>> loadDictionary(Dictionary dictionary) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -128,13 +129,13 @@ public class PloverDictionaryOptions implements DictionaryOptions {
 	}
 
 	@Override
-	public boolean addDictionaryEntry(Dictionary dictionary, String key, String value) {
+	public boolean addDictionaryEntry(Dictionary dictionary, Integer row, String key, String value) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean removeDictionaryEntry(Dictionary dictionary, String key, String value) {
+	public boolean removeDictionaryEntry(Dictionary dictionary, Integer row, String key) {
 		// TODO Auto-generated method stub
 		return false;
 	}

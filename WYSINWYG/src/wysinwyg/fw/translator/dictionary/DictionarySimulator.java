@@ -1,10 +1,13 @@
 package wysinwyg.fw.translator.dictionary;
 
 import java.io.File;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import wysinwyg.fb.translator.plover.PloverJSonDictionary;
 import wysinwyg.utils.FileFilter;
 import wysinwyg.utils.TestFrame;
 
@@ -263,8 +266,10 @@ public class DictionarySimulator implements DictionaryOptions {
 	}
 
 	@Override
-	public Map<String, String> loadDictionary(Dictionary dictionary) {
-		// TODO Auto-generated method stub
+	public List<SimpleEntry<String, String>> loadDictionary(Dictionary dictionary) {
+		PloverJSonDictionary p = new PloverJSonDictionary("C:\\Users\\Highlander\\AppData\\Local\\plover\\plover\\dict2.json", null);
+		p.loadDictionary();
+		List<SimpleEntry<String, String>> l = new ArrayList<>(p.getDictionary().size());
 		return null;
 	}
 
@@ -275,13 +280,13 @@ public class DictionarySimulator implements DictionaryOptions {
 	}
 
 	@Override
-	public boolean addDictionaryEntry(Dictionary dictionary, String key, String value) {
+	public boolean addDictionaryEntry(Dictionary dictionary, Integer row, String key, String value) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean removeDictionaryEntry(Dictionary dictionary, String key, String value) {
+	public boolean removeDictionaryEntry(Dictionary dictionary, Integer row, String key) {
 		// TODO Auto-generated method stub
 		return false;
 	}

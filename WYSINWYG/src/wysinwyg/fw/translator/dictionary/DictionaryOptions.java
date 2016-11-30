@@ -11,8 +11,8 @@
 package wysinwyg.fw.translator.dictionary;
 
 import java.io.File;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
-import java.util.Map;
 
 import wysinwyg.utils.FileFilter;
 
@@ -24,13 +24,13 @@ public interface DictionaryOptions {
 
 	public Dictionary initDictironay(File f);
 
-	public Map<String, String> loadDictionary(Dictionary dictionary);
+	public List<SimpleEntry<String, String>> loadDictionary(Dictionary dictionary);
 
 	public boolean saveDictionary(Dictionary dictionary);
 
-	public boolean addDictionaryEntry(Dictionary dictionary, String key, String value);
+	public boolean addDictionaryEntry(Dictionary dictionary, Integer row, String key, String value);
 
-	public boolean removeDictionaryEntry(Dictionary dictionary, String key, String value);
+	public boolean removeDictionaryEntry(Dictionary dictionary, Integer row, String key);
 
 	public void dictionaryOrderChanged(List<Dictionary> dictionaries);
 

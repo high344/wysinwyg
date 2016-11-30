@@ -88,7 +88,7 @@ public class DictionaryController implements Controller, ActionListener, Viewabl
 		} else if (view.getTable().isBtnOpen(source)) {
 			Dictionary d = view.getTable().getSelectedDictonary();
 			if(d != null) {
-				options.loadDictionary(d);
+				new DListController(options, d);
 			}
 		} else if (view.getBtnAdd() == source) {
 			if (options != null) {
